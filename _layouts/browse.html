@@ -3,12 +3,9 @@
 layout: page
 custom-foot: js/browse-js.html
 ---
-{%- assign fields = site.data.config-browse -%}
 
-<div class="row mb-2">
-    <div class="col-7 col-lg-9">{{ content }}</div>
-    <div class="col-5 col-lg-3 text-end text-lg-start">{% if site.data.theme.advanced-search == true %}{% include advanced-search-modal.html %}{% endif %}</div>
-</div>
+{{ content }}
+
 <div class="row mb-3 justify-content-center">
     <div class="col-lg-8 text-center">
         <form role="search" id="browseFilter" onsubmit="submitFilter(); return false;">
@@ -23,8 +20,6 @@ custom-foot: js/browse-js.html
                     {% endfor %}
                     <option value="display_template">Content Type</option>
                     {% if site.data.theme.advanced-search == true %}
-                    <option value="" disabled>─────────────</option>
-                    <option value="advanced">Advanced Search...</option>{% endif %}
                 </select>
                 <!-- Mobile filter button - shows only on small screens -->
                 <div class="{% if site.data.theme.faceted-search == true %}dropdown d-lg-none{% else %}d-none{% endif %}">
@@ -42,50 +37,39 @@ custom-foot: js/browse-js.html
                         <button class="dropdown-item" type="button" data-field="{{ f.field }}">{{ f.facet_name | default: f.display_name | default: cap-field }}</button>
                         {% endfor %}
                         <button class="dropdown-item" type="button" data-field="display_template">Content Type</button>
-                        {% if site.data.theme.advanced-search == true %}
-                        <div class="dropdown-divider"></div>
-                        <button class="dropdown-item" type="button" data-field="advanced">Advanced Search...</button>
                         {% endif %}
                     </div>
                 </div>{% endif %}
                 <input type="text" class="form-control" id="filterTextBox" placeholder="Filter ... " aria-label="Search"> 
-                <!-- Update the date range inputs section -->
-                <div id="dateRangeInputs" class="date-range-inputs">
-                    <div class="date-input-group">
-                        <input type="text" id="startDate" class="ms-2 form-control" placeholder="Start Date">
-                        <span class="date-separator">to</span>
-                        <input type="text" id="endDate" class="me-2 form-control" placeholder="End Date">
-                    </div>
-                </div>
-                <button class="btn btn-success" type="submit" title="Filter items" id="filterButton" >Search</button>
+
+                <button class="btn secondary-green" type="submit" title="Filter items" id="filterButton" >Search</button>
                 <button class="btn btn-outline-secondary filter d-none d-lg-flex" onclick="resetFilter(); return false;" data-filter="">Reset</button>
             </div>
         </form>
         <!-- Active filter indicators -->
         <div id="activeFilters" class="mt-2 text-start"></div>
-        <div class="h2" id="numberOf"></div>
+        <div id="numberOf"></div>
     </div>
-    <div class="col-lg-2">
+    <div class="col-md-2">
         <div class="dropdown">
             <button class="btn btn-secondary mt-1 dropdown-toggle" type="button" id="browseSortButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Sort by <span id="sortFilter">Random</span>
+                {{ site.data.translations['_layouts']['browse.html']['sort-by'][site.lang] | default: 'Sort by' }} <span id="sortFilter">{{ site.data.translations['_layouts']['browse.html']['random'][site.lang] | default: 'Random' }}</span>
             </button>
             <div class="dropdown-menu browse-sort-menu" aria-labelledby="browseSortButton">
-                <button class="dropdown-item browse-sort-item {% if site.data.theme.default-sort-field == '' %}active{% endif %}" data-filter="random">Random</button>
-                <button class="dropdown-item browse-sort-item" data-filter="title">Title</button>
+                <button class="dropdown-item browse-sort-item active" data-filter="random">{{ site.data.translations['_layouts']['browse.html']['random'][site.lang] | default: 'Random' }}</button>
+                <button class="dropdown-item browse-sort-item" data-filter="title">{{ site.data.translations['_layouts']['browse.html']['title'][site.lang] | default: 'Title' }}</button>
                 {% assign sort_options = site.data.config-browse | where_exp: 'i','i.sort_name != nil' %}
                 {% for o in sort_options %}
                 <button class="dropdown-item browse-sort-item" data-filter="{{ o.field | escape }}">{{ o.sort_name }}</button>
                 {% endfor %}
             </div>
-            <button class="btn btn-outline-secondary filter p-1 d-lg-none float-end" onclick="resetFilter(); return false;" data-filter="">Reset</button>
         </div>
-       
     </div>
 </div>
 
 <div id="loadingIcon" class="text-center">
-    <div class="spinner-border text-dark" role="status"><span class="visually-hidden">Loading...</span></div>
+    <div class="spinner-border text-dark" role="status"><span class="visually-hidden">{{ site.data.translations['_layouts']['browse.html']['loading'][site.lang] | default: 'Loading' }}...</span></div>
 </div>
-
-<div class="row" id="browseItems"></div>
+<div class="row">
+<div class="col-lg-2 col-md-2 secondary-green mx-md-2 mx-0" id="browseSidebar"></div>
+<div class="col-lg-10 col-md-10 mt-4 mt-md-0 row clearspace-md" id="browseItems"></div>

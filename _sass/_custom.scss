@@ -2,3 +2,187 @@
     Put your custom SCSS here! 
     This allows you to override any CollectionBuilder or Bootstrap CSS without modifying the base theme files directly.
 */
+
+h1 {
+    font-weight: 700;  
+}
+h3.notheader  {
+    font-size: var(--bs-body-font-size);
+}
+.container.my-4{
+    max-width: 95%;
+}
+.sidebar{
+    width: inherit;
+}
+#browseSidebar {
+
+padding-top:1rem;
+    border: 0;
+    border-radius: .25rem;
+    ul li a{
+        color:white;
+    }
+}
+
+@media (max-width: 768px) { 
+.clearspace-md {
+    --bs-gutter-x: 0 !important; 
+   padding-left: 0 !important; 
+   padding-right: 0 !important; 
+}}
+
+
+.card {
+    border: 0;
+    border-radius: .25rem;
+}
+.clippy {
+   display: -webkit-box;
+   -webkit-line-clamp: 3;
+   -webkit-box-orient: vertical;  
+   overflow: hidden;
+}
+.card-text {
+    font-size: .875rem;
+}
+.big-themes{
+    background-color:light-blue;
+}
+.little-themes{
+    background-color:purple;
+}
+.justify-content-right{
+    justify-content:right!important
+}
+
+.primary-green{
+    background-color: #cce9e9; /* lightest */
+}
+.secondary-green{
+    background-color: #1b65a6; /* mid-dark blue-ish */
+    color: white;
+}
+.active-green{
+    background-color: #008f91; /* darkest */
+    color:white;  
+}
+.cardthumb .bi {
+  color: #008f91;
+  fill: currentColor;
+}
+.icon-sprite {
+  color: #1b65a6;
+  fill: currentColor;
+}
+button.active-green:hover, button.active-green:focus{
+    background-color: transparent;
+    color:black;  
+    box-shadow:inset 0 0 0 1px #008f91;
+}
+.keyword-green{
+    background-color: #a3d7d7;  /* 2nd lightest */
+    color:black;
+}
+button.keyword-green:hover, button.keyword-green:focus{
+    background-color: transparent;
+    color:black;  
+    box-shadow:inset 0 0 0 1px #a3d7d7;
+}
+.former-green{
+    background-color: #66bcbd; /* 2nd darkest */
+    color: white;
+}
+button.former-green:hover, button.former-green:focus{
+    background-color: transparent;
+    color:black;  
+    box-shadow:inset 0 0 0 1px #66bcbd;
+}
+.top-section{
+    margin-top:10px;
+}
+.keyword-tab{
+    width:100%;
+    margin-bottom:.5rem;
+    float:right;
+    // text-align: right;
+    position: relative;
+    // font-size: 1.2em;
+}
+.keyword-tab p{
+    padding-left: 4rem;
+    margin: 0;
+}
+
+.nav-link {
+    color: #57bbc8;
+}
+.nav-link:focus, .nav-link:hover{
+    color:white;
+}
+.navbar-toggler {
+    width:100%;
+    box-shadow: none;
+    border: none;
+    color: #57bbc8;
+    background-position: center;
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2357bbc8%22%20class%3D%22bi%20bi-caret-down%22%20viewBox%3D%220%200%2016%2016%22%3E%0A%20%20%3Cpath%20d%3D%22M3.204%205h9.592L8%2010.481zm-.753.659%204.796%205.48a1%201%200%200%200%201.506%200l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1%201%200%200%200-.753%201.659%22%2F%3E%0A%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+}
+.navbar-toggler:hover, .navbar-toggler:focus, .navbar-toggler:active {
+    width:100%;
+    box-shadow: none;
+    border: none;
+    background-position: center;
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2357bbc8%22%20class%3D%22bi%20bi-caret-down-fill%22%20viewBox%3D%220%200%2016%2016%22%3E%0A%20%20%3Cpath%20d%3D%22M7.247%2011.14%202.451%205.658C1.885%205.013%202.345%204%203.204%204h9.592a1%201%200%200%201%20.753%201.659l-4.796%205.48a1%201%200%200%201-1.506%200z%22%2F%3E%0A%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+}
+.lang-toggle{
+    background-color: #1b65a6;
+    color: white;
+    padding:5px 15px;
+}
+
+.theme-tab{
+    list-style: none;
+    margin-bottom:5px;
+    text-align: left;
+    float: right;
+    width:75%;
+    padding:5px;
+    font-size:1.1em;
+}
+.center-tab{
+    list-style: none;
+    margin-bottom:5px;
+    text-align: left;
+    float: right;
+    width:100%;
+}
+
+
+.main-img-container img {
+  width: 100%;
+}
+
+.third-content-row{
+    margin-top:1%;
+}
+
+.browse-img-container{
+    width:66%;
+    margin:auto;
+}
+.browse-butt{
+    text-align:left;
+    margin:.125rem;
+}
+
+.browse-butt p{
+    margin-bottom:0;
+    text-align: center;
+}
+
+#browseSidebar p a{
+color:white;
+}

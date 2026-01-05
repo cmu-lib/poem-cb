@@ -41,15 +41,9 @@ const validFields = [{% for f in fields %}"{{ f.field }}",{% endfor %}"title","d
 const dateFields = ['date', 'created', 'published', 'modified', 'issued', 'date_created', 'date_published'];
 
 // Cache DOM elements
-var loadingIcon, filterTextBox, browseItemsDiv, browseSidebarDiv;
+var loadingIcon, filterTextBox, browseItemsDiv;
 
 {% include helpers/get-icon.js %}
-
-
-//sidenav 
-function buildSN(){
-    browseSidebarDiv.innerHTML+="<ul><li><a href='{{ page.url | relative_url }}#keyword:"+obj.keyword+"'>"+obj.keyword+"</a></li></ul>";
-}
 
 // =============================================================================
 // CARD GENERATION
@@ -58,123 +52,45 @@ function buildSN(){
 /**
  * Creates HTML card for displaying a collection item
  */
-sidenav_build={};
-function makeCard(obj) { //make the sidenav while doing this too i think...
-    console.log(obj);
+function makeCard(obj) {
     const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E";
     const itemHref = `{{ '/items/' | relative_url }}${ obj.parent ? obj.parent + ".html#" + obj.id : obj.id + ".html"}`;
     
-    let card = '<div class="item col-lg-3 col-md-6 mb-4"><div class="card primary-green">';
-    // Title
-    card += '<div class="card-body text-center"> <h3 class="card-title h4 clippy"><a href="' + itemHref + '" class="text-dark">' + obj.title + '</a></h3>';
-    // creators
-    if(obj.creators_card){
-        card += '<p class="card-text">'+obj.creators_card+'</p>';
-    }
+    let card = '<div class="item col-lg-4 col-md-6 mb-2"><div class="card">';
+    
     // Image or icon
     if(obj.img) {
         card += `<a href="${itemHref}"><img class="card-img-top lazyload" src="${placeholder}" data-src="${obj.img}" alt="${obj.alt || obj.title}"></a>`;
     }
+    
+    // Title
+    card += `<div class="card-body text-center"><h3 class="card-title h4"><a href="${itemHref}" class="text-dark">${obj.title}</a></h3>`;
+    
     // Icon for items without images
     if(!obj.img) {
         const thumbIcon = getIcon(obj.display_template, obj.format, "thumb");
         if(thumbIcon) card += `<p><a href="${itemHref}">${thumbIcon}</a></p>`;
     }
-
-    //explicitly name these keyword items because there are some fields we are not using.
-    //primary keyword active-green
     
-    if(obj.keyword){
-    card+= '<a class="btn btn-sm browse-butt active-green" href="{{ page.url | relative_url }}#keyword:'+obj.keyword+'">';
-            card+='<p>'+obj.keyword+'</p>'; //primary keyword
-    card+= '</a>';
-        if(!sidenav_build['Keyword']){
-            sidenav_build['Keyword']=[];
-        }
-        if (!sidenav_build['Keyword'].includes(obj.keyword)) { // Check if the value is NOT in the array
-            sidenav_build['Keyword'].push(obj.keyword);         // If not, append it
-        }
-
-    }
-    if(obj.keyword_2a){
-        //secondary keywords former-green
-        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keyword_2a:'+obj.keyword_2a+'">';
-                card+='<p>'+obj.keyword_2a+'</p>';
-        card+= '</a>';
-        if(!sidenav_build['Keyword']){
-            sidenav_build['Keyword']=[];
-        }
-
-        if (!sidenav_build['Keyword'].includes(obj.keyword_2a)) { 
-            sidenav_build['Keyword'].push(obj.keyword_2a);        
-        }
-    }
-    if(obj.keyword_2b){
-        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keyword_2b:'+obj.keyword_2b+'">';
-                card+='<p>'+obj.keyword_2b+'</p>';
-        card+= '</a>';
-        if(!sidenav_build['Keyword']){
-            sidenav_build['Keyword']=[];
-        }
-        if (!sidenav_build['Keyword'].includes(obj.keyword_2b)) { 
-                sidenav_build['Keyword'].push(obj.keyword_2b);        
-        }
-    }
-    if(obj.media_type){
-        //media type keyword-green
-        card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#media_type'+obj.media_type+'">';
-                card+='<p>'+obj.media_type+'</p>';
-        card+= '</a>';
-        if(!sidenav_build['Media Type']){
-            sidenav_build['Media Type']=[];
-        }
-        if (!sidenav_build['Media Type'].includes(obj.media_type)) { 
-            sidenav_build['Media Type'].push(obj.media_type);        
-        }
-    }
-    if(obj.time_required){
-        //time_required keyword-green
-        card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#time_required:'+obj.time_required+'">';
-                card+='<p>'+obj.time_required+'</p>';
-        card+= '</a>';
-        if(!sidenav_build['Time']){
-            sidenav_build['Time']=[];
-        }
-        if (!sidenav_build['Time'].includes(obj.time_required)) { 
-            sidenav_build['Time'].push(obj.time_required);        
-        }
-    }
-    if(obj.audience){
-    //audience keyword-green
-    card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#audience:'+obj.audience+'">';
-            card+='<p>'+obj.audience+'</p>';
-    card+= '</a>';
-    if(!sidenav_build['Audience']){
-        sidenav_build['Audience']=[];
-    }
-    if (!sidenav_build['Audience'].includes(obj.audience)) { 
-            sidenav_build['Audience'].push(obj.audience);        
-        }
-    }
     // Field data
-    // card += '<p class="card-text">';
-    // {% for f in fields %}{% unless f.hidden == 'true' %}
-    // if(obj[{{ f.field | jsonify }}]){
-    //     {% if f.display_name %}card += '<strong>{{ f.display_name }}:</strong> ';{% endif %}
-    //     {% if f.btn == 'true' %}
-    //     const btns = obj[{{ f.field | jsonify }}].split(";");
-    //     btns.forEach(btn => {
-    //         if(btn.trim()) {
-                // card += `<a class="btn btn-sm btn-secondary m-1 text-wrap" href="{{ page.url | relative_url }}#{{ f.field }}:${encodeURIComponent(btn.trim())}">${btn.trim()}</a>`;
-    //         }
-    //     });
-    //     {% else %}
-    //     card += obj[{{ f.field | jsonify }}];
-    //     {% endif %}
-    //     {% unless forloop.last %}card += '<br>';{% endunless %}
-    // }
-    // {% endunless %}{% endfor %}
-    // card += '</p>';
+    card += '<p class="card-text">';
+    {% for f in fields %}{% unless f.hidden == 'true' %}
+    if(obj[{{ f.field | jsonify }}]){
+        {% if f.display_name %}card += '<strong>{{ f.display_name }}:</strong> ';{% endif %}
+        {% if f.btn == 'true' %}
+        const btns = obj[{{ f.field | jsonify }}].split(";");
+        btns.forEach(btn => {
+            if(btn.trim()) {
+                card += `<a class="btn btn-sm btn-secondary m-1 text-wrap" href="{{ page.url | relative_url }}#{{ f.field }}:${encodeURIComponent(btn.trim())}">${btn.trim()}</a>`;
+            }
+        });
+        {% else %}
+        card += obj[{{ f.field | jsonify }}];
+        {% endif %}
+        {% unless forloop.last %}card += '<br>';{% endunless %}
+    }
+    {% endunless %}{% endfor %}
+    card += '</p>';
     
     // Media type badge
     if(obj.display_template) {
@@ -185,36 +101,6 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
     card += `<hr><a href="${itemHref}" class="btn btn-sm btn-light" title="link to ${obj.title}">View Full Record</a></div></div></div>`;
     return card;
 }
-
-// =============================================================================
-// make the sidenav
-// =============================================================================
-
-// multiple location types:
-// https://compound-1lqv.onrender.com/browse.html?b0=AND&f0=location&v0=Moscow%2C+Idaho&b1=AND&f1=location&v1=Benton+Creek
-// using the AND to go by different topics
-function makeSideNav(sn_json){
-    console.log("here i am doing it");
-    var sn = "";
-    for (var key in sn_json) {
-        if (sn_json.hasOwnProperty(key)) {
-            console.log(key);
-            sn+="<ul><li><strong>"+key+"</strong></li><ul>";
-            var uniqueValues = [...new Set(sn_json[key])];
-            uniqueValues.forEach(value => {
-                sn+="<li><a href='{{ page.url | relative_url }}#"+key.toLowerCase().replace(" ","_")+":"+encodeURIComponent(value)+"'>"+value+"</a></li>";
-            });
-            sn+="</ul></ul>";
-            
-        }
-    }
-    browseSidebarDiv.innerHTML=sn;
-    // fields.forEach(field => {
-    //     sn+="<ul class='"+field.field+"-sn-dd'><li>"+field.display_name+"</li></ul>";
-    // });
-    
-}
-
 
 // =============================================================================
 // DATE UTILITIES
@@ -470,8 +356,7 @@ function updateDisplay(filteredItems, query = "", field = "", startDate = "", en
     // Generate all cards at once
     const cardsHTML = filteredItems.map(item => makeCard(item)).join('');
     tempDiv.innerHTML = cardsHTML;
-    // makeSideNav({{fields|jsonify}});
-    makeSideNav(sidenav_build);
+    
     // Move all cards to fragment
     while (tempDiv.firstChild) {
         fragment.appendChild(tempDiv.firstChild);
@@ -941,7 +826,6 @@ window.addEventListener('load', function() {
     loadingIcon = document.querySelector("#loadingIcon");
     filterTextBox = document.querySelector('#filterTextBox');
     browseItemsDiv = document.querySelector("#browseItems");
-    browseSidebarDiv = document.querySelector("#browseSidebar");
     
     // Initialize default sort
     {% if site.data.theme.default-sort-field %}
@@ -1160,6 +1044,5 @@ function setupEventHandlers() {
         });
     }
 }
-
 </script>
 {% endunless %}

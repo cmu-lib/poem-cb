@@ -5,21 +5,92 @@ layout: default
 # item-meta adds rich meta markup to the page on production build
 item-meta: true
 ---
-<div class="container py-3">
+<div class="container-fluid mx-0 px-0 my-4">
 
-    {% include item/breadcrumbs.html %}
-    <div class="my-0 h5 small">{{ page.display_template | replace: "_", " " | upcase }} {% if page.display_template == "compound_object" or page.display_template == "multiple" %}{% assign children = site.data[site.metadata] | where_exp: 'item','item.parentid == page.objectid' %} ({{ children | size }} Items){% endif %}</div>
-    <h2 class="mb-3">{{ page.title }} 
-        {% unless page.display_template == 'record' %}<a href="#metadata" class="ms-5 btn btn-sm btn-outline-dark small">Item Info 
-            <svg class="bi icon-sprite" role="img" aria-label="Jump to Item Info">
-                <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#arrow-down"/>
-            </svg>
-        </a>{% endunless %}
-    </h2>
+    <!-- {% include item/breadcrumbs.html %} 
+    <div class="my-0 h5 small">{{ page.display_template | replace: "_", " " | upcase }} {% if page.display_template == "compound_object" or page.display_template == "multiple" %}{% assign children = site.data[site.metadata] | where_exp: 'item','item.parentid == page.objectid' %} ({{ children | size }} {{ site.data.translations['_layouts']['item']['item-page-base.html']['items'][site.lang] | default: 'Items'}}){% endif %}</div> -->
 
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-10">
+    <div class="row-wrap">
+    <div class="container-fluid mx-0 px-0">
+        <!-- first content. keywords.  -->
+        <div class="row top-section ">
+            <div class="col-md-3">
+                {%if page.keyword%}
+                <a class="keyword-tab active-green"><p>{{page.keyword}}</p></a>
+                {%endif%}
+               
+                            {%if page.keyword_2a%}
+                <a class="keyword-tab former-green"><p>{{page.keyword_2a}}</p></a>
+                {%endif%}
+                {%if page.keyword_2b%}
+                <a class="keyword-tab former-green"><p>{{page.keyword_2b}}</p></a>
+                {%endif%}
 
+
+
+            </div>
+                
+            <div class="col-md-9">
+                <h2>{{ page.title }} </h2>
+                <h3 class="notheader">{{page.creators_list}}</h3>
+            </div>
+        </div>
+        <!-- second content. secondary keywords. -->
+        <div class="row">
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md-9">
+            </div>
+
+        </div>
+        <!-- third content. themes on left. description. media image. other info -->
+        <div class="row third-content-row">
+            <div class="col-md-3">
+
+<!-- 
+                {% assign themes = page.keywords | split: ';' %}
+                
+                {%if themes%}
+                    <ul class="theme-tabs">
+                    {%for theme in themes%}
+                        <li class="theme-tab primary-green">{{theme}}</li>
+                    {%endfor%}
+                    </ul>
+                {%endif%}
+                 -->
+                
+            </div>
+            <!-- the image and stuff below -->
+                <div class="col-md-3">
+                    <div class="main-img-container">
+                        <img  alt="{{ page.image_alt_text | default: image_caption | escape }}"   src="{{ page.image_thumb }}" >
+                    </div>
+                    
+                    <ul class="theme-tabs">
+                        <li class="center-tab primary-green">{{page.media_type}}</li>
+                        <li class="center-tab primary-green">{{page.date}}</li>
+                        <li class="center-tab primary-green">{{page.audience}}</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <span style="float:right; padding-bottom:10px;">
+                        {% unless page.display_template == 'record' %}
+                        <a href="#metadata" class="ms-5 btn btn-sm btn-outline-dark small">{{ site.data.translations['_layouts']['item']['item-page-base.html']['item-info'][site.lang] | default: 'Item Info'}} 
+                            <svg class="bi icon-sprite" role="img" aria-label="{{ site.data.translations['_layouts']['item']['item-page-base.html']['jump-to'][site.lang] | default: 'Jump to item info'}}">
+                                <use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#arrow-down"/>
+                            </svg>
+                        </a>
+                        {% endunless %}
+                    </span>
+                    {{page.description}}
+                </div>
+                
+            <!-- </div> -->
+        </div>
+        <!-- main content here i think. -->
+  <div class="row justify-content-right">
+        <div class="col-9 col-md-10">
         {{ content }}
 
         </div>
@@ -39,6 +110,11 @@ item-meta: true
         </div>
         {% endif %}
     </div>
+    </div>
+    
+  
+    </div>
+        
 
     {%- if site.data.theme.browse-buttons == true -%}
         {% include item/browse-buttons.html %}

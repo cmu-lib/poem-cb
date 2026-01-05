@@ -1,6 +1,8 @@
 field,display_name,browse_link,external_link,dc_map,schema_map
 title,Title,,,DCTERMS.title,headline
 creator,Creator,,,DCTERMS.creator,creator
+creators_list,Creators,,,DCTERMS.creator,creator
+creators_card,Creators short,,,DCTERMS.creator,creator
 date,Date Created,,,DCTERMS.date,dateCreated
 description,Description,,,DCTERMS.description,description
 subject,Subjects,true,,DCTERMS.subject,keywords
@@ -11,5 +13,10 @@ source,Source,,,,
 identifier,Source Identifier,,,,
 type,Type,,,DCTERMS.type,
 format,Format,,,,encodingFormat
-language,Language,,,DCTERMS.language,
 rightsstatement,,,,DCTERMS.rights,license
+doi,DOI,,,,
+keyword,Keyword,,,,
+keyword_2a,Secondary Keyword,,,,
+keyword_2b,Secondary Keyword,,,,
+audience,Audience,,,,
+media_type,Media Type,,,,
