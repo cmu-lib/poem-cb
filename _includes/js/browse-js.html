@@ -73,12 +73,12 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
     }
     // Image or icon
     if(obj.img) {
-        card += `<a href="${itemHref}"><img class="card-img-top lazyload" src="${placeholder}" data-src="${obj.img}" alt="${obj.alt || obj.title}"></a>`;
+        card += `<a href="${itemHref}" title="view full record"><img class="card-img-top lazyload" src="${placeholder}" data-src="${obj.img}" alt="${obj.alt || obj.title}"></a>`;
     }
     // Icon for items without images
     if(!obj.img) {
         const thumbIcon = getIcon(obj.display_template, obj.format, "thumb");
-        if(thumbIcon) card += `<p><a href="${itemHref}">${thumbIcon}</a></p>`;
+        if(thumbIcon) card += `<p><a href="${itemHref}" title="view full record">${thumbIcon}</a></p>`;
     }
 
     //explicitly name these keyword items because there are some fields we are not using.
@@ -177,12 +177,13 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
     // card += '</p>';
     
     // Media type badge
-    if(obj.display_template) {
-        const mediaIcon = getIcon(obj.display_template, obj.format, "hidden");
-        card += `<p class="card-text"><small><a class="btn btn-sm btn-outline-secondary" href="{{ page.url | relative_url }}#display_template:${encodeURIComponent(obj.display_template)}">${obj.display_template.toUpperCase().replace("_"," ")} ${mediaIcon}</a></small></p>`;
-    }
+    // I don't think we need this since we have Media Type button above
+    // if(obj.display_template) {
+    //     const mediaIcon = getIcon(obj.display_template, obj.format, "hidden");
+    //     card += `<p class="card-text"><small><a class="btn btn-sm btn-outline-secondary" href="{{ page.url | relative_url }}#display_template:${encodeURIComponent(obj.display_template)}">${obj.display_template.toUpperCase().replace("_"," ")} ${mediaIcon}</a></small></p>`;
+    // }
     
-    card += `<hr><a href="${itemHref}" class="btn btn-sm btn-light" title="link to ${obj.title}">View Full Record</a></div></div></div>`;
+    card += `</div></div></div>`;
     return card;
 }
 
@@ -803,7 +804,7 @@ function displayActiveFilters(searchCriteria) {
         if (!criteria.value) return;
         
         const button = document.createElement('button');
-        button.className = `btn btn-sm btn-outline-${criteria.boolean === 'NOT' ? 'danger' : criteria.boolean === 'OR' ? 'warning' : 'success'} me-2 mb-1`;
+        button.className = `btn btn-sm btn-outline-dark me-2 mb-1`;
         button.type = 'button';
         
         // Get field display name

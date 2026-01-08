@@ -32,6 +32,8 @@ padding-top:1rem;
    padding-right: 0 !important; 
 }}
 
+.empty-btn:hover, .empty-btn:focus {
+    background-color: #cce9e9;}
 
 .card {
     border: 0;
@@ -45,6 +47,16 @@ padding-top:1rem;
 }
 .card-text {
     font-size: .875rem;
+}
+.card-img-top {
+    border-radius: var(--bs-border-radius-sm);
+    margin-bottom: 1rem;
+    filter: grayscale(1);
+    mix-blend-mode: multiply;
+    }
+.card-img-top:hover, .card-img-top:focus {
+    filter: grayscale(1);
+    mix-blend-mode: overlay;
 }
 .big-themes{
     background-color:light-blue;
@@ -72,7 +84,7 @@ padding-top:1rem;
   fill: currentColor;
 }
 .icon-sprite {
-  color: #1b65a6;
+  color: #a3d7d7;
   fill: currentColor;
 }
 button.active-green:hover, button.active-green:focus{
@@ -120,6 +132,9 @@ button.former-green:hover, button.former-green:focus{
 .nav-link:focus, .nav-link:hover{
     color:white;
 }
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+    color: #cce9e9;
+    }
 .navbar-toggler {
     width:100%;
     box-shadow: none;
@@ -183,6 +198,35 @@ button.former-green:hover, button.former-green:focus{
     text-align: center;
 }
 
-#browseSidebar p a{
+.row #browseSidebar {
+    padding:1rem 0 0 0;
+    font-size: 0.875rem;
+}
+
+#browseSidebar a{
 color:white;
 }
+
+#browseSidebar ul{
+    list-style-type: none;
+    padding: 0;
+}
+#browseSidebar ul li{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+#browseSidebar ul ul li{
+    padding:0;
+}
+#browseSidebar ul ul li a {
+     padding-left: 2rem;
+     padding-right: 1rem;
+     text-decoration: none;
+     display: block;
+     width: 100%;
+     height: 100%;
+}
+#browseSidebar ul ul li a:hover, #browseSidebar ul ul li a:focus{
+    background: rgb(255 255 255 / 20%);
+}
+
