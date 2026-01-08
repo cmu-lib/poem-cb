@@ -229,4 +229,19 @@ color:white;
 #browseSidebar ul ul li a:hover, #browseSidebar ul ul li a:focus{
     background: rgb(255 255 255 / 20%);
 }
-
+#keywords-to-titles {
+    text-transform: capitalize;
+    font-size: calc(1.275rem + .3vw)
+}
+.minipg {
+    padding-top:.125rem;
+    font-size: 0.875rem;
+    padding-bottom:1rem;
+}
+table.table-gloss, table.table-gloss th, table.table-gloss td {
+    border: 0;
+}
+.spacer { 
+    display:block;
+    min-height: 4rem; /* I hate tables */
+}
