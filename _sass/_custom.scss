@@ -236,7 +236,12 @@ color:white;
 .minipg {
     padding-top:.125rem;
     font-size: 0.875rem;
+    line-height: 0.875rem;
     padding-bottom:1rem;
+}
+.keywords-thumb {
+    max-height: 4rem;
+    max-width: 100%;
 }
 table.table-gloss, table.table-gloss th, table.table-gloss td {
     border: 0;
