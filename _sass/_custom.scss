@@ -6,7 +6,7 @@
 h1 {
     font-weight: 700;  
 }
-h3.notheader  {
+h3.notheader, h4.notheader  {
     font-size: var(--bs-body-font-size);
 }
 .container.my-4{
@@ -68,10 +68,10 @@ padding-top:1rem;
     justify-content:right!important
 }
 
-.primary-green{
+.primary-green {
     background-color: #cce9e9; /* lightest */
 }
-.secondary-green{
+.secondary-green {
     background-color: #1b65a6; /* mid-dark blue-ish */
     color: white;
 }
@@ -229,6 +229,18 @@ color:white;
 #browseSidebar ul ul li a:hover, #browseSidebar ul ul li a:focus{
     background: rgb(255 255 255 / 20%);
 }
+.dropdown-menu {
+    --bs-dropdown-link-active-bg: #1b65a6; 
+}
+th {
+    font-weight: normal;
+    }
+.keywords-cards:hover, .keywords-cards:focus {
+    background-color: #a3d7d7;  /* keyword-green */
+}
+.keywords-cards {
+    margin-bottom:1rem;
+}
 #keywords-to-titles {
     text-transform: capitalize;
     font-size: calc(1.275rem + .3vw)
@@ -237,7 +249,6 @@ color:white;
     padding-top:.125rem;
     font-size: 0.875rem;
     line-height: 0.875rem;
-    padding-bottom:1rem;
 }
 .keywords-thumb {
     max-height: 4rem;
@@ -249,4 +260,11 @@ table.table-gloss, table.table-gloss th, table.table-gloss td {
 .spacer { 
     display:block;
     min-height: 4rem; /* I hate tables */
+}
+.text-right {
+    text-align: right;
+}
+.minilogo {
+    height: 0.875rem;
+    width:auto;
 }

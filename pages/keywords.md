@@ -4,6 +4,6 @@ layout: keywords
 permalink: /keywords.html
 ---
 
-## Collection Keywords
+## Glossary of Keywords
 
 test intro text
