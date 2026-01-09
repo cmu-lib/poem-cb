@@ -46,7 +46,7 @@ var loadingIcon, filterTextBox, browseItemsDiv, browseSidebarDiv;
 {% include helpers/get-icon.js %}
 
 
-//sidenav 
+//sidenav
 function buildSN(){
     browseSidebarDiv.innerHTML+="<ul><li><a href='{{ page.url | relative_url }}#keyword:"+obj.keyword+"'>"+obj.keyword+"</a></li></ul>";
 }
@@ -137,11 +137,11 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
         card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#time_required:'+obj.time_required+'">';
                 card+='<p>'+obj.time_required+'</p>';
         card+= '</a>';
-        if(!sidenav_build['Time']){
-            sidenav_build['Time']=[];
+        if(!sidenav_build['Time Required']){
+            sidenav_build['Time Required']=[];
         }
-        if (!sidenav_build['Time'].includes(obj.time_required)) { 
-            sidenav_build['Time'].push(obj.time_required);        
+        if (!sidenav_build['Time Required'].includes(obj.time_required)) { 
+            sidenav_build['Time Required'].push(obj.time_required);        
         }
     }
     if(obj.audience){
