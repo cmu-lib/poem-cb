@@ -1,13 +1,14 @@
-/* 
-    Put your custom SCSS here! 
-    This allows you to override any CollectionBuilder or Bootstrap CSS without modifying the base theme files directly.
-*/
-
 h1 {
     font-weight: 700;  
 }
 h3.notheader, h4.notheader  {
     font-size: var(--bs-body-font-size);
+}
+p{
+    text-wrap: pretty;
+}
+a {
+    color: #1b65a6;
 }
 .container.my-4{
     max-width: 95%;
@@ -167,14 +168,20 @@ button.former-green:hover, button.former-green:focus{
     padding:5px;
     font-size:1.1em;
 }
-.center-tab{
+ul.theme-tabs  {
+    padding-left: 0;
+}
+.center-tab {
     list-style: none;
-    margin-bottom:5px;
+    margin-bottom:.5rem;
     text-align: left;
     float: right;
     width:100%;
+    padding-left:.5rem;
 }
-
+.theme-tabs {
+    padding-top:.5rem;
+}
 
 .main-img-container img {
   width: 100%;
@@ -259,7 +266,7 @@ table.table-gloss, table.table-gloss th, table.table-gloss td {
 }
 .spacer { 
     display:block;
-    min-height: 4rem; /* I hate tables */
+    min-height: 4rem; /* I hate tables - this is to fix padding issues in glossary*/
 }
 .text-right {
     text-align: right;
@@ -268,3 +275,12 @@ table.table-gloss, table.table-gloss th, table.table-gloss td {
     height: 0.875rem;
     width:auto;
 }
+.margin-fix .row {
+    margin-right:0; /* I also hate bootstrap columns - this is to fix padding issues on item pages */
+    padding-right: 1rem;
+}
+@media (max-width: 768px) { 
+.margin-fix .row, .margin-fix .row>* {
+    margin-right:0;
+    padding-right: 0;
+}}

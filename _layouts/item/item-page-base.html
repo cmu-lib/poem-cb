@@ -11,15 +11,14 @@ item-meta: true
     <div class="my-0 h5 small">{{ page.display_template | replace: "_", " " | upcase }} {% if page.display_template == "compound_object" or page.display_template == "multiple" %}{% assign children = site.data[site.metadata] | where_exp: 'item','item.parentid == page.objectid' %} ({{ children | size }} {{ site.data.translations['_layouts']['item']['item-page-base.html']['items'][site.lang] | default: 'Items'}}){% endif %}</div> -->
 
     <div class="row-wrap">
-    <div class="container-fluid mx-0 px-0">
+    <div class="container-fluid mx-0 px-0 margin-fix">
         <!-- first content. keywords.  -->
         <div class="row top-section ">
             <div class="col-md-3">
                 {%if page.keyword%}
                 <a class="keyword-tab active-green"><p>{{page.keyword}}</p></a>
                 {%endif%}
-               
-                            {%if page.keyword_2a%}
+                {%if page.keyword_2a%}
                 <a class="keyword-tab former-green"><p>{{page.keyword_2a}}</p></a>
                 {%endif%}
                 {%if page.keyword_2b%}
@@ -33,6 +32,27 @@ item-meta: true
             <div class="col-md-9">
                 <h2>{{ page.title }} </h2>
                 <h3 class="notheader">{{page.creators_list}}</h3>
+                    <span style="float:right;">
+<a type="button" class="btn btn-sm btn-outline-dark small }}" data-bs-toggle="modal" data-bs-target="#{{ include.button | slugify }}Modal">cite this object</a>
+    <!-- Modal -->
+    <div class="modal fade" id="{{ include.button | slugify }}Modal" tabindex="-1" role="dialog" aria-labelledby="{{ include.button | slugify }}ModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body small" >
+                <p id="citationtocopy">{{page.citation}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+                    </span>
+
+                    <span style="float:right;">
+                        <a href="#object" class="mx-3 btn btn-sm btn-outline-dark small">{{ site.data.translations['_layouts']['item']['item-page-base.html']['item-info'][site.lang] | default: 'jump to object'}} 
+                        </a>
+                    </span>
             </div>
         </div>
         <!-- second content. secondary keywords. -->
@@ -69,46 +89,27 @@ item-meta: true
                     
                     <ul class="theme-tabs">
                         <li class="center-tab primary-green">{{page.media_type}}</li>
-                        <li class="center-tab primary-green">{{page.date}}</li>
+                        <li class="center-tab primary-green">{{page.time_required}}</li>
                         <li class="center-tab primary-green">{{page.audience}}</li>
                     </ul>
                 </div>
                 <div class="col-md-6">
-                    <span style="float:right; padding-bottom:10px;">
-                        {% unless page.display_template == 'record' %}
-                        <a href="#metadata" class="ms-5 btn btn-sm btn-outline-dark small">{{ site.data.translations['_layouts']['item']['item-page-base.html']['item-info'][site.lang] | default: 'Item Info'}} 
-                            <svg class="bi icon-sprite" role="img" aria-label="{{ site.data.translations['_layouts']['item']['item-page-base.html']['jump-to'][site.lang] | default: 'Jump to item info'}}">
-                                <use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#arrow-down"/>
-                            </svg>
-                        </a>
-                        {% endunless %}
-                    </span>
+                    <p>
                     {{page.description}}
+                </p>
+                <p class="small"><a href="{{page.doi}}">{{page.doi}}</a>
+                    <br>content licensed <a href="{{page.license_url}}">{{page.license}}</a></p>
                 </div>
                 
             <!-- </div> -->
         </div>
         <!-- main content here i think. -->
-  <div class="row justify-content-right">
+  <div class="row justify-content-right" id="object">
         <div class="col-9 col-md-10">
         {{ content }}
 
         </div>
 
-        <div class="col-12 col-md-10" id="metadata">
-
-            {% include item/metadata.html %}
-
-        </div>
-
-        <div class="col-md-5 py-4">
-            {% include item/citation-box.html %}
-        </div>
-        {% if page.rights or page.rightsstatement %}
-        <div class="col-md-5 py-4">
-            {% include item/rights-box.html %}
-        </div>
-        {% endif %}
     </div>
     </div>
     
