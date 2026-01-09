@@ -114,19 +114,27 @@ button.former-green:hover, button.former-green:focus{
 .top-section{
     margin-top:10px;
 }
-.keyword-tab{
+.keyword-tab {
     width:100%;
     margin-bottom:.5rem;
     float:right;
-    // text-align: right;
     position: relative;
-    // font-size: 1.2em;
 }
 .keyword-tab p{
     padding-left: 4rem;
     margin: 0;
 }
+@media (max-width: 768px) { 
 
+.keyword-tab p{
+    text-align: right;
+    padding-right: 1rem;
+    margin: 0;
+}
+}
+a.keyword-tab:hover, a.keyword-tab:focus{
+    color: #cce9e9;/* lightest */
+}
 .nav-link {
     color: #57bbc8;
 }
@@ -138,6 +146,8 @@ button.former-green:hover, button.former-green:focus{
     }
 .navbar-toggler {
     width:100%;
+    min-height:2.75rem;
+    padding:0;
     box-shadow: none;
     border: none;
     color: #57bbc8;
@@ -159,19 +169,11 @@ button.former-green:hover, button.former-green:focus{
     padding:5px 15px;
 }
 
-.theme-tab{
-    list-style: none;
-    margin-bottom:5px;
-    text-align: left;
-    float: right;
-    width:75%;
-    padding:5px;
-    font-size:1.1em;
-}
 ul.theme-tabs  {
     padding-left: 0;
+    padding-top:.5rem;
 }
-.center-tab {
+ul.theme-tabs li {
     list-style: none;
     margin-bottom:.5rem;
     text-align: left;
@@ -179,16 +181,14 @@ ul.theme-tabs  {
     width:100%;
     padding-left:.5rem;
 }
-.theme-tabs {
-    padding-top:.5rem;
-}
+
+@media (max-width: 768px) { 
+ul.theme-tabs li {
+    padding-left:1rem;
+}}
 
 .main-img-container img {
   width: 100%;
-}
-
-.third-content-row{
-    margin-top:1%;
 }
 
 .browse-img-container{
@@ -229,7 +229,7 @@ color:white;
      padding-left: 2rem;
      padding-right: 1rem;
      text-decoration: none;
-     display: block;
+     display: block; /* make whole strip linkable instead of just text */
      width: 100%;
      height: 100%;
 }
@@ -283,4 +283,21 @@ table.table-gloss, table.table-gloss th, table.table-gloss td {
 .margin-fix .row, .margin-fix .row>* {
     margin-right:0;
     padding-right: 0;
-}}
+}
+.sm-margin-fix-left > h2, h3, p {
+    padding-left: 1rem;
+}
+}
+.btn-float-rt {
+    float:right;
+}
+ul.theme-tabs li a {
+     text-decoration: none;
+     color: black;
+     display: block; /* make whole strip linkable instead of just text */
+     width: 100%;
+     height: 100%;
+}
+ul.theme-tabs li a:hover, ul.theme-tabs li a:focus {
+     color: #008f91;
+}

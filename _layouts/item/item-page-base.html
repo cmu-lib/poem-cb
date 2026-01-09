@@ -1,6 +1,5 @@
 ---
 # base layout for other item display_template layouts
-# adds breadcrumbs and title at top; citation box, rights box, and browse buttons at bottom
 layout: default
 # item-meta adds rich meta markup to the page on production build
 item-meta: true
@@ -10,89 +9,77 @@ item-meta: true
     <!-- {% include item/breadcrumbs.html %} 
     <div class="my-0 h5 small">{{ page.display_template | replace: "_", " " | upcase }} {% if page.display_template == "compound_object" or page.display_template == "multiple" %}{% assign children = site.data[site.metadata] | where_exp: 'item','item.parentid == page.objectid' %} ({{ children | size }} {{ site.data.translations['_layouts']['item']['item-page-base.html']['items'][site.lang] | default: 'Items'}}){% endif %}</div> -->
 
-    <div class="row-wrap">
-    <div class="container-fluid mx-0 px-0 margin-fix">
-        <!-- first content. keywords.  -->
-        <div class="row top-section ">
-            <div class="col-md-3">
+    <div class="row-wrap container-fluid mx-0 px-0 margin-fix">
+
+        <div class="row top-section">
+
+        <!-- keywords.  -->
+            <div class="col-md-3 order-md-first order-last" >
                 {%if page.keyword%}
-                <a class="keyword-tab active-green"><p>{{page.keyword}}</p></a>
+                <a class="keyword-tab active-green" href="/keywords.html#y{{page.keyword}}"><p>{{page.keyword}}</p></a>
                 {%endif%}
                 {%if page.keyword_2a%}
-                <a class="keyword-tab former-green"><p>{{page.keyword_2a}}</p></a>
+                <a class="keyword-tab former-green" href="/browse.html#keyword:{{page.keyword_2a}}"><p>{{page.keyword_2a}}</p></a>
                 {%endif%}
                 {%if page.keyword_2b%}
-                <a class="keyword-tab former-green"><p>{{page.keyword_2b}}</p></a>
+                <a class="keyword-tab former-green" href="/browse.html#keyword:{{page.keyword_2b}}"><p>{{page.keyword_2b}}</p></a>
                 {%endif%}
-
-
-
             </div>
                 
-            <div class="col-md-9">
+        <!-- header info.  -->
+            <div class="col-md-9 order-md-last order-first mb-4 mb-md-2 sm-margin-fix-left">
                 <h2>{{ page.title }} </h2>
                 <h3 class="notheader">{{page.creators_list}}</h3>
-                    <span style="float:right;">
-<a type="button" class="btn btn-sm btn-outline-dark small }}" data-bs-toggle="modal" data-bs-target="#{{ include.button | slugify }}Modal">cite this object</a>
-    <!-- Modal -->
-    <div class="modal fade" id="{{ include.button | slugify }}Modal" tabindex="-1" role="dialog" aria-labelledby="{{ include.button | slugify }}ModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body small" >
-                <p id="citationtocopy">{{page.citation}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-                    </span>
 
-                    <span style="float:right;">
-                        <a href="#object" class="mx-3 btn btn-sm btn-outline-dark small">{{ site.data.translations['_layouts']['item']['item-page-base.html']['item-info'][site.lang] | default: 'jump to object'}} 
+        <!-- helper buttons.  -->
+            <div class="btn-float-rt btn-group mx-3">
+                <a type="button" class="btn btn-sm btn-outline-dark small" data-bs-toggle="modal" data-bs-target="#{{ include.button | slugify }}Modal">cite this object</a>
+            <!-- Modal -->
+                <div class="modal fade" id="{{ include.button | slugify }}Modal" tabindex="-1" role="dialog" aria-labelledby="{{ include.button | slugify }}ModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body small" >
+                            <p id="citationtocopy">{{page.citation}}</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                    <a href="#object" class="btn btn-sm btn-outline-dark small">{{ site.data.translations['_layouts']['item']['item-page-base.html']['item-info'][site.lang] | default: 'jump to object'}} 
                         </a>
-                    </span>
-            </div>
-        </div>
-        <!-- second content. secondary keywords. -->
+                </div>
+            </div>      <!-- end of this "right" column.  -->
+        </div>          <!-- end of first row.  -->
+
+        <!-- second row. -->
         <div class="row">
+
+        <!-- spacer column under keywords. -->
             <div class="col-md-3">
-
-            </div>
-            <div class="col-md-9">
             </div>
 
-        </div>
-        <!-- third content. themes on left. description. media image. other info -->
-        <div class="row third-content-row">
-            <div class="col-md-3">
-
-<!-- 
-                {% assign themes = page.keywords | split: ';' %}
-                
-                {%if themes%}
-                    <ul class="theme-tabs">
-                    {%for theme in themes%}
-                        <li class="theme-tab primary-green">{{theme}}</li>
-                    {%endfor%}
-                    </ul>
-                {%endif%}
-                 -->
-                
-            </div>
-            <!-- the image and stuff below -->
-                <div class="col-md-3">
+            <!-- thumb image and tags. -->
+                <div class="col-md-3" id="col-reorder-5">
                     <div class="main-img-container">
                         <img  alt="{{ page.image_alt_text | default: image_caption | escape }}"   src="{{ page.image_thumb }}" >
                     </div>
                     
                     <ul class="theme-tabs">
-                        <li class="center-tab primary-green">{{page.media_type}}</li>
-                        <li class="center-tab primary-green">{{page.time_required}}</li>
-                        <li class="center-tab primary-green">{{page.audience}}</li>
+                        <li class="primary-green">
+                            <a href="/browse.html#media_type:{{page.media_type}}">{{page.media_type}}</a>
+                        </li>
+                        <li class="primary-green">
+                            <a href="/browse.html#time_required:{{page.time_required}}">{{page.time_required}}</a>
+                        </li>
+                        <li class="primary-green">
+                            <a href="/browse.html#audience:{{page.audience}}">{{page.audience}}</a>
+                        </li>
                     </ul>
                 </div>
+
+            <!-- description, doi, license. -->
                 <div class="col-md-6">
                     <p>
                     {{page.description}}
@@ -100,21 +87,22 @@ item-meta: true
                 <p class="small"><a href="{{page.doi}}">{{page.doi}}</a>
                     <br>content licensed <a href="{{page.license_url}}">{{page.license}}</a></p>
                 </div>
-                
-            <!-- </div> -->
-        </div>
-        <!-- main content here i think. -->
-  <div class="row justify-content-right" id="object">
-        <div class="col-9 col-md-10">
+            
+        </div>            <!-- end of second row. -->
+
+        <!-- new row: main content: object and download buttons. -->
+    <div class="row justify-content-right mt-3" id="object">
+
+        <!-- spacer column under keywords. -->
+            <div class="col-md-3">
+            </div>
+
+        <div class="col-md-9">
         {{ content }}
-
         </div>
-
-    </div>
     </div>
     
-  
-    </div>
+    </div>            <!-- end of content container. -->
         
 
     {%- if site.data.theme.browse-buttons == true -%}
