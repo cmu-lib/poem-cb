@@ -83,42 +83,22 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
 
     //explicitly name these keyword items because there are some fields we are not using.
     //primary keyword active-green
-    
-    if(obj.keyword){
-    card+= '<a class="btn btn-sm browse-butt active-green" href="{{ page.url | relative_url }}#keyword:'+obj.keyword+'">';
-            card+='<p>'+obj.keyword+'</p>'; //primary keyword
-    card+= '</a>';
-        if(!sidenav_build['Keyword']){
-            sidenav_build['Keyword']=[];
-        }
-        if (!sidenav_build['Keyword'].includes(obj.keyword)) { // Check if the value is NOT in the array
-            sidenav_build['Keyword'].push(obj.keyword);         // If not, append it
-        }
+    if(obj.keywords_list){
+        obj.keywords_list.split(";").forEach(item => {
+            const trimmed = item.trim();
+            console.log(trimmed);
+            card+= '<a class="btn btn-sm browse-butt active-green" href="{{ page.url | relative_url }}#keywords_list:'+trimmed+'">';
+                card+='<p>'+trimmed+'</p>';
+            card+= '</a>';
+            if(!sidenav_build['Keywords']){
+                sidenav_build['Keywords']=[];
+            }
+            if (!sidenav_build['Keywords'].includes(trimmed)) { 
+                    sidenav_build['Keywords'].push(trimmed);        
+            }
+        });
 
-    }
-    if(obj.keyword_2a){
-        //secondary keywords former-green
-        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keyword_2a:'+obj.keyword_2a+'">';
-                card+='<p>'+obj.keyword_2a+'</p>';
-        card+= '</a>';
-        if(!sidenav_build['Keyword']){
-            sidenav_build['Keyword']=[];
-        }
-
-        if (!sidenav_build['Keyword'].includes(obj.keyword_2a)) { 
-            sidenav_build['Keyword'].push(obj.keyword_2a);        
-        }
-    }
-    if(obj.keyword_2b){
-        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keyword_2b:'+obj.keyword_2b+'">';
-                card+='<p>'+obj.keyword_2b+'</p>';
-        card+= '</a>';
-        if(!sidenav_build['Keyword']){
-            sidenav_build['Keyword']=[];
-        }
-        if (!sidenav_build['Keyword'].includes(obj.keyword_2b)) { 
-                sidenav_build['Keyword'].push(obj.keyword_2b);        
-        }
+        
     }
     if(obj.media_type){
         //media type keyword-green

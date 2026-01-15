@@ -15,8 +15,6 @@ type,Type,,,DCTERMS.type,
 format,Format,,,,encodingFormat
 rightsstatement,,,,DCTERMS.rights,license
 doi,DOI,,,,
-keyword,Keyword,,,,
-keyword_2a,Secondary Keyword,,,,
-keyword_2b,Secondary Keyword,,,,
+keywords_list,Keywords,,,,
 audience,Audience,,,,
 media_type,Media Type,,,,
