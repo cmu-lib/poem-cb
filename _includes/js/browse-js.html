@@ -195,13 +195,14 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
 // https://compound-1lqv.onrender.com/browse.html?b0=AND&f0=location&v0=Moscow%2C+Idaho&b1=AND&f1=location&v1=Benton+Creek
 // using the AND to go by different topics
 function makeSideNav(sn_json){
-    console.log("here i am doing it");
+    // console.log("here i am doing it");
     var sn = "";
     for (var key in sn_json) {
         if (sn_json.hasOwnProperty(key)) {
             console.log(key);
             sn+="<ul><li><strong>"+key+"</strong></li><ul>";
             var uniqueValues = [...new Set(sn_json[key])];
+            uniqueValues.sort();
             uniqueValues.forEach(value => {
                 sn+="<li><a href='{{ page.url | relative_url }}#"+key.toLowerCase().replace(" ","_")+":"+encodeURIComponent(value)+"'>"+value+"</a></li>";
             });
