@@ -200,11 +200,11 @@ function makeSideNav(sn_json){
     for (var key in sn_json) {
         if (sn_json.hasOwnProperty(key)) {
             console.log(key);
-            sn+="<ul><li><strong>"+key+"</strong></li><ul>";
+            sn+="<ul><li class='sideNavCategory'>"+key+"</li><ul>";
             var uniqueValues = [...new Set(sn_json[key])];
             uniqueValues.sort();
             uniqueValues.forEach(value => {
-                sn+="<li><a href='{{ page.url | relative_url }}#"+key.toLowerCase().replace(" ","_")+":"+encodeURIComponent(value)+"'>"+value+"</a></li>";
+                sn+="<li><a class='sideNavValue' href='{{ page.url | relative_url }}#"+key.toLowerCase().replace(" ","_")+":"+encodeURIComponent(value)+"'>"+value+"</a></li>";
             });
             sn+="</ul></ul>";
             
@@ -826,6 +826,20 @@ function displayActiveFilters(searchCriteria) {
             }
         }
         
+        snvs = document.getElementsByClassName('sideNavValue');
+        for (let i = 0; i < snvs.length; i++) {
+            // if (snvs[i].href.includes('#'+criteria.field+':'+encodeURIComponent(displayValue))) {
+            //     snvs[i].classList.add('active-filter-link');
+            // }
+            console.log(snvs[i].text);
+            console.log(displayValue);
+            if(snvs[i].text==displayValue){
+                console.log("match");
+                snvs[i].classList.add('active-filter-link');
+                console.log(snvs[i].classList);
+            }
+            
+        }
         const showBoolean = searchCriteria.length > 1 && criteria.boolean !== 'AND';
         button.innerHTML = `
             <span class="me-1">${showBoolean ? criteria.boolean + ' ' : ''}${fieldName}: "${displayValue}"</span>

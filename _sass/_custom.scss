@@ -301,5 +301,14 @@ ul.theme-tabs li a {
 ul.theme-tabs li a:hover, ul.theme-tabs li a:focus {
      color: #008f91;
 }
-
+.sideNavCategory{
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+    font-size: 1rem;
+}
+.active-filter-link{
+    font-weight: bold;
+    text-decoration: underline;
+}
 
