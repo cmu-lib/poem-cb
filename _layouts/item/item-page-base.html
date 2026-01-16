@@ -15,15 +15,15 @@ item-meta: true
 
         <!-- keywords.  -->
             <div class="col-md-3 order-md-first order-last" >
-                {%if page.keyword%}
-                <a class="keyword-tab active-green" href="/keywords.html#y{{page.keyword}}"><p>{{page.keyword}}</p></a>
+                {%if page.keywords_list%}
+                
+                {%- assign items = page.keywords_list | split: ";" -%}
+                 
+                    {%for keyword in items %}
+                        <a class="keyword-tab active-green" href="/keywords.html#y{{keyword | slugify}}"><p>{{ keyword | trim }}</p></a>
+                    {%endfor%}
                 {%endif%}
-                {%if page.keyword_2a%}
-                <a class="keyword-tab former-green" href="/browse.html#keyword:{{page.keyword_2a}}"><p>{{page.keyword_2a}}</p></a>
-                {%endif%}
-                {%if page.keyword_2b%}
-                <a class="keyword-tab former-green" href="/browse.html#keyword:{{page.keyword_2b}}"><p>{{page.keyword_2b}}</p></a>
-                {%endif%}
+               
             </div>
                 
         <!-- header info.  -->
