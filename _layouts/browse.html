@@ -5,6 +5,10 @@ custom-foot: js/browse-js.html
 ---
 
 {{ content }}
+<div class="row mb-2">
+    <div class="col-7 col-lg-9">&nbsp;</div>
+    <div class="col-5 col-lg-3 text-end text-lg-start">{% if site.data.theme.advanced-search == true %}{% include advanced-search-modal.html %}{% endif %}</div>
+</div>
 
 <div class="row mb-3 justify-content-center">
     <div class="col-lg-8 text-center">
@@ -20,6 +24,8 @@ custom-foot: js/browse-js.html
                     {% endfor %}
                     <option value="display_template">Content Type</option>
                     {% if site.data.theme.advanced-search == true %}
+                    <option value="" disabled>─────────────</option>
+                    <option value="advanced">Advanced Search...</option>{% endif %}
                 </select>
                 <!-- Mobile filter button - shows only on small screens -->
                 <div class="{% if site.data.theme.faceted-search == true %}dropdown d-lg-none{% else %}d-none{% endif %}">
@@ -37,10 +43,21 @@ custom-foot: js/browse-js.html
                         <button class="dropdown-item" type="button" data-field="{{ f.field }}">{{ f.facet_name | default: f.display_name | default: cap-field }}</button>
                         {% endfor %}
                         <button class="dropdown-item" type="button" data-field="display_template">Content Type</button>
+                        {% if site.data.theme.advanced-search == true %}
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item" type="button" data-field="advanced">Advanced Search...</button>
                         {% endif %}
                     </div>
                 </div>{% endif %}
                 <input type="text" class="form-control" id="filterTextBox" placeholder="Filter ... " aria-label="Search"> 
+                <!-- Update the date range inputs section -->
+-                <div id="dateRangeInputs" class="date-range-inputs">
+-                    <div class="date-input-group">
+-                        <input type="text" id="startDate" class="ms-2 form-control" placeholder="Start Date">
+-                        <span class="date-separator">to</span>
+-                        <input type="text" id="endDate" class="me-2 form-control" placeholder="End Date">
+-                    </div>
+-                </div>
 
                 <button class="btn secondary-green empty-btn" type="submit" title="Filter items" id="filterButton" >Search</button>
                 <button class="btn btn-outline-secondary filter d-none d-lg-flex" onclick="resetFilter(); return false;" data-filter="">Reset</button>
