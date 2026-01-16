@@ -4,6 +4,19 @@ layout: default
 # item-meta adds rich meta markup to the page on production build
 item-meta: true
 ---
+<script>
+    // scroll to top of page on load
+    // window.onload = function() {
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // console.log('Copied to clipboard');
+                document.getElementById('copyCitationButt').innerText = 'Copied!';
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        }
+    // }
+</script>
 <div class="container-fluid mx-0 px-0 my-4">
 
     <!-- {% include item/breadcrumbs.html %} 
@@ -43,6 +56,7 @@ item-meta: true
                         </div>
                         <div class="modal-body small" >
                             <p id="citationtocopy">{{page.citation}}</p>
+                            <p><center><button id="copyCitationButt" onclick="copyToClipboard(document.getElementById('citationtocopy').textContent)">Copy Citation</button></center></p>
                         </div>
                     </div>
                 </div>
