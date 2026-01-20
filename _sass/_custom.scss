@@ -302,4 +302,12 @@ ul.theme-tabs li a:hover, ul.theme-tabs li a:focus {
      color: #008f91;
 }
 
-
+.responsive-iframe {
+    display: block;}
+.smallshow {    display: none;}
+@media (max-width: 768px) { 
+.responsive-iframe {
+    display: none;
+}
+.smallshow {    display: inline-block;}
+}
