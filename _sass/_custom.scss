@@ -301,6 +301,7 @@ ul.theme-tabs li a {
 ul.theme-tabs li a:hover, ul.theme-tabs li a:focus {
      color: #008f91;
 }
+
 .sideNavCategory{
     font-weight: bold;
     margin-top: 1rem;
@@ -310,5 +311,15 @@ ul.theme-tabs li a:hover, ul.theme-tabs li a:focus {
 .active-filter-link{
     font-weight: bold;
     text-decoration: underline;
+}
+
+.responsive-iframe {
+    display: block;}
+.smallshow {    display: none;}
+@media (max-width: 768px) { 
+.responsive-iframe {
+    display: none;
+}
+.smallshow {    display: inline-block;}
 }
 

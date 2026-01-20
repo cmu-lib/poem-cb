@@ -63,7 +63,7 @@ item-meta: true
                 </div>
                     <a href="#object" class="btn btn-sm btn-outline-dark small">{{ site.data.translations['_layouts']['item']['item-page-base.html']['item-info'][site.lang] | default: 'jump to object'}} 
                         </a>
-                </div>
+                    <a href="{{page.doi}}" class="smallshow btn btn-sm btn-outline-dark small">view on Kilthub</a>                </div>
             </div>      <!-- end of this "right" column.  -->
         </div>          <!-- end of first row.  -->
 
@@ -111,7 +111,7 @@ item-meta: true
             <div class="col-md-3">
             </div>
 
-        <div class="col-md-9 container-iframe">
+        <div class="col-md-9 container-content container-iframe">
         {{ content }}
                <iframe class="responsive-iframe" src="https://widgets.figshare.com/articles/{{page.article_id}}/embed?show_title=1" allowfullscreen frameborder="0" width="100%" height="600px"></iframe>
         </div>
