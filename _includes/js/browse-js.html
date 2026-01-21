@@ -48,7 +48,7 @@ var loadingIcon, filterTextBox, browseItemsDiv, browseSidebarDiv;
 
 //sidenav
 function buildSN(){
-    browseSidebarDiv.innerHTML+="<ul><li><a href='{{ page.url | relative_url }}#keyword:"+obj.keyword+"'>"+obj.keyword+"</a></li></ul>";
+    browseSidebarDiv.innerHTML+="<ul><li><a href='{{ page.url | relative_url }}#keywords_list:"+obj.keyword+"'>"+obj.keyword+"</a></li></ul>";
 }
 
 // =============================================================================
@@ -83,18 +83,18 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
 
        //primary keyword active-green
 if(obj.keyword){
-    card+= '<a class="btn btn-sm browse-butt active-green" href="{{ page.url | relative_url }}#keyword:'+obj.keyword+'">';
+    card+= '<a class="btn btn-sm browse-butt active-green" href="{{ page.url | relative_url }}#keywords_list:'+obj.keyword+'">';
             card+='<p>'+obj.keyword+'</p>'; //primary keyword
     card+= '</a>';
     }
     if(obj.keyword_2a){
         //secondary keywords former-green
-        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keyword_2a:'+obj.keyword_2a+'">';
+        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keywords_list:'+obj.keyword_2a+'">';
                 card+='<p>'+obj.keyword_2a+'</p>';
         card+= '</a>';
     }
     if(obj.keyword_2b){
-        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keyword_2b:'+obj.keyword_2b+'">';
+        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keywords_list:'+obj.keyword_2b+'">';
                 card+='<p>'+obj.keyword_2b+'</p>';
         card+= '</a>';
         }
@@ -105,11 +105,11 @@ if(obj.keyword){
             const trimmed = item.trim();
             console.log(trimmed);
 
-            if(!sidenav_build['Keywords']){
-                sidenav_build['Keywords']=[];
+            if(!sidenav_build['Keywords List']){
+                sidenav_build['Keywords List']=[];
             }
-            if (!sidenav_build['Keywords'].includes(trimmed)) { 
-                    sidenav_build['Keywords'].push(trimmed);        
+            if (!sidenav_build['Keywords List'].includes(trimmed)) { 
+                    sidenav_build['Keywords List'].push(trimmed);        
             }
         });
 
@@ -117,7 +117,7 @@ if(obj.keyword){
     }
     if(obj.media_type){
         //media type keyword-green
-        card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#media_type'+obj.media_type+'">';
+        card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#media_type:'+obj.media_type+'">';
                 card+='<p>'+obj.media_type+'</p>';
         card+= '</a>';
         if(!sidenav_build['Media Type']){

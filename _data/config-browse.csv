@@ -3,7 +3,7 @@ creators_card,Creators Short,,false,
 keyword,Keyword,,false,
 keyword_2a,Secondary Keyword,,false,
 keyword_2b,Secondary Keyword,,false,
-keywords_list, Keywords,true,false,
+keywords_list,Keywords List,true,false,
 media_type,Media Type,,false,
 time_required,Time Required,,false,Time Required
 audience,Audience,,false,

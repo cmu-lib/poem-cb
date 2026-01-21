@@ -309,8 +309,7 @@ ul.theme-tabs li a:hover, ul.theme-tabs li a:focus {
     font-size: 1rem;
 }
 .active-filter-link{
-    font-weight: bold;
-    text-decoration: underline;
+    background: hsla(0, 0%, 0%, .2);
 }
 
 .responsive-iframe {
