@@ -1,6 +1,9 @@
 field,display_name,btn,hidden,sort_name
 creators_card,Creators Short,,false,
-keywords_list, Keywords,,false,
+keyword,Keyword,,false,
+keyword_2a,Secondary Keyword,,false,
+keyword_2b,Secondary Keyword,,false,
+keywords_list, Keywords,true,false,
 media_type,Media Type,,false,
 time_required,Time Required,,false,Time Required
 audience,Audience,,false,

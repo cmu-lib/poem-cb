@@ -81,15 +81,30 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
         if(thumbIcon) card += `<p><a href="${itemHref}" title="view full record">${thumbIcon}</a></p>`;
     }
 
-    //explicitly name these keyword items because there are some fields we are not using.
-    //primary keyword active-green
+       //primary keyword active-green
+if(obj.keyword){
+    card+= '<a class="btn btn-sm browse-butt active-green" href="{{ page.url | relative_url }}#keyword:'+obj.keyword+'">';
+            card+='<p>'+obj.keyword+'</p>'; //primary keyword
+    card+= '</a>';
+    }
+    if(obj.keyword_2a){
+        //secondary keywords former-green
+        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keyword_2a:'+obj.keyword_2a+'">';
+                card+='<p>'+obj.keyword_2a+'</p>';
+        card+= '</a>';
+    }
+    if(obj.keyword_2b){
+        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keyword_2b:'+obj.keyword_2b+'">';
+                card+='<p>'+obj.keyword_2b+'</p>';
+        card+= '</a>';
+        }
+
+    //still add all keywords to main list in sidenav, but don't make duplicate buttons
     if(obj.keywords_list){
         obj.keywords_list.split(";").forEach(item => {
             const trimmed = item.trim();
             console.log(trimmed);
-            card+= '<a class="btn btn-sm browse-butt active-green" href="{{ page.url | relative_url }}#keywords_list:'+trimmed+'">';
-                card+='<p>'+trimmed+'</p>';
-            card+= '</a>';
+
             if(!sidenav_build['Keywords']){
                 sidenav_build['Keywords']=[];
             }
