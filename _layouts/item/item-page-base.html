@@ -47,7 +47,11 @@ item-meta: true
 
         <!-- helper buttons.  -->
             <div class="btn-float-rt btn-group mx-3">
-                <a type="button" class="btn btn-sm btn-outline-dark small" data-bs-toggle="modal" data-bs-target="#{{ include.button | slugify }}Modal">cite this object</a>
+                <a type="button" class="btn btn-sm btn-outline-dark small" data-bs-toggle="modal" data-bs-target="#{{ include.button | slugify }}Modal">
+                <svg class="bi icon-sprite" role="img" aria-label="reference">
+                <use xlink:href="/assets/lib/icons/chat-left-quote.svg"></use>
+                </svg>
+                    cite this object</a>
             <!-- Modal -->
                 <div class="modal fade" id="{{ include.button | slugify }}Modal" tabindex="-1" role="dialog" aria-labelledby="{{ include.button | slugify }}ModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -57,13 +61,24 @@ item-meta: true
                         </div>
                         <div class="modal-body small" >
                             <p id="citationtocopy">{{page.citation}}</p>
-                            <p><center><button id="copyCitationButt" class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard(document.getElementById('citationtocopy').textContent)">Copy Citation</button></center></p>
+                            <p><center><button id="copyCitationButt" class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard(document.getElementById('citationtocopy').textContent)">
+                    <svg class="bi icon-sprite" role="img" aria-label="clipbaord">
+                    <use xlink:href="/assets/lib/icons/clipboard.svg"></use>
+                    </svg>
+                Copy Citation</button></center></p>
                         </div>
                     </div>
                 </div>
                 </div>
-                     <a href="{{page.doi}}" class="smallshow btn btn-sm btn-outline-dark small">view all object files</a> 
+                    <a href="{{page.doi}}" class="smallshow btn btn-sm btn-outline-dark small">
+                    <svg class="bi icon-sprite" role="img" aria-label="all files">
+                    <use xlink:href="/assets/lib/icons/collection.svg"></use>
+                    </svg>
+                        view all object files</a> 
                     <a href="#object" class="btn btn-sm btn-outline-dark small">
+                    <svg class="bi icon-sprite" role="img" aria-label="preview">
+                    <use xlink:href="/assets/lib/icons/eye.svg"></use>
+                    </svg>
                         preview object media
                         </a>
                                   </div>
