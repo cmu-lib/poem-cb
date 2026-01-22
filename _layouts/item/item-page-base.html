@@ -57,14 +57,16 @@ item-meta: true
                         </div>
                         <div class="modal-body small" >
                             <p id="citationtocopy">{{page.citation}}</p>
-                            <p><center><button id="copyCitationButt" onclick="copyToClipboard(document.getElementById('citationtocopy').textContent)">Copy Citation</button></center></p>
+                            <p><center><button id="copyCitationButt" class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard(document.getElementById('citationtocopy').textContent)">Copy Citation</button></center></p>
                         </div>
                     </div>
                 </div>
                 </div>
-                    <a href="#object" class="btn btn-sm btn-outline-dark small">{{ site.data.translations['_layouts']['item']['item-page-base.html']['item-info'][site.lang] | default: 'jump to object'}} 
+                     <a href="{{page.doi}}" class="smallshow btn btn-sm btn-outline-dark small">view all object files</a> 
+                    <a href="#object" class="btn btn-sm btn-outline-dark small">
+                        preview object media
                         </a>
-                    <a href="{{page.doi}}" class="smallshow btn btn-sm btn-outline-dark small">view on Kilthub</a>                </div>
+                                  </div>
             </div>      <!-- end of this "right" column.  -->
         </div>          <!-- end of first row.  -->
 
