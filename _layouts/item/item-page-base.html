@@ -95,7 +95,7 @@ item-meta: true
             <!-- thumb image and tags. -->
                 <div class="col-md-3" id="col-reorder-5">
                     <div class="main-img-container">
-                        <img  alt="{{ page.image_alt_text | default: image_caption | escape }}"   src="{{ page.image_thumb }}" >
+                        <img  alt="{{ page.image_alt_text | default: image_caption | escape }}"   src="{{ page.image_small }}" >
                     </div>
                     
                     <ul class="theme-tabs">
@@ -130,8 +130,11 @@ item-meta: true
             </div>
 
         <div class="col-md-9 container-content container-iframe">
+        <!-- COMMENT OUT FOR NOW
         {{ content }}
-               <iframe class="responsive-iframe" src="https://widgets.figshare.com/articles/{{page.article_id}}/embed?show_title=1" allowfullscreen frameborder="0" width="100%" height="600px"></iframe>
+            <iframe class="responsive-iframe" src="https://widgets.figshare.com/articles/{{page.article_id}}/embed?show_title=1" allowfullscreen frameborder="0" width="100%" height="600px"></iframe>
+            -->
+               
         </div>
     </div>
     
