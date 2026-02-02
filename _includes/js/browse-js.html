@@ -58,9 +58,21 @@ function buildSN(){
 /**
  * Creates HTML card for displaying a collection item
  */
-sidenav_build={};
+sidenav_build={
+            'Keywords':{
+                "keyword":[], "keyword_2a":[], "keyword_2b":[]
+            }, 
+            'Media Type':{
+                "media_type":[]
+            }, 
+            'Time Required':{
+                "time_required":[]
+            }, 
+            'Audience':{
+                "audience":[]
+            }
+        };
 function makeCard(obj) { //make the sidenav while doing this too i think...
-    console.log(obj);
     const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E";
     const itemHref = `{{ '/items/' | relative_url }}${ obj.parent ? obj.parent + ".html#" + obj.id : obj.id + ".html"}`;
     
@@ -81,50 +93,43 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
         if(thumbIcon) card += `<p><a href="${itemHref}" title="view full record">${thumbIcon}</a></p>`;
     }
 
-       //primary keyword active-green
-if(obj.keyword){
-    card+= '<a class="btn btn-sm browse-butt active-green" href="{{ page.url | relative_url }}#keywords_list:'+obj.keyword+'">';
-            card+='<p>'+obj.keyword+'</p>'; //primary keyword
-    card+= '</a>';
+    //primary keyword active-green
+    
+    if(obj.keyword){
+        card+= '<a class="btn btn-sm browse-butt active-green" href="{{ page.url | relative_url }}#keyword:'+obj.keyword+'">';
+                card+='<p>'+obj.keyword+'</p>'; //primary keyword
+        card+= '</a>';
+
+        if (!sidenav_build['Keywords']['keyword'].includes(obj.keyword)) { 
+                sidenav_build['Keywords']['keyword'].push(obj.keyword);
+        }
     }
     if(obj.keyword_2a){
         //secondary keywords former-green
-        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keywords_list:'+obj.keyword_2a+'">';
+        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keyword_2a:'+obj.keyword_2a+'">';
                 card+='<p>'+obj.keyword_2a+'</p>';
         card+= '</a>';
+       
+        if (!sidenav_build['Keywords']['keyword_2a'].includes(obj.keyword_2a)) { 
+                sidenav_build['Keywords']['keyword_2a'].push(obj.keyword_2a);
+        }
     }
     if(obj.keyword_2b){
-        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keywords_list:'+obj.keyword_2b+'">';
+        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keyword_2b:'+obj.keyword_2b+'">';
                 card+='<p>'+obj.keyword_2b+'</p>';
         card+= '</a>';
-        }
-
-    //still add all keywords to main list in sidenav, but don't make duplicate buttons
-    if(obj.keywords_list){
-        obj.keywords_list.split(";").forEach(item => {
-            const trimmed = item.trim();
-            console.log(trimmed);
-
-            if(!sidenav_build['Keywords List']){
-                sidenav_build['Keywords List']=[];
-            }
-            if (!sidenav_build['Keywords List'].includes(trimmed)) { 
-                    sidenav_build['Keywords List'].push(trimmed);        
-            }
-        });
-
         
+        if (!sidenav_build['Keywords']['keyword_2b'].includes(obj.keyword_2b)) { 
+                sidenav_build['Keywords']['keyword_2b'].push(obj.keyword_2b);
+        }
     }
     if(obj.media_type){
         //media type keyword-green
         card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#media_type:'+obj.media_type+'">';
                 card+='<p>'+obj.media_type+'</p>';
         card+= '</a>';
-        if(!sidenav_build['Media Type']){
-            sidenav_build['Media Type']=[];
-        }
-        if (!sidenav_build['Media Type'].includes(obj.media_type)) { 
-            sidenav_build['Media Type'].push(obj.media_type);        
+        if (!sidenav_build['Media Type']['media_type'].includes(obj.media_type)) { 
+            sidenav_build['Media Type']['media_type'].push(obj.media_type);        
         }
     }
     if(obj.time_required){
@@ -132,11 +137,8 @@ if(obj.keyword){
         card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#time_required:'+obj.time_required+'">';
                 card+='<p>'+obj.time_required+'</p>';
         card+= '</a>';
-        if(!sidenav_build['Time Required']){
-            sidenav_build['Time Required']=[];
-        }
-        if (!sidenav_build['Time Required'].includes(obj.time_required)) { 
-            sidenav_build['Time Required'].push(obj.time_required);        
+        if (!sidenav_build['Time Required']['time_required'].includes(obj.time_required)) { 
+            sidenav_build['Time Required']['time_required'].push(obj.time_required);        
         }
     }
     if(obj.audience){
@@ -144,11 +146,8 @@ if(obj.keyword){
     card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#audience:'+obj.audience+'">';
             card+='<p>'+obj.audience+'</p>';
     card+= '</a>';
-    if(!sidenav_build['Audience']){
-        sidenav_build['Audience']=[];
-    }
-    if (!sidenav_build['Audience'].includes(obj.audience)) { 
-            sidenav_build['Audience'].push(obj.audience);        
+    if (!sidenav_build['Audience']['audience'].includes(obj.audience)) { 
+            sidenav_build['Audience']['audience'].push(obj.audience);        
         }
     }
     // Field data
@@ -192,18 +191,62 @@ if(obj.keyword){
 function makeSideNav(sn_json){
     // console.log("here i am doing it");
     var sn = "";
-    for (var key in sn_json) {
-        if (sn_json.hasOwnProperty(key)) {
-            console.log(key);
-            sn+="<ul><li class='sideNavCategory'>"+key+"</li><ul>";
-            var uniqueValues = [...new Set(sn_json[key])];
-            uniqueValues.sort();
-            uniqueValues.forEach(value => {
-                sn+="<li><a class='sideNavValue' href='{{ page.url | relative_url }}#"+key.toLowerCase().replace(" ","_")+":"+encodeURIComponent(value)+"'>"+value+"</a></li>";
-            });
-            sn+="</ul></ul>";
-            
+    for (var key in sn_json) { //loop through main categories like keywords, media type, time required, audience
+        console.log(key);
+        if(key === "Keywords") {
+            ordered_kws = [];
+            sn+="<ul><li class='sideNavCategory'>Keywords</li><ul>";
+            for (var subkey in sn_json[key]) { // looping through the subkeys of keyword,2a,2b
+                console.log(subkey);
+                var uniqueValues = [...new Set(sn_json[key][subkey])];
+                uniqueValues.sort();
+                uniqueValues.forEach(value => {
+                   // sn+="<li><span class='sideNavValue' onclick='buildFilter(\""+value+"\");' >"+value+"</span></li>";
+                   ordered_kws.push(value+"___"+subkey)
+                });
+                // sk_value = sn_json[key][subkey];
+                // sn+="<li class='sideNavValue' onclick='buildFilter(\""+sk_value+"\",\""+subkey+"\");'>"+sk_value+"</li>";
+                }
+                ordered_kws.sort();
+                for(i=0;i<ordered_kws.length;i++){
+                    kw_parts = ordered_kws[i].split("___");
+                    kw_value = kw_parts[0];
+                    kw_type = kw_parts[1];
+                    sn+="<li><span class='sideNavValue' onclick='buildFilter(\""+kw_value+"\",\""+kw_type+"\");' >"+kw_value+"</span></li>";
+                }
         }
+        // else{
+        //     console.log(key);
+        //     if (sn_json.hasOwnProperty(key)) {
+        //         sn+="<ul><li class='sideNavCategory'>"+key+"</li><ul>";
+        //         for (var subkey in sn_json[key]) {
+        //             console.log(subkey);
+        //             sk_value = sn_json[key][subkey];
+        //             sn+="<li class='sideNavValue' onclick='buildFilter(\""+sk_value+"\",\""+subkey+"\");'>"+sk_value+"</li>";
+        //         }
+        //         var uniqueValues = [...new Set(sn_json[key])];
+        //         uniqueValues.sort();
+        //         uniqueValues.forEach(value => {
+        //             sn+="<li><span class='sideNavValue' onclick='buildFilter(\""+value+"\");' >"+value+"</span></li>";
+        //         });
+        //         sn+="</ul></ul>";
+                
+        //     }
+        // }
+
+
+
+        // if (sn_json.hasOwnProperty(key)) {
+        //     console.log(key);
+        //     sn+="<ul><li class='sideNavCategory'>"+key+"</li><ul>";
+        //     var uniqueValues = [...new Set(sn_json[key])];
+        //     uniqueValues.sort();
+        //     uniqueValues.forEach(value => {
+        //         sn+="<li><span class='sideNavValue' onclick='buildFilter(\""+value+"\");' >"+value+"</span></li>";
+        //     });
+        //     sn+="</ul></ul>";
+            
+        // }
     }
     browseSidebarDiv.innerHTML=sn;
     // fields.forEach(field => {
