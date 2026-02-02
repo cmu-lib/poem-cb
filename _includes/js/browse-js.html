@@ -48,7 +48,7 @@ var loadingIcon, filterTextBox, browseItemsDiv, browseSidebarDiv;
 
 //sidenav
 function buildSN(){
-    browseSidebarDiv.innerHTML+="<ul><li><a href='{{ page.url | relative_url }}#keywords_list:"+obj.keyword+"'>"+obj.keyword+"</a></li></ul>";
+    browseSidebarDiv.innerHTML+="<ul><li><a href='{{ page.url | relative_url }}#keyword:"+obj.keyword+"'>"+obj.keyword+"</a></li></ul>";
 }
 
 // =============================================================================
@@ -58,20 +58,8 @@ function buildSN(){
 /**
  * Creates HTML card for displaying a collection item
  */
-sidenav_build={
-            'Keywords':{
-                "keyword":[], "keyword_2a":[], "keyword_2b":[]
-            }, 
-            'Media Type':{
-                "media_type":[]
-            }, 
-            'Time Required':{
-                "time_required":[]
-            }, 
-            'Audience':{
-                "audience":[]
-            }
-        };
+sidenav_build={};
+obj_key_dict={};
 function makeCard(obj) { //make the sidenav while doing this too i think...
     const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E";
     const itemHref = `{{ '/items/' | relative_url }}${ obj.parent ? obj.parent + ".html#" + obj.id : obj.id + ".html"}`;
@@ -93,43 +81,55 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
         if(thumbIcon) card += `<p><a href="${itemHref}" title="view full record">${thumbIcon}</a></p>`;
     }
 
+    //explicitly name these keyword items because there are some fields we are not using.
     //primary keyword active-green
-    
+    //these get different colors to be in the card.
     if(obj.keyword){
         card+= '<a class="btn btn-sm browse-butt active-green" href="{{ page.url | relative_url }}#keyword:'+obj.keyword+'">';
                 card+='<p>'+obj.keyword+'</p>'; //primary keyword
         card+= '</a>';
-
-        if (!sidenav_build['Keywords']['keyword'].includes(obj.keyword)) { 
-                sidenav_build['Keywords']['keyword'].push(obj.keyword);
-        }
     }
     if(obj.keyword_2a){
         //secondary keywords former-green
         card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keyword_2a:'+obj.keyword_2a+'">';
                 card+='<p>'+obj.keyword_2a+'</p>';
         card+= '</a>';
-       
-        if (!sidenav_build['Keywords']['keyword_2a'].includes(obj.keyword_2a)) { 
-                sidenav_build['Keywords']['keyword_2a'].push(obj.keyword_2a);
-        }
+
     }
     if(obj.keyword_2b){
         card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keyword_2b:'+obj.keyword_2b+'">';
                 card+='<p>'+obj.keyword_2b+'</p>';
         card+= '</a>';
         
-        if (!sidenav_build['Keywords']['keyword_2b'].includes(obj.keyword_2b)) { 
-                sidenav_build['Keywords']['keyword_2b'].push(obj.keyword_2b);
-        }
     }
+
+    //reference the keywords_list to just make the sidenav.
+    
+    if(obj.keywords_list){
+        obj.keywords_list.split(";").forEach(item => {
+            const trimmed = item.trim();
+            
+            if(!sidenav_build['Keywords']){
+                sidenav_build['Keywords']=[];
+                obj_key_dict['Keywords']="keywords_list";
+            }
+            if (!sidenav_build['Keywords'].includes(trimmed)) { 
+                    sidenav_build['Keywords'].push(trimmed);        
+            }
+        });        
+    }
+
     if(obj.media_type){
         //media type keyword-green
-        card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#media_type:'+obj.media_type+'">';
+        card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#media_type'+obj.media_type+'">';
                 card+='<p>'+obj.media_type+'</p>';
         card+= '</a>';
-        if (!sidenav_build['Media Type']['media_type'].includes(obj.media_type)) { 
-            sidenav_build['Media Type']['media_type'].push(obj.media_type);        
+        if(!sidenav_build['Media Type']){
+            sidenav_build['Media Type']=[];
+            obj_key_dict['Media Type']="media_type";
+        }
+        if (!sidenav_build['Media Type'].includes(obj.media_type)) { 
+            sidenav_build['Media Type'].push(obj.media_type);        
         }
     }
     if(obj.time_required){
@@ -137,17 +137,26 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
         card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#time_required:'+obj.time_required+'">';
                 card+='<p>'+obj.time_required+'</p>';
         card+= '</a>';
-        if (!sidenav_build['Time Required']['time_required'].includes(obj.time_required)) { 
-            sidenav_build['Time Required']['time_required'].push(obj.time_required);        
+        if(!sidenav_build['Time Required']){
+            sidenav_build['Time Required']=[];
+            obj_key_dict['Time Required']="time_required";
         }
+        if (!sidenav_build['Time Required'].includes(obj.time_required)) { 
+            sidenav_build['Time Required'].push(obj.time_required);        
+        }
+        
     }
     if(obj.audience){
     //audience keyword-green
     card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#audience:'+obj.audience+'">';
             card+='<p>'+obj.audience+'</p>';
     card+= '</a>';
-    if (!sidenav_build['Audience']['audience'].includes(obj.audience)) { 
-            sidenav_build['Audience']['audience'].push(obj.audience);        
+    if(!sidenav_build['Audience']){
+        sidenav_build['Audience']=[];
+        obj_key_dict['Audience']="audience";
+    }
+    if (!sidenav_build['Audience'].includes(obj.audience)) { 
+            sidenav_build['Audience'].push(obj.audience);        
         }
     }
     // Field data
@@ -190,63 +199,19 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
 // using the AND to go by different topics
 function makeSideNav(sn_json){
     // console.log("here i am doing it");
+    console.log(sn_json);
     var sn = "";
-    for (var key in sn_json) { //loop through main categories like keywords, media type, time required, audience
-        console.log(key);
-        if(key === "Keywords") {
-            ordered_kws = [];
-            sn+="<ul><li class='sideNavCategory'>Keywords</li><ul>";
-            for (var subkey in sn_json[key]) { // looping through the subkeys of keyword,2a,2b
-                console.log(subkey);
-                var uniqueValues = [...new Set(sn_json[key][subkey])];
-                uniqueValues.sort();
-                uniqueValues.forEach(value => {
-                   // sn+="<li><span class='sideNavValue' onclick='buildFilter(\""+value+"\");' >"+value+"</span></li>";
-                   ordered_kws.push(value+"___"+subkey)
-                });
-                // sk_value = sn_json[key][subkey];
-                // sn+="<li class='sideNavValue' onclick='buildFilter(\""+sk_value+"\",\""+subkey+"\");'>"+sk_value+"</li>";
-                }
-                ordered_kws.sort();
-                for(i=0;i<ordered_kws.length;i++){
-                    kw_parts = ordered_kws[i].split("___");
-                    kw_value = kw_parts[0];
-                    kw_type = kw_parts[1];
-                    sn+="<li><span class='sideNavValue' onclick='buildFilter(\""+kw_value+"\",\""+kw_type+"\");' >"+kw_value+"</span></li>";
-                }
-        }
-        // else{
-        //     console.log(key);
-        //     if (sn_json.hasOwnProperty(key)) {
-        //         sn+="<ul><li class='sideNavCategory'>"+key+"</li><ul>";
-        //         for (var subkey in sn_json[key]) {
-        //             console.log(subkey);
-        //             sk_value = sn_json[key][subkey];
-        //             sn+="<li class='sideNavValue' onclick='buildFilter(\""+sk_value+"\",\""+subkey+"\");'>"+sk_value+"</li>";
-        //         }
-        //         var uniqueValues = [...new Set(sn_json[key])];
-        //         uniqueValues.sort();
-        //         uniqueValues.forEach(value => {
-        //             sn+="<li><span class='sideNavValue' onclick='buildFilter(\""+value+"\");' >"+value+"</span></li>";
-        //         });
-        //         sn+="</ul></ul>";
-                
-        //     }
-        // }
-
-
-
-        // if (sn_json.hasOwnProperty(key)) {
-        //     console.log(key);
-        //     sn+="<ul><li class='sideNavCategory'>"+key+"</li><ul>";
-        //     var uniqueValues = [...new Set(sn_json[key])];
-        //     uniqueValues.sort();
-        //     uniqueValues.forEach(value => {
-        //         sn+="<li><span class='sideNavValue' onclick='buildFilter(\""+value+"\");' >"+value+"</span></li>";
-        //     });
-        //     sn+="</ul></ul>";
+    for (var key in sn_json) {
+        if (sn_json.hasOwnProperty(key)) {
+            sn+="<ul><li class='sideNavCategory'>"+key+"</li><ul>";
+            var uniqueValues = [...new Set(sn_json[key])];
+            uniqueValues.sort();
+            uniqueValues.forEach(value => {
+                sn+="<li><a class='sideNavValue' data-key='"+obj_key_dict[key]+"' href='{{ page.url | relative_url }}#"+key.toLowerCase().replace(" ","_")+":"+encodeURIComponent(value)+"'>"+value+"</a></li>";
+            });
+            sn+="</ul></ul>";
             
-        // }
+        }
     }
     browseSidebarDiv.innerHTML=sn;
     // fields.forEach(field => {
@@ -771,8 +736,18 @@ function addSearchRow(values = {}) {
 /**
  * Submit advanced search form
  */
-function submitAdvancedSearch(event) {
+//might be best to review this entire thing and alter the url as well?
+function submitAdvancedSearch(event,filter_val=false,filter_key=false,filter_bool=false) {
+    
+    if(event ===0){
+        console.log("ya no");
+        console.log(filter_val);
+        console.log(filter_key);
+        return false;
+    }
+    //can get these in here 
     if (event?.preventDefault) event.preventDefault();
+    
     
     const form = document.getElementById('advancedSearchForm');
     const rows = form.querySelectorAll('.search-row');
@@ -869,12 +844,9 @@ function displayActiveFilters(searchCriteria) {
             // if (snvs[i].href.includes('#'+criteria.field+':'+encodeURIComponent(displayValue))) {
             //     snvs[i].classList.add('active-filter-link');
             // }
-            console.log(snvs[i].text);
-            console.log(displayValue);
-            if(snvs[i].text==displayValue){
-                console.log("match");
+            
+            if(snvs[i].text==displayValue){            
                 snvs[i].classList.add('active-filter-link');
-                console.log(snvs[i].classList);
             }
             
         }
@@ -1068,6 +1040,19 @@ window.addEventListener('load', function() {
         }
         filterItems(items, "", "all");
     }
+
+    // hijack that thingy for the sidenav
+    document.querySelectorAll(".sideNavValue").forEach(element => {
+        element.addEventListener("click", function(event) {
+            console.log("clicked");
+            // event.preventDefault();
+            // Extract and set hash from href
+            // const hash = this.getAttribute('href').split('#')[1];
+            // if (hash) window.location.hash = hash;
+            console.log(event);
+            submitAdvancedSearch(0,this.text,this.getAttribute('data-key'));
+        });
+    });
     
     // Set up event handlers
     setupEventHandlers();
