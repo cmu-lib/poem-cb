@@ -45,12 +45,6 @@ var loadingIcon, filterTextBox, browseItemsDiv, browseSidebarDiv;
 
 {% include helpers/get-icon.js %}
 
-
-//sidenav
-function buildSN(){
-    browseSidebarDiv.innerHTML+="<ul><li><a href='{{ page.url | relative_url }}#keyword:"+obj.keyword+"'>"+obj.keyword+"</a></li></ul>";
-}
-
 // =============================================================================
 // CARD GENERATION
 // =============================================================================
@@ -191,13 +185,20 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
 // using the AND to go by different topics
 function makeSideNav(sn_json){
     var sn = "";
+    // get params here
+    var params = new URLSearchParams(window.location.search);
+    var entries = [...params.entries()];// list of entries
+    //filter and map the values only.
+    param_values = entries.filter(arr => arr[0].startsWith('v'))
+           .map(arr => arr[1]);
+    
     for (var key in sn_json) {
         sn+="<ul><li class='sideNavCategory'>"+key+"</li><ul>";
         for(var subkey in sn_json[key]){
             var uniqueValues = [...new Set(sn_json[key][subkey])];
             uniqueValues.sort();
-            uniqueValues.forEach(value => {
-                sn+="<li class='sideNavValue' onclick='snFilter(\""+subkey+"\", \""+value+"\")'>"+value+"</li>";
+            uniqueValues.forEach(value => {//be sure to add active class if in params for cool cool style.
+                sn+="<li class='sideNavValue "+(param_values.includes(value) ? "active-filter-val" : "")+"' onclick='snFilter(\""+subkey+"\", \""+value+"\")'>"+value+"</li>";
             });
             sn+="</ul></ul>";   
         }
