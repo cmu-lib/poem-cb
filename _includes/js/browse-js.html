@@ -58,8 +58,13 @@ function buildSN(){
 /**
  * Creates HTML card for displaying a collection item
  */
-sidenav_build={};
-obj_key_dict={};
+//set this beforehand.
+sidenav_build={
+    "Keywords":{"keywords_list":[]},
+    "Media Type":{"media_type":[]},
+    "Time Required":{"time_required":[]},
+    "Audience":{"audience":[]}
+};
 function makeCard(obj) { //make the sidenav while doing this too i think...
     const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E";
     const itemHref = `{{ '/items/' | relative_url }}${ obj.parent ? obj.parent + ".html#" + obj.id : obj.id + ".html"}`;
@@ -109,12 +114,8 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
         obj.keywords_list.split(";").forEach(item => {
             const trimmed = item.trim();
             
-            if(!sidenav_build['Keywords']){
-                sidenav_build['Keywords']=[];
-                obj_key_dict['Keywords']="keywords_list";
-            }
-            if (!sidenav_build['Keywords'].includes(trimmed)) { 
-                    sidenav_build['Keywords'].push(trimmed);        
+            if (!sidenav_build['Keywords']['keywords_list'].includes(trimmed)) { 
+                    sidenav_build['Keywords']['keywords_list'].push(trimmed);
             }
         });        
     }
@@ -124,12 +125,9 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
         card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#media_type'+obj.media_type+'">';
                 card+='<p>'+obj.media_type+'</p>';
         card+= '</a>';
-        if(!sidenav_build['Media Type']){
-            sidenav_build['Media Type']=[];
-            obj_key_dict['Media Type']="media_type";
-        }
-        if (!sidenav_build['Media Type'].includes(obj.media_type)) { 
-            sidenav_build['Media Type'].push(obj.media_type);        
+
+        if (!sidenav_build['Media Type']['media_type'].includes(obj.media_type)) { 
+            sidenav_build['Media Type']['media_type'].push(obj.media_type);        
         }
     }
     if(obj.time_required){
@@ -137,12 +135,9 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
         card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#time_required:'+obj.time_required+'">';
                 card+='<p>'+obj.time_required+'</p>';
         card+= '</a>';
-        if(!sidenav_build['Time Required']){
-            sidenav_build['Time Required']=[];
-            obj_key_dict['Time Required']="time_required";
-        }
-        if (!sidenav_build['Time Required'].includes(obj.time_required)) { 
-            sidenav_build['Time Required'].push(obj.time_required);        
+
+        if (!sidenav_build['Time Required']['time_required'].includes(obj.time_required)) { 
+            sidenav_build['Time Required']['time_required'].push(obj.time_required);        
         }
         
     }
@@ -151,12 +146,9 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
     card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#audience:'+obj.audience+'">';
             card+='<p>'+obj.audience+'</p>';
     card+= '</a>';
-    if(!sidenav_build['Audience']){
-        sidenav_build['Audience']=[];
-        obj_key_dict['Audience']="audience";
-    }
-    if (!sidenav_build['Audience'].includes(obj.audience)) { 
-            sidenav_build['Audience'].push(obj.audience);        
+
+    if (!sidenav_build['Audience']['audience'].includes(obj.audience)) { 
+            sidenav_build['Audience']['audience'].push(obj.audience);        
         }
     }
     // Field data
@@ -198,26 +190,97 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
 // https://compound-1lqv.onrender.com/browse.html?b0=AND&f0=location&v0=Moscow%2C+Idaho&b1=AND&f1=location&v1=Benton+Creek
 // using the AND to go by different topics
 function makeSideNav(sn_json){
-    // console.log("here i am doing it");
-    console.log(sn_json);
     var sn = "";
     for (var key in sn_json) {
-        if (sn_json.hasOwnProperty(key)) {
-            sn+="<ul><li class='sideNavCategory'>"+key+"</li><ul>";
-            var uniqueValues = [...new Set(sn_json[key])];
+        sn+="<ul><li class='sideNavCategory'>"+key+"</li><ul>";
+        for(var subkey in sn_json[key]){
+            var uniqueValues = [...new Set(sn_json[key][subkey])];
             uniqueValues.sort();
             uniqueValues.forEach(value => {
-                sn+="<li><a class='sideNavValue' data-key='"+obj_key_dict[key]+"' href='{{ page.url | relative_url }}#"+key.toLowerCase().replace(" ","_")+":"+encodeURIComponent(value)+"'>"+value+"</a></li>";
+                sn+="<li class='sideNavValue' onclick='snFilter(\""+subkey+"\", \""+value+"\")'>"+value+"</li>";
             });
-            sn+="</ul></ul>";
-            
+            sn+="</ul></ul>";   
         }
     }
     browseSidebarDiv.innerHTML=sn;
-    // fields.forEach(field => {
-    //     sn+="<ul class='"+field.field+"-sn-dd'><li>"+field.display_name+"</li></ul>";
-    // });
+
+}
+function findParamKeysByValue(searchParams, searchValue) {
+    return Array.from(searchParams.entries())
+        .filter(([, v]) => v === searchValue)
+        .map(([k]) => k);
+}
+
+// example of params
+// /browse.html?b1=AND&f1=all&v1=blah&b2=AND&f2=all&v2=blech&b3=AND&f3=subject&v3=blank
+// f1 = field
+// v1 = value
+// b1 = boolean for AND. if you have this set to 0 it means NOT AND
+//all field is any thing. but we want to be specific. so can ignore that dealy.
+function snFilter(sn_key, sn_value){
     
+    const params = new URLSearchParams(window.location.search);
+    const new_params = new URLSearchParams(); // always set to new params.
+    //how about no matter what we just build a new thing, eh?
+    
+    
+    const entries = [...params.entries()];// list of entries
+    //get the last index number. -2 because last is the sort param.
+    //and even if we do -2 and it is not there then we will land on one of the last params index (3 per value)
+    if(params.size>0 && params.toString().includes("&f")){
+        last_index = entries[entries.length - 2][0].match(/\d+/)[0];
+    }
+    else{
+        last_index = -1;
+    }
+    //if this value does not exist then please add it.
+    if(!params.toString().includes(encodeURIComponent(sn_value).replace(/%20/g, '+'))){
+        const new_index = parseInt(last_index) + 1;
+        //put in all the existing params first.
+        params.forEach((value, key) => {
+            new_params.set(key, value);
+        });
+        new_params.set(`b${new_index}`, 'AND');
+        new_params.set(`f${new_index}`, sn_key);
+        new_params.set(`v${new_index}`, sn_value);
+
+    }
+    else{ // it does exist so we can remove it.
+        remove_index = findParamKeysByValue(params, decodeURIComponent(sn_value));
+        remove_index = remove_index[0].match(/\d+/)[0];
+        params.delete(`b${remove_index}`);
+        params.delete(`f${remove_index}`);
+        params.delete(`v${remove_index}`);
+        // now loop through the remaining entries and add to new params with new indices
+        let new_index = 0;
+        for(const [key, value] of params.entries()) { // loop through all entries.
+            // if the key matches one of the filters but is not 
+            if(key.startsWith('b') || key.startsWith('f') || key.startsWith('v')){
+                // get current index from this param key
+                current_index = key.match(/\d+/)[0];
+                // get the values for these three
+                cur_b_value = params.get(`b${current_index}`);
+                cur_v_value = params.get(`v${current_index}`);
+                cur_f_value = params.get(`f${current_index}`);
+                //assign those to the new params with new index
+                new_params.set('b'+new_index, cur_b_value);
+                new_params.set('f'+new_index, cur_f_value);
+                new_params.set('v'+new_index, cur_v_value);
+                //delete the old ones and continue the loop
+                params.delete(`b${current_index}`);
+                params.delete(`f${current_index}`);
+                params.delete(`v${current_index}`);
+                new_index++;
+                continue;
+            }
+            
+        }
+    }
+    // // Preserve sort
+    const activeSort = document.querySelector(".browse-sort-item.active");
+    if (activeSort) new_params.set('sort', activeSort.dataset.filter);
+
+    window.location = window.location.pathname + "?" + new_params.toString();
 }
 
 
@@ -1042,17 +1105,17 @@ window.addEventListener('load', function() {
     }
 
     // hijack that thingy for the sidenav
-    document.querySelectorAll(".sideNavValue").forEach(element => {
-        element.addEventListener("click", function(event) {
-            console.log("clicked");
-            // event.preventDefault();
-            // Extract and set hash from href
-            // const hash = this.getAttribute('href').split('#')[1];
-            // if (hash) window.location.hash = hash;
-            console.log(event);
-            submitAdvancedSearch(0,this.text,this.getAttribute('data-key'));
-        });
-    });
+    // document.querySelectorAll(".sideNavValue").forEach(element => {
+    //     element.addEventListener("click", function(event) {
+    //         console.log("clicked");
+    //         // event.preventDefault();
+    //         // Extract and set hash from href
+    //         // const hash = this.getAttribute('href').split('#')[1];
+    //         // if (hash) window.location.hash = hash;
+    //         console.log(event);
+    //         submitAdvancedSearch(0,this.text,this.getAttribute('data-key'));
+    //     });
+    // });
     
     // Set up event handlers
     setupEventHandlers();
