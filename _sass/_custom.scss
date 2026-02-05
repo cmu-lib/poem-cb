@@ -200,6 +200,12 @@ p {
     background: hsla(0, 0%, 0%, .2);
     }
 
+@media (min-width: 769px) { 
+    #adv-search-butt {
+        display:none;
+        }
+    }
+
 
 /* BROWSE CARDS */
 
