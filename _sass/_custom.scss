@@ -108,6 +108,33 @@ p {
 
 /* BROWSE LAYOUT */
 
+.search {
+    display: none;}
+.search-lg {
+    display: inline;}
+
+@media (max-width: 991px) { 
+
+    .search {
+        display: inline;
+    }
+    .search-lg {
+       display: none;
+    }
+
+}
+
+#browseFilter {display: none} /* comment out if you want to leave these on for testing */
+@media (max-width: 767px) {  
+#browseFilter {display: inline}
+}
+
+#browseSidebar {display: inline}
+@media (max-width: 767px) { 
+#browseSidebar {display: none}
+}
+
+
 .sidebar {
     width: inherit;
     }
@@ -122,7 +149,7 @@ p {
         }
     }
 
-@media (max-width: 768px) { 
+@media (max-width: 575px) { 
 
     .clearspace-md {
         --bs-gutter-x: 0 !important; 
@@ -200,12 +227,6 @@ p {
     background: hsla(0, 0%, 0%, .2);
     }
 
-@media (min-width: 769px) { 
-    #adv-search-butt {
-        display:none;
-        }
-    }
-
 
 /* BROWSE CARDS */
 
@@ -279,7 +300,7 @@ button.former-green:hover, button.former-green:focus{
     margin: 0;
     }
 
-@media (max-width: 768px) { 
+@media (max-width: 767px) { 
     .keyword-tab p{
         text-align: right;
         padding-right: 1rem;
@@ -317,7 +338,7 @@ ul.theme-tabs li a:hover, ul.theme-tabs li a:focus {
      color: #008f91;
     }
 
-@media (max-width: 768px) { 
+@media (max-width: 767px) { 
     ul.theme-tabs li {
         padding-left:1rem;
         }
@@ -338,7 +359,7 @@ ul.theme-tabs li a:hover, ul.theme-tabs li a:focus {
     display: none;
     }
 
-@media (max-width: 768px) { 
+@media (max-width: 767px) { 
 
     .responsive-iframe {
         display: none;
@@ -353,7 +374,8 @@ ul.theme-tabs li a:hover, ul.theme-tabs li a:focus {
 /* KEYWORDS GLOSSARY */
 
 .dropdown-menu {
-    --bs-dropdown-link-active-bg: #1b65a6; 
+    --bs-dropdown-link-active-color: var(--bs-dropdown-link-color);
+    --bs-dropdown-link-active-bg: #cce9e9; 
     }
 
 th {
@@ -407,7 +429,7 @@ table.table-gloss, table.table-gloss th, table.table-gloss td {
     padding-right: 1rem;
     }
 
-@media (max-width: 768px) { 
+@media (max-width: 767px) { 
 
     .margin-fix .row, .margin-fix .row>* {
         margin-right:0;
