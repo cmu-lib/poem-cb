@@ -126,7 +126,7 @@ p {
 
 #browseFilter {display: none} /* comment out if you want to leave these on for testing */
 @media (max-width: 767px) {  
-#browseFilter {display: inline}
+#browseFilter {display: inline;}
 }
 
 #browseSidebar {display: inline}
@@ -178,7 +178,7 @@ p {
 }
 
 .row #browseSidebar {
-    padding:1rem 0 0 0;
+    padding: 0 0 0 0;
     font-size: 0.875rem;
 }
 
@@ -215,6 +215,23 @@ p {
 #browseSidebar ul ul li a:hover, #browseSidebar ul ul li.active-filter-val{
     background: rgb(255 255 255 / 20%);
     }
+
+.btn-active-filter {
+    --bs-btn-color: #1b65a6;
+    --bs-btn-border-color: #1b65a6;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #185b95;
+    --bs-btn-hover-border-color: #1b65a6;
+    --bs-btn-focus-shadow-rgb: 37, 134, 220;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #1b65a6;
+    --bs-btn-active-border-color: #1b65a6;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #1b65a6;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #1b65a6;
+    --bs-gradient: none;
+}
 
 .sideNavCategory{
     font-weight: bold;
@@ -436,7 +453,7 @@ table.table-gloss, table.table-gloss th, table.table-gloss td {
         padding-right: 0;
         }
 
-    .sm-margin-fix-left > h2, h3, p {
+    .sm-margin-fix-left > h2, .sm-margin-fix-left > h3, .sm-margin-fix-left > p {
         padding-left: 1rem;
         }
     }

@@ -1,22 +1,24 @@
 
 
-    <div class="tophead navbar navbar-expand-lg navbar-light primary-green">
+    <div class="tophead navbar navbar-expand-sm navbar-light primary-green">
         
             <div class="container align-items-center">
-                <div id="title" class="{% if site.organization-logo-banner %}col-md-8{% else %}col-12{% endif %}">
+                <div id="title" class="{% if site.organization-logo-banner %}col-12 col-sm-6{% else %}col-12{% endif %}">
                     <h1 class="mt-2"><a class="text-dark" href="{{ site.baseurl }}/" >{{ site.title }}</a></h1>	 
                     {% if site.tagline %}<p>{{ site.tagline }}</p>{% endif %}
                 </div>
                 {% if site.organization-logo-banner %}
-                <div class="col-md-2 d-none d-lg-inline-block">
+                <div class="col-12 col-sm-4 col-md-6 text-end">
+                <div class="col-5 col-sm-12 col-md-5 d-inline-block">
                     <a href="{{ site.organization-link }}" target="_blank" rel="noopener">
                         <img class="img-fluid" src="{{ site.organization-logo-banner | relative_url }}" title="{{ site.organization-name }}" alt="{{ site.organization-name | escape }}" >
                     </a></div>
-                <div class="col-md-2 d-none d-lg-inline-block text-end">
+                <div class="col-5 col-sm-12 col-md-5 d-inline-block">
                     <a href="https://www.imls.gov/" target="_blank" rel="noopener">
                         <img class="img-fluid" src="../assets/img/logo_imls.svg" title="Institute of Museum and Library Services" alt="IMLS home" >
                     </a></div>
                 </div>
+            </div>
                 {% endif %}
         </div>
     </div>

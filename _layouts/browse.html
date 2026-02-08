@@ -11,7 +11,7 @@ custom-foot: js/browse-js.html
 <button class="btn btn-sm btn-outline-secondary filter" onclick="resetFilter(); return false;" data-filter="">Reset all</button>
 --> 
 <div class="row mb-3 justify-content-center">
-    <div class="col-lg-2 align-items-center">
+    <div class="col align-items-center p-0 px-sm-2 mb-3">
                 
                 <div class="dropdown">
                 <button class="btn btn-secondary mt-1 dropdown-toggle" type="button" id="browseSortButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -31,7 +31,7 @@ custom-foot: js/browse-js.html
 
     </div>
 
-    <div class="col-lg-10 align-items-center text-center">
+    <div class="col-lg-9 col-sm-8 align-items-center text-center p-0 px-sm-2 px-md-0 mt-0">
         <form role="search" id="browseFilter" onsubmit="submitFilter(); return false;">
             <div class="input-group input-group-lg">
                 {% if site.data.theme.faceted-search == true %}
@@ -111,5 +111,5 @@ custom-foot: js/browse-js.html
     <div class="spinner-border text-dark" role="status"><span class="visually-hidden">{{ site.data.translations['_layouts']['browse.html']['loading'][site.lang] | default: 'Loading' }}...</span></div>
 </div>
 <div class="row">
-<div class="col-lg-2 col-md-4 secondary-green mx-sm-2 mx-0" id="browseSidebar"></div>
-<div class="col-lg-10 col-md-8 mt-4 mt-md-0 row clearspace-md" id="browseItems"></div>
+<div class="col-lg-2 col-md-3 secondary-green mx-sm-2 mx-0" id="browseSidebar"></div>
+<div class="col-lg-10 col-md-9 mt-4 mt-md-0 row clearspace-md" id="browseItems"></div>
