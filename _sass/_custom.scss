@@ -164,6 +164,14 @@ p {
     }
 }
 
+.home-main {
+    --bs-gutter-x: 0
+}
+
+.home-main .row {
+    --bs-gutter-x: 0; /* you'd think no-gutters would work, but no */
+}
+
 .btn-outline-poemblue {
     background-color: #fff;
     --bs-btn-color: #1b65a6;
@@ -199,9 +207,8 @@ a.home-tab:hover, a.home-tab:focus{
     color: #cce9e9;/* lightest */
     }
 
-.home-main {
-        --bs-gutter-x: 0
-}
+
+
 
 /* NAVIGATION */
 
