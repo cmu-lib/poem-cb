@@ -64,6 +64,79 @@ p {
 }
    
 
+/* HOME */
+
+.home-all {
+    background: #a3d7d7; 
+}
+
+.splash{
+    background: #008f91; 
+}
+
+#home-header{
+    position:relative;
+    min-height:200px;
+    height:100vh;
+    width:auto;
+}
+
+.home-logo {
+    width: 30%;
+    max-width: 200px;
+    float:right;
+
+}
+
+#home-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+      padding-right: 25%;
+    background: no-repeat left center / 100% url("/assets/img/home-background.jpg") #008f91;
+      background-origin: content-box;
+
+    mask: no-repeat left center / 100% url("/assets/img/home-background-mask.png");
+      mask-origin: content-box;
+
+      background-blend-mode: overlay;
+     }
+
+
+@media (min-width: 576px) {
+    .container#home-header {
+    max-width: none;
+    }
+}
+.svg-lt {
+    filter: brightness(0) saturate(100%) invert(100%);
+}
+
+#home-fancy-title{
+    white-space: pre;
+    font-size: 2.5em;
+    font-family: "Monoton", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #fff;
+    display:block;
+}
+
+@media (max-width: 575px) { 
+    #home-fancy-title{
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 767px) {  
+    #home-fancy-title{
+        font-size: 2em;
+    }
+}
+
 /* NAVIGATION */
 
 .nav-link {
@@ -131,9 +204,8 @@ p {
 
 #browseSidebar {display: inline}
 @media (max-width: 767px) { 
-#browseSidebar {display: none}
+#browseSidebar {display: none} /* comment out if you want to leave these on for testing */
 }
-
 
 .sidebar {
     width: inherit;

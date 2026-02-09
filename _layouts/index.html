@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" class="h-100">
+  <head prefix="og: http://ogp.me/ns#">
+    {% include head/head.html %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+  </head>
+  <body class="d-flex flex-column h-100 home-all">
+    <div id="skip-to-content"><a href="#maincontent">Skip to main content</a></div>
+
+    <section class="splash">
+      <div class="container" id="home-header">
+        <div class="row justify-content-end no-gutters">
+          <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                {% if site.organization-logo-banner %}
+                <div class="col-12 d-inline-block">
+                    <a href="{{ site.organization-link }}" target="_blank" rel="noopener">
+                        <img class="img-fluid svg-lt" src="{{ site.organization-logo-banner | relative_url }}" title="{{ site.organization-name }}" alt="{{ site.organization-name | escape }}" >
+                    </a></div>
+                <div class="col-12 d-inline-block">
+                    <a href="https://www.imls.gov/" target="_blank" rel="noopener">
+                        <img class="img-fluid svg-lt" src="../assets/img/logo_imls.svg" title="Institute of Museum and Library Services" alt="IMLS home" >
+                    </a></div>
+          </div>
+                {% endif %}
+          </div>
+      <div class="row justify-content-end no-gutters position-absolute bottom-0">
+          <div class="col-11 col-sm-10 col-md-9 col-lg-7 ml-auto" id="home-fancy-title">
+        Project on 
+        Open + Evolving 
+        Metaliteracies
+          </div>
+      </div>
+    </section>
+
+    <main id="maincontent" role="main" class="flex-shrink-0">
+      {{ content }}
+    </main>
+  </body>
+</html>
