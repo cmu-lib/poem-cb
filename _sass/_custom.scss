@@ -444,7 +444,7 @@ button.former-green:hover, button.former-green:focus{
     }
 
 
-/* ITEM PAGE */
+/* ITEM & KEYWORD PAGES */
 
 .top-section{
     margin-top:10px;
@@ -457,13 +457,23 @@ button.former-green:hover, button.former-green:focus{
     position: relative;
     }
 
-.keyword-tab p{
+.keyword-tab p, .keyword-tab h2{
     padding-left: 4rem;
     margin: 0;
     }
 
+@media (min-width: 768px) { 
+.pl-md-4em {
+    padding-left: 4em !important;
+    }
+    }
+
+.active-green h2{
+    color: #191919;
+    }
+
 @media (max-width: 767.98px) { 
-    .keyword-tab p{
+    .keyword-tab p,  .keyword-tab h2{
         text-align: right;
         padding-right: 1rem;
         margin: 0;
