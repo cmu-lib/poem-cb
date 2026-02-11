@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" class="h-100">
+  <head prefix="og: http://ogp.me/ns#">
+    {% include head/head.html %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+  </head>
+  <body class="d-flex flex-column h-100 home-all">
+    <div id="skip-to-content"><a href="#maincontent">Skip to main content</a></div>
+
+    <section class="splash">
+      <div class="container" id="home-header">
+        <div class="row justify-content-end no-gutters">
+          <div class="col-8 col-sm-4 col-md-3 col-lg-2">
+                {% if site.organization-logo-banner %}
+                <div class="col-5 col-sm-12 d-inline-block">
+                    <a href="{{ site.organization-link }}" target="_blank" rel="noopener">
+                        <img class="img-fluid svg-lt p-3" src="{{ site.organization-logo-banner | relative_url }}" title="{{ site.organization-name }}" alt="{{ site.organization-name | escape }}" >
+                    </a></div>
+                <div class="col-5 col-sm-12 d-inline-block">
+                    <a href="https://www.imls.gov/" target="_blank" rel="noopener">
+                        <img class="img-fluid svg-lt" src="../assets/img/logo_imls.svg" title="Institute of Museum and Library Services" alt="IMLS home" >
+                    </a></div>
+          </div>
+                {% endif %}
+          </div>
+      <div class="d-flex flex-row justify-content-end"  id="row-home-fancy-title">
+          <div class="mt-auto" id="home-fancy-title">
+        Project on 
+        Open + Evolving 
+        Metaliteracies
+          </div>
+      </div>
+    </section>
+
+    <main id="maincontent" role="main" class="container home-main m-0 py-5">
+      <div class="row no-gutters">
+
+      <div id="intro-snippet" class="col-12 order-last col-sm-8 order-sm-first px-5">
+      {{ content }}
+      </div>
+
+      <div id="home-nav" class="col-12 order-first col-sm-4 order-sm-last px-0 pt-0 pt-sm-5 pb-5 pb-sm-0">
+
+        <div class="px-3 px-sm-0">
+        <a href="#" class="btn btn-outline-poemblue">
+                    <svg class="bi icon-sprite" role="img" aria-label="translate">
+                    <use xlink:href="/assets/lib/icons/translate.svg"></use>
+                    </svg>
+        Español</a>
+      </div>
+
+        <a class="home-tab secondary-green" href="/keywords.html"><p>Learn about keywords</p></a>
+        <a class="home-tab secondary-green" href="/browse.html"><p>Browse all objects</p></a>
+
+      </div>
+    </div>
+    </main>
+  </body>
+</html>

@@ -63,7 +63,7 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
     const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E";
     const itemHref = `{{ '/items/' | relative_url }}${ obj.parent ? obj.parent + ".html#" + obj.id : obj.id + ".html"}`;
     
-    let card = '<div class="item col-lg-3 col-md-6 mb-4"><div class="card primary-green">';
+    let card = '<div class="item col-lg-3 col-md-6 col-sm-6 mb-4"><div class="card primary-green">';
     // Title
     card += '<div class="card-body text-center"> <h3 class="card-title h4 clippy"><a href="' + itemHref + '" class="text-dark">' + obj.title + '</a></h3>';
     // creators
@@ -84,19 +84,19 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
     //primary keyword active-green
     //these get different colors to be in the card.
     if(obj.keyword){
-        card+= '<a class="btn btn-sm browse-butt active-green" href="{{ page.url | relative_url }}#keyword:'+obj.keyword+'">';
+        card+= '<a class="btn btn-sm browse-butt active-green" href="{{ page.url | relative_url }}#keywords_list:'+obj.keyword+'">';
                 card+='<p>'+obj.keyword+'</p>'; //primary keyword
         card+= '</a>';
     }
     if(obj.keyword_2a){
         //secondary keywords former-green
-        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keyword_2a:'+obj.keyword_2a+'">';
+        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keywords_list:'+obj.keyword_2a+'">';
                 card+='<p>'+obj.keyword_2a+'</p>';
         card+= '</a>';
 
     }
     if(obj.keyword_2b){
-        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keyword_2b:'+obj.keyword_2b+'">';
+        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keywords_list:'+obj.keyword_2b+'">';
                 card+='<p>'+obj.keyword_2b+'</p>';
         card+= '</a>';
         
@@ -116,7 +116,7 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
 
     if(obj.media_type){
         //media type keyword-green
-        card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#media_type'+obj.media_type+'">';
+        card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#media_type:'+obj.media_type+'">';
                 card+='<p>'+obj.media_type+'</p>';
         card+= '</a>';
 
@@ -551,7 +551,7 @@ function updateDisplay(filteredItems, query = "", field = "", startDate = "", en
     browseItemsDiv.appendChild(fragment);
     
     // Update count
-    document.querySelector("#numberOf").innerHTML = `${filteredItems.length} of {{ items | size }} items`;
+    document.querySelector("#numberOf").innerHTML = `browsing ${filteredItems.length} of {{ items | size }} items`;
     
     // Focus active input (only if needed)
     if (query || startDate || endDate) {
@@ -714,7 +714,7 @@ function handleHashChange() {
         updateAdvancedSearchModal([{boolean: 'AND', field: field, value: query}], true);
     }
 }
-
+ 
 // =============================================================================
 // ADVANCED SEARCH MODAL
 // =============================================================================
@@ -882,7 +882,7 @@ function displayActiveFilters(searchCriteria) {
         if (!criteria.value) return;
         
         const button = document.createElement('button');
-        button.className = `btn btn-sm btn-outline-dark me-2 mb-1`;
+        button.className = `btn btn-sm btn-active-filter me-2 mb-1`;
         button.type = 'button';
         
         // Get field display name
@@ -951,6 +951,8 @@ function displayActiveFilters(searchCriteria) {
     container.appendChild(addButton);
     activeFiltersDiv.appendChild(container);
 }
+
+
 
 /**
  * Remove a specific active filter by rebuilding URL without it

@@ -1,0 +1,175 @@
+---
+# base layout for other item display_template layouts
+layout: default
+# item-meta adds rich meta markup to the page on production build
+item-meta: true
+---
+{%- assign field = site.data.theme.timeline-field | default: page.timeline-field | default: "keyword" -%}
+{% if site.data.theme.timeline-child-objects == true %}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
+{% else %}
+{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid and item.parentid == nil' -%}
+{% endif %}
+{%- assign items = items | where_exp: 'item','item[field]' | sort: field -%}
+
+<script>
+    // scroll to top of page on load
+    // window.onload = function() {
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // console.log('Copied to clipboard');
+                document.getElementById('copyCitationButt').innerText = 'Copied!';
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        }
+    // }
+</script>
+<div class="container-fluid mx-0 px-0 my-4">
+
+    <!-- {% include item/breadcrumbs.html %} 
+    <div class="my-0 h5 small">{{ page.display_template | replace: "_", " " | upcase }} {% if page.display_template == "compound_object" or page.display_template == "multiple" %}{% assign children = site.data[site.metadata] | where_exp: 'item','item.parentid == page.objectid' %} ({{ children | size }} {{ site.data.translations['_layouts']['item']['item-page-base.html']['items'][site.lang] | default: 'Items'}}){% endif %}</div> -->
+
+    <div class="row-wrap container-fluid mx-0 px-0 margin-fix">
+
+        <div class="row top-section row-nospace">
+                
+        <!-- header info.  -->
+            <div class="col-md-9 order-md-last order-first mb-4 mb-md-2 sm-margin-fix-left">
+                <div class="keyword-tab active-green">
+                    <h2>{{ page.title }} </h2></div>
+                <h3 class="notheader pl-md-4em">{{page.creators_list}}</h3>
+
+        <!-- helper buttons.  -->
+            <div class="btn-float-rt btn-group mx-3">
+                <a type="button" class="btn btn-sm btn-outline-dark small" data-bs-toggle="modal" data-bs-target="#{{ include.button | slugify }}Modal">
+                <svg class="bi icon-sprite" role="img" aria-label="reference">
+                <use xlink:href="/assets/lib/icons/chat-left-quote.svg"></use>
+                </svg>
+                    cite this object</a>
+            <!-- Modal -->
+                <div class="modal fade" id="{{ include.button | slugify }}Modal" tabindex="-1" role="dialog" aria-labelledby="{{ include.button | slugify }}ModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body small" >
+                            <p id="citationtocopy">{{page.citation}}</p>
+                            <p><center><button id="copyCitationButt" class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard(document.getElementById('citationtocopy').textContent)">
+                    <svg class="bi icon-sprite" role="img" aria-label="clipbaord">
+                    <use xlink:href="/assets/lib/icons/clipboard.svg"></use>
+                    </svg>
+                Copy Citation</button></center></p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                    <a href="#objectlist" class="smallshow btn btn-sm btn-outline-dark small">
+                    <svg class="bi icon-sprite" role="img" aria-label="all files">
+                    <use xlink:href="/assets/lib/icons/grid.svg"></use>
+                    </svg>
+                        view keyword's objects</a> 
+                    <a href="{{page.doi}}" class="btn btn-sm btn-outline-dark small">
+                    <svg class="bi icon-sprite" role="img" aria-label="all files">
+                    <use xlink:href="/assets/lib/icons/download.svg"></use>
+                    </svg>
+                        download original</a> 
+
+                                  </div>
+                    </div></div>
+                    <div class="row">
+                
+        <!-- description.  -->
+            <div class="col-md-9 px-3 mb-4 mb-md-2 sm-margin-fix-left pl-md-4em pr-md-0 ">
+
+                    <p>
+                    {{page.description}}
+                </p>
+                <p class="small"><a href="{{page.doi}}">{{page.doi}}</a>
+                    <br>content licensed <a href="{{page.license_url}}">{{page.license}}</a></p>
+                </div>
+            
+
+                    <div class="col-md-9 mb-4 mb-md-2 sm-margin-fix-left pl-md-4em container-content">
+
+        {{ content }}
+               
+        </div>
+                                        <div class="col-md-3" id="objectlist">
+
+
+
+
+        <!-- placeholder content. -->
+
+
+                        <a href="{{ '/items/' | relative_url }}{% if item.parentid %}{{ item.parentid }}.html#{{ item.objectid }}{% else %}{{ item.objectid }}.html{% endif %}" >
+                            <div class="container card primary-green keywords-cards"> 
+                                <div class="row card-body">
+                                    <div class="col-8 order-last">
+                                    <div class="card-title h6 clippy">Title {{ item.title }}</div>
+                                    <div class="card-text">Author {{ item.creators_card }}</div>
+                                    </div>
+
+                                    <div class="col">
+                                    <svg class="bi keywords-thumb text-body" fill="currentColor" aria-hidden="true">
+                                        {%- assign icon_template = item.display_template | default: item.format -%}
+                                        <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#{% if icon_template contains 'image' %}icon-image{% elsif icon_template contains 'pdf' %}icon-pdf{% elsif icon_template contains 'audio' %}icon-audio{% elsif icon_template contains 'video' %}icon-video{% elsif icon_template contains 'panorama' %}icon-panorama{% elsif icon_template contains 'compound' %}icon-compound-object{% elsif icon_template contains 'multiple' %}icon-multiple{% else %}icon-default{% endif %}"/>
+                                    </svg>
+                                </div>
+
+                                </div>
+                            </div>
+                        </a>
+                                                <a href="{{ '/items/' | relative_url }}{% if item.parentid %}{{ item.parentid }}.html#{{ item.objectid }}{% else %}{{ item.objectid }}.html{% endif %}" >
+                            <div class="container card primary-green keywords-cards"> 
+                                <div class="row card-body">
+                                    <div class="col-8 order-last">
+                                    <div class="card-title h6 clippy">Title {{ item.title }}</div>
+                                    <div class="card-text">Author {{ item.creators_card }}</div>
+                                    </div>
+
+                                    <div class="col">
+                                    <svg class="bi keywords-thumb text-body" fill="currentColor" aria-hidden="true">
+                                        {%- assign icon_template = item.display_template | default: item.format -%}
+                                        <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#{% if icon_template contains 'image' %}icon-image{% elsif icon_template contains 'pdf' %}icon-pdf{% elsif icon_template contains 'audio' %}icon-audio{% elsif icon_template contains 'video' %}icon-video{% elsif icon_template contains 'panorama' %}icon-panorama{% elsif icon_template contains 'compound' %}icon-compound-object{% elsif icon_template contains 'multiple' %}icon-multiple{% else %}icon-default{% endif %}"/>
+                                    </svg>
+                                </div>
+
+                                </div>
+                            </div>
+                        </a>
+
+                                                <a href="{{ '/items/' | relative_url }}{% if item.parentid %}{{ item.parentid }}.html#{{ item.objectid }}{% else %}{{ item.objectid }}.html{% endif %}" >
+                            <div class="container card primary-green keywords-cards"> 
+                                <div class="row card-body">
+                                    <div class="col-8 order-last">
+                                    <div class="card-title h6 clippy">Title {{ item.title }}</div>
+                                    <div class="card-text">Author {{ item.creators_card }}</div>
+                                    </div>
+
+                                    <div class="col">
+                                    <svg class="bi keywords-thumb text-body" fill="currentColor" aria-hidden="true">
+                                        {%- assign icon_template = item.display_template | default: item.format -%}
+                                        <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#{% if icon_template contains 'image' %}icon-image{% elsif icon_template contains 'pdf' %}icon-pdf{% elsif icon_template contains 'audio' %}icon-audio{% elsif icon_template contains 'video' %}icon-video{% elsif icon_template contains 'panorama' %}icon-panorama{% elsif icon_template contains 'compound' %}icon-compound-object{% elsif icon_template contains 'multiple' %}icon-multiple{% else %}icon-default{% endif %}"/>
+                                    </svg>
+                                </div>
+
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+
+        </div>            <!-- end of row. -->
+
+
+    
+    </div>            <!-- end of content container. -->
+        
+
+    {%- if site.data.theme.browse-buttons == true -%}
+        {% include item/browse-buttons.html %}
+    {%- endif -%}
+</div>

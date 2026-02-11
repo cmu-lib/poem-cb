@@ -1,5 +1,6 @@
 field,display_name,btn,hidden,sort_name
 creators_card,Creators Short,,false,
+authors,,,true,
 keyword,Keyword,,false,
 keyword_2a,Secondary Keyword,,false,
 keyword_2b,Tertiary Keyword,,false,
