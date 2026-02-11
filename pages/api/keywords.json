@@ -1,0 +1,5 @@
+---
+layout: null
+permalink: /api/keywords.json
+---
+{{ site.data['poem-keywords'] | jsonify }}

@@ -1,0 +1,186 @@
+---
+# generic page layout
+layout: default
+---
+
+{%- assign field = site.data.theme.timeline-field | default: page.timeline-field | default: "keyword" -%}
+{% if site.data.theme.timeline-child-objects == true %}
+{%- assign items = site.data[site.kw_metadata] | where_exp: 'item','item.objectid' -%}
+<script>
+    // console.log({{ items | jsonify }});
+    // var params = new URLSearchParams(window.location.search);
+    // kw_to_use = params.get("k");
+    
+</script>
+<script>
+  (function(){ // onload
+    //function for escaping HTML
+    function escapeHtml(s){ return String(s||'').replace(/[&<>\"']/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];}); }
+    // on DOM ready
+    document.addEventListener('DOMContentLoaded', function() {
+
+      //get last part of URL path 
+      var path = window.location.pathname;
+      var parts = path.split('/');
+      var k = parts.pop() || parts.pop(); // handle potential trailing slash
+
+      const container = document.getElementById('keyword-content');
+      // if this container does not exist`
+      if (!container) return;
+      if (!k) { container.innerHTML = ''; return; }
+//////////////////////////////////      
+
+
+fetch('/api/related-kws.json')
+        .then(function(res){ return res.json(); })
+        .then(function(data){
+          var found = data.find(function(e){ return e.title && e.title.toString().toLowerCase() === k.toString().replace("+", ' ').toLowerCase(); });
+          console.log(found);
+          console.log("fwoeijfoweijfeow");
+          if (!found) {
+            container.innerHTML = '<p class="text-warning">No keyword found for "'+escapeHtml(k)+'"</p>';
+            return;
+          }
+        });
+        // .catch(function(err){ console.error(err); container.innerHTML = '<p class="text-danger">Error loading keyword data.</p>'; });
+      // });
+    
+
+      var the_data = "";
+      fetch('/api/keywords.json')
+        .then(function(res){ return res.json(); })
+        .then(function(data){
+          var found = data.find(function(e){ return e.title && e.title.toString().toLowerCase() === k.toString().replace("+", ' ').toLowerCase(); });
+          if (!found) {
+            container.innerHTML = '<p class="text-warning">No keyword found for "'+escapeHtml(k)+'"</p>';
+            return;
+          }
+          console.log(found);
+          // alternateIdentifier: null
+          // article_id: null
+          // authors: "Zhang, Qianjin Marina"
+          // categories: "Information And Computing Sciences: Data Structures"
+          // citation: 'Zhang, Qianjin Marina. "Prompting." 2026. . Indexed in the Project on Open and Evolving Metaliteracies, Carnegie Mellon University Libraries. DOI: https://www.doi.org/000000/00000000. CC BY.'
+          // creator01_affiliation: "University of Iowa"
+          // creator01_display: 'Qianjin Marina Zhang (University of Iowa) <a href="https://orcid.org/0000-0003-0738-9357" target="_blank"><img src="../assets/img/logo_orcid.svg" alt="orcid logo"></a>'
+          // creator01_name_first: "Qianjin Marina"
+          // creator01_name_last: "Zhang"
+          // creator01_orcid: "0000-0003-0738-9357"
+          // creator02_affiliation: null
+          // creator02_display: null
+          // creator02_name_first: null
+          // creator02_name_last: null
+          // creator02_orcid: null
+          // creator03_affiliation: null
+          // creator03_display: null
+          // creator03_name_first: null
+          // creator03_name_last: null
+          // creator03_orcid: null
+          // creators_card: "Zhang"
+          // creators_list: 'Qianjin Marina Zhang (University of Iowa) <a href="https://orcid.org/0000-0003-0738-9357" target="_blank"><img src="../assets/img/logo_orcid.svg" alt="orcid logo"></a>'
+          // date: "2026-01-01"
+          // description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sollicitudin, lorem consequat ultricies iaculis, enim ante ultricies tellus, tempus sodales lorem augue lacinia mi. Donec lectus magna, aliquam vel aliquet quis, tristique a nunc. Aliquam facilisis, nunc viverra porttitor eleifend, lectus massa sagittis purus, ac pretium sem mauris a ex. Vestibulum vel venenatis mi, nec tempus ante. Praesent et porta ex. Morbi pellentesque malesuada lacinia. Donec sollicitudin ex at porta consequat. Nam tempor congue quam quis tempus. Vivamus porttitor tortor eget dignissim consectetur. Aenean vulputate tincidunt purus."
+          // display_template: "keyword"
+          // doi: "https://www.doi.org/000000/00000000"
+          // keywords: "prompting"
+          // language: "English"
+          // license: "CC BY"
+          // license_url: "https://creativecommons.org/licenses/by/4.0/"
+          // object_locatio: "/objects/kw-prompting.md"
+          // objectid: "kw-prompting"
+          // title: "Prompting Something"
+          // can build it here. but i'd rather pass it to a var and build it outside.
+          // title_html = "<h2>"+escapeHtml(found.title)+"</h2>";
+          // author_html = "<p class='text-muted'>"+found.creators_list+"</p>";
+          // description_html = found.description ? "<div class='keyword-description my-3'>"+found.description+"</div>" : "";
+          // categories_html = found.categories ? "<div class='keyword-categories my-2'><strong>Categories:</strong> "+escapeHtml(found.categories)+"</div>" : "";
+          // keywords_html = found.keywords ? "<div class='keyword-tags my-2'><strong>Keywords:</strong> "+escapeHtml(found.keywords)+"</div>" : "";
+          // citation_html = found.citation ? "<div class='keyword-citation my-3'><strong>Citation:</strong><blockquote class='small'>"+escapeHtml(found.citation)+"</blockquote></div>" :
+          var html = '<div class="keyword-entry">';
+          html += '<h3>'+escapeHtml(found.title)+'</h3>';
+          if (found.creators_list) html += '<p class="text-muted">'+found.creators_list+'</p>';
+          if (found.description) html += '<div class="keyword-description my-3">'+found.description+'</div>';
+          if (found.categories) html += '<div class="keyword-categories my-2"><strong>Categories:</strong> '+escapeHtml(found.categories)+'</div>';
+          if (found.keywords) html += '<div class="keyword-tags my-2"><strong>Keywords:</strong> '+escapeHtml(found.keywords)+'</div>';
+          if (found.citation) html += '<div class="keyword-citation my-3"><strong>Citation:</strong><blockquote class="small">'+escapeHtml(found.citation)+'</blockquote></div>';
+          html += '</div>';
+
+          container.innerHTML = html;
+
+          // Now fetch related items (poems) that have this keyword
+          const relatedContainer = document.getElementById('related-items-content');
+          if (relatedContainer) {
+            fetch('/api/related-kws.json')
+              .then(function(res){ return res.json(); })
+              .then(function(data){
+                // Filter poems that have this keyword
+                var related = data.filter(function(item){
+                  return item.keyword && item.keyword.toString().toLowerCase().includes(found.title.toString().toLowerCase());
+                });
+                
+                if (!related || related.length === 0) {
+                  relatedContainer.innerHTML = '<p class="text-muted">No items found with this keyword.</p>';
+                  return;
+                }
+
+                var html = '<div class="related-items-list">';
+                html += '<h4>Items with this keyword (' + related.length + ')</h4>';
+                html += '<ul class="list-unstyled">';
+                
+                related.forEach(function(item){
+                  var itemLink = item.objectid ? '/items/' + item.objectid + '.html' : '#';
+                  var itemTitle = escapeHtml(item.title || 'Untitled');
+                  html += '<li class="related-item mb-2"><a href="' + itemLink + '">' + itemTitle + '</a>';
+                  if (item.date) html += '<br><small class="text-muted">' + escapeHtml(item.date) + '</small>';
+                  html += '</li>';
+                });
+                
+                html += '</ul></div>';
+                relatedContainer.innerHTML = html;
+              })
+              .catch(function(err){ 
+                console.error(err); 
+                relatedContainer.innerHTML = '<p class="text-danger">Error loading related items.</p>'; 
+              });
+          }
+        })
+        .catch(function(err){ console.error(err); container.innerHTML = '<p class="text-danger">Error loading keyword data.</p>'; });
+    });
+  })();
+</script>
+{% else %}
+{%- assign items = site.data[site.kw_metadata] | where_exp: 'item','item.objectid and item.parentid == nil' -%}
+{% endif %}
+
+<!-- container. -->
+<div class="container-fluid mx-0 px-0 my-4">
+<!-- wrap bb -->
+    <div class="row-wrap container-fluid mx-0 px-0 margin-fix">
+
+        <div class="row">
+            <!-- keyword title, editor name and orcid, and text -->
+          <div class="col-md-8 order-md-first order-last" style="background-color: red;">
+            <div class="col-md-2 top-cats-kw">
+
+            </div>
+          </div>
+            <!-- items related to this ol' keyword -->
+          <div class="col-md-4 order-md-first order-last" style="background-color: blue;">
+            OODADS
+          </div>
+        </div>
+    </div>
+</div>
+
+
+{{ content }}
+<!-- the content above can be edited in the .md file. -->
+
+<div id="keyword-content">
+  <p>Loading keyword data...</p>
+</div>
+
+<!-- related items list -->
+<div id="related-items-content">
+  <p>Loading related items...</p>
+</div>
