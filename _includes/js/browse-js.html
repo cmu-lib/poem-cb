@@ -932,7 +932,17 @@ function displayActiveFilters(searchCriteria) {
         
         container.appendChild(button);
     });
+    // Reset all filter button
     
+    const resetButton = document.createElement('button');
+    resetButton.type = 'button';
+    resetButton.className = 'btn btn-sm btn-outline-secondary filter';
+    resetButton.textContent = 'Reset all';
+    resetButton.addEventListener('click', () => {
+        resetFilter();
+    });
+    container.appendChild(resetButton);
+
     // Add "Add Field" button
     const addButton = document.createElement('button');
     addButton.type = 'button';
