@@ -4,27 +4,182 @@ layout: default
 # item-meta adds rich meta markup to the page on production build
 item-meta: true
 ---
+
 {%- assign field = site.data.theme.timeline-field | default: page.timeline-field | default: "keyword" -%}
 {% if site.data.theme.timeline-child-objects == true %}
-{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
-{% else %}
-{%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid and item.parentid == nil' -%}
-{% endif %}
-{%- assign items = items | where_exp: 'item','item[field]' | sort: field -%}
-
+{%- assign items = site.data[site.kw_metadata] | where_exp: 'item','item.objectid' -%}
 <script>
-    // scroll to top of page on load
-    // window.onload = function() {
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                // console.log('Copied to clipboard');
-                document.getElementById('copyCitationButt').innerText = 'Copied!';
-            }).catch(err => {
-                console.error('Failed to copy:', err);
-            });
-        }
-    // }
+    // console.log({{ items | jsonify }});
+    // var params = new URLSearchParams(window.location.search);
+    // kw_to_use = params.get("k");
+    
 </script>
+<script>
+  (function(){ // onload
+    //function for escaping HTML
+    function escapeHtml(s){ return String(s||'').replace(/[&<>\"']/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];}); }
+    // on DOM ready
+     function copyToClipboard(text) {
+          navigator.clipboard.writeText(text).then(() => {
+              // console.log('Copied to clipboard');
+              document.getElementById('copyCitationButt').innerText = 'Copied!';
+          }).catch(err => {
+              console.error('Failed to copy:', err);
+          });
+      }
+    document.addEventListener('DOMContentLoaded', function() {
+
+      //get last part of URL path 
+      var path = window.location.pathname;
+      var parts = path.split('/');
+      var k = parts.pop() || parts.pop(); // handle potential trailing slash
+
+      const container = document.getElementById('keyword-content');
+      // if this container does not exist`
+      // if (!container) return;
+      // if (!k) { container.innerHTML = ''; return; }
+//////////////////////////////////      
+
+
+        // .catch(function(err){ console.error(err); container.innerHTML = '<p class="text-danger">Error loading keyword data.</p>'; });
+      // });
+    
+
+      var the_data = "";
+      fetch('/api/keywords.json')
+        .then(function(res){ return res.json(); })
+        .then(function(data){
+          var keyword = data.find(function(e){ return e.title && e.title.toString().toLowerCase() === k.toString().replace("+", ' ').toLowerCase(); });
+          if (!keyword) {
+            container.innerHTML = '<p class="text-warning">No keyword keyword for "'+escapeHtml(k)+'"</p>';
+            return;
+          }
+          console.log(keyword);
+          // alternateIdentifier: null
+          // article_id: null
+          // authors: "Zhang, Qianjin Marina"
+          // categories: "Information And Computing Sciences: Data Structures"
+          // citation: 'Zhang, Qianjin Marina. "Prompting." 2026. . Indexed in the Project on Open and Evolving Metaliteracies, Carnegie Mellon University Libraries. DOI: https://www.doi.org/000000/00000000. CC BY.'
+          // creator01_affiliation: "University of Iowa"
+          // creator01_display: 'Qianjin Marina Zhang (University of Iowa) <a href="https://orcid.org/0000-0003-0738-9357" target="_blank"><img src="../assets/img/logo_orcid.svg" alt="orcid logo"></a>'
+          // creator01_name_first: "Qianjin Marina"
+          // creator01_name_last: "Zhang"
+          // creator01_orcid: "0000-0003-0738-9357"
+          // creator02_affiliation: null
+          // creator02_display: null
+          // creator02_name_first: null
+          // creator02_name_last: null
+          // creator02_orcid: null
+          // creator03_affiliation: null
+          // creator03_display: null
+          // creator03_name_first: null
+          // creator03_name_last: null
+          // creator03_orcid: null
+          // creators_card: "Zhang"
+          // creators_list: 'Qianjin Marina Zhang (University of Iowa) <a href="https://orcid.org/0000-0003-0738-9357" target="_blank"><img src="../assets/img/logo_orcid.svg" alt="orcid logo"></a>'
+          // date: "2026-01-01"
+          // description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sollicitudin, lorem consequat ultricies iaculis, enim ante ultricies tellus, tempus sodales lorem augue lacinia mi. Donec lectus magna, aliquam vel aliquet quis, tristique a nunc. Aliquam facilisis, nunc viverra porttitor eleifend, lectus massa sagittis purus, ac pretium sem mauris a ex. Vestibulum vel venenatis mi, nec tempus ante. Praesent et porta ex. Morbi pellentesque malesuada lacinia. Donec sollicitudin ex at porta consequat. Nam tempor congue quam quis tempus. Vivamus porttitor tortor eget dignissim consectetur. Aenean vulputate tincidunt purus."
+          // display_template: "keyword"
+          // doi: "https://www.doi.org/000000/00000000"
+          // keywords: "prompting"
+          // language: "English"
+          // license: "CC BY"
+          // license_url: "https://creativecommons.org/licenses/by/4.0/"
+          // object_locatio: "/objects/kw-prompting.md"
+          // objectid: "kw-prompting"
+          // title: "Prompting Something"
+          // can build it here. but i'd rather pass it to a var and build it outside.
+          // title_html = "<h2>"+escapeHtml(keyword.title)+"</h2>";
+          // author_html = "<p class='text-muted'>"+keyword.creators_list+"</p>";
+          // description_html = keyword.description ? "<div class='keyword-description my-3'>"+keyword.description+"</div>" : "";
+          // categories_html = keyword.categories ? "<div class='keyword-categories my-2'><strong>Categories:</strong> "+escapeHtml(keyword.categories)+"</div>" : "";
+          // keywords_html = keyword.keywords ? "<div class='keyword-tags my-2'><strong>Keywords:</strong> "+escapeHtml(keyword.keywords)+"</div>" : "";
+          // citation_html = keyword.citation ? "<div class='keyword-citation my-3'><strong>Citation:</strong><blockquote class='small'>"+escapeHtml(keyword.citation)+"</blockquote></div>" :
+          
+          document.getElementsByClassName('keyword-tab')[0].innerHTML = "<h2>"+escapeHtml(keyword.title)+"</h2>";
+          document.getElementById('creators-list').innerHTML = keyword.creators_list ? "<h3 class='notheader pl-md-4em'>"+keyword.creators_list+"</h3>" : "";
+          document.getElementById('citationtocopy').textContent = keyword.citation ? keyword.citation : "";
+          document.getElementById('keyword-desc').innerHTML = keyword.description ? keyword.description : "";
+          doi_links = document.getElementsByClassName('doi-link');
+          for (var i=0; i<doi_links.length; i++) {
+            doi_links[i].href = keyword.doi ? keyword.doi : "#";
+          }
+          document.getElementById('license-link').innerHTML = keyword.license ? keyword.license : "";
+          document.getElementById('license-link').href = keyword.license_url ? keyword.license_url : "#";
+
+
+          // Now fetch related items (poems) that have this keyword
+          const relatedContainer = document.getElementById('objectlist');
+          if (relatedContainer) {
+            fetch('/api/related-kws.json')
+              .then(function(res){ return res.json(); })
+              .then(function(data){
+                // Filter poems that have this keyword
+                var related = data.filter(function(item){
+                  return item.keyword && item.keyword.toString().toLowerCase().includes(keyword.title.toString().toLowerCase());
+                });
+                
+                if (!related || related.length === 0) {
+                  relatedContainer.innerHTML = '<p class="text-muted">No items found with this keyword.</p>';
+                  return;
+                }
+                var html="";
+                related.forEach(function(item){
+                  var itemLink = item.objectid ? '/items/' + item.objectid + '.html' : '#';
+                  var itemTitle = escapeHtml(item.title || 'Untitled');
+                  // html += '<li class="related-item mb-2"><a href="' + itemLink + '">' + itemTitle + '</a>';
+                  // if (item.date) html += '<br><small class="text-muted">' + escapeHtml(item.date) + '</small>';
+                  // html += '</li>';
+                
+                   html += '<a href="' + itemLink + '" >';
+                      html += '<div class="container card primary-green keywords-cards"> ';
+                        html += '<div class="row card-body">';
+                        html += '<div class="col-8 order-last">';
+                          html += '<div class="card-title h6 clippy">' + itemTitle + '</div>';
+                            html += '<div class="card-text">' + escapeHtml(item.creators_card || 'Unknown') + '</div>';
+
+                                  html += '<div class="col">';
+                                      html += '<svg class="bi keywords-thumb text-body" fill="currentColor" aria-hidden="true">';
+                                          html += '<use xlink:href="{{ "/assets/css/cb-icons.svg" | relative_url }}#{% if item.display_template contains "image" %}icon-image{% elsif item.display_template contains "pdf" %}icon-pdf{% elsif item.display_template contains "audio" %}icon-audio{% elsif item.display_template contains "video" %}icon-video{% elsif item.display_template contains "panorama" %}icon-panorama{% elsif item.display_template contains "compound" %}icon-compound-object{% elsif item.display_template contains "multiple" %}icon-multiple{% else %}icon-default{% endif %}"/>';
+                                      html += '</svg>';
+                                  html += '</div>';
+
+                                  html += '</div>';
+                            html+=  '</div>';
+                          html += '</a>';
+
+                  });
+                  // document.getElementById('objectlist').innerHTML = html;
+                // var html = '<div class="related-items-list">';
+                // html += '<h4>Items with this keyword (' + related.length + ')</h4>';
+                // html += '<ul class="list-unstyled">';
+                
+                // related.forEach(function(item){
+                //   var itemLink = item.objectid ? '/items/' + item.objectid + '.html' : '#';
+                //   var itemTitle = escapeHtml(item.title || 'Untitled');
+                //   html += '<li class="related-item mb-2"><a href="' + itemLink + '">' + itemTitle + '</a>';
+                //   if (item.date) html += '<br><small class="text-muted">' + escapeHtml(item.date) + '</small>';
+                //   html += '</li>';
+                // });
+                
+                // html += '</ul></div>';
+                relatedContainer.innerHTML = html;
+              })
+              .catch(function(err){ 
+                console.error(err); 
+                relatedContainer.innerHTML = '<p class="text-danger">Error loading related items.</p>'; 
+              });
+          }
+        })
+        .catch(function(err){ console.error(err); container.innerHTML = '<p class="text-danger">Error loading keyword data.</p>'; });
+    });
+  })();
+</script>
+{% else %}
+{%- assign items = site.data[site.kw_metadata] | where_exp: 'item','item.objectid and item.parentid == nil' -%}
+{% endif %}
+
+
 <div class="container-fluid mx-0 px-0 my-4">
 
     <!-- {% include item/breadcrumbs.html %} 
@@ -37,8 +192,9 @@ item-meta: true
         <!-- header info.  -->
             <div class="col-md-9 order-md-last order-first mb-4 mb-md-2 sm-margin-fix-left">
                 <div class="keyword-tab active-green">
-                    <h2>{{ page.title }} </h2></div>
-                <h3 class="notheader pl-md-4em">{{page.creators_list}}</h3>
+                    <h2>{{ page.title }} </h2>
+                </div>
+                <h3 id="creators-list" class="notheader pl-md-4em">{{page.creators_list}}</h3>
 
         <!-- helper buttons.  -->
             <div class="btn-float-rt btn-group mx-3">
@@ -70,30 +226,30 @@ item-meta: true
                     <use xlink:href="/assets/lib/icons/grid.svg"></use>
                     </svg>
                         view keyword's objects</a> 
-                    <a href="{{page.doi}}" class="btn btn-sm btn-outline-dark small">
+                    <a class="doi-link" href="{{page.doi}}" class="btn btn-sm btn-outline-dark small">
                     <svg class="bi icon-sprite" role="img" aria-label="all files">
                     <use xlink:href="/assets/lib/icons/download.svg"></use>
                     </svg>
                         download original</a> 
 
                                   </div>
-                    </div></div>
+                    </div>
+                  </div>
                     <div class="row">
                 
         <!-- description.  -->
             <div class="col-md-9 px-3 mb-4 mb-md-2 sm-margin-fix-left pl-md-4em pr-md-0 ">
 
-                    <p>
-                    {{page.description}}
-                </p>
-                <p class="small"><a href="{{page.doi}}">{{page.doi}}</a>
-                    <br>content licensed <a href="{{page.license_url}}">{{page.license}}</a></p>
+              <div id="keyword-desc">{{page.description}}</div>
+                <p class="small">
+                  <a class="doi-link" href="{{page.doi}}">{{page.doi}}</a>
+                    <br>content licensed <a id="license-link" href="{{page.license_url}}">{{page.license}}</a></p>
                 </div>
             
 
                     <div class="col-md-9 mb-4 mb-md-2 sm-margin-fix-left pl-md-4em container-content">
 
-        {{ content }}
+                    {{ content }}
                
         </div>
                                         <div class="col-md-3" id="objectlist">
@@ -104,24 +260,7 @@ item-meta: true
         <!-- placeholder content. -->
 
 
-                        <a href="{{ '/items/' | relative_url }}{% if item.parentid %}{{ item.parentid }}.html#{{ item.objectid }}{% else %}{{ item.objectid }}.html{% endif %}" >
-                            <div class="container card primary-green keywords-cards"> 
-                                <div class="row card-body">
-                                    <div class="col-8 order-last">
-                                    <div class="card-title h6 clippy">Title {{ item.title }}</div>
-                                    <div class="card-text">Author {{ item.creators_card }}</div>
-                                    </div>
-
-                                    <div class="col">
-                                    <svg class="bi keywords-thumb text-body" fill="currentColor" aria-hidden="true">
-                                        {%- assign icon_template = item.display_template | default: item.format -%}
-                                        <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#{% if icon_template contains 'image' %}icon-image{% elsif icon_template contains 'pdf' %}icon-pdf{% elsif icon_template contains 'audio' %}icon-audio{% elsif icon_template contains 'video' %}icon-video{% elsif icon_template contains 'panorama' %}icon-panorama{% elsif icon_template contains 'compound' %}icon-compound-object{% elsif icon_template contains 'multiple' %}icon-multiple{% else %}icon-default{% endif %}"/>
-                                    </svg>
-                                </div>
-
-                                </div>
-                            </div>
-                        </a>
+                        
                                                 <a href="{{ '/items/' | relative_url }}{% if item.parentid %}{{ item.parentid }}.html#{{ item.objectid }}{% else %}{{ item.objectid }}.html{% endif %}" >
                             <div class="container card primary-green keywords-cards"> 
                                 <div class="row card-body">
