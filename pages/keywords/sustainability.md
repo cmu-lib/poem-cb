@@ -1,7 +1,7 @@
 ---
-title: Keyword
+title: Sustainability
 layout: keyword
-permalink: /keywordtest.html
+permalink: /keywords/sustainability.html
 creators_list: Example Name
 citation: blahblahblah
 doi: numbernumber
@@ -17,7 +17,9 @@ Nunc sollicitudin metus arcu, at accumsan ipsum egestas ac. Suspendisse mi nulla
 
 [^otherauthoryear]: This says something else. 
 
-Nunc quis sagittis enim, ullamcorper dictum lectus. Nullam eleifend auctor tortor vel finibus. Nullam elementum velit felis, at pretium dui pharetra iaculis. Vivamus felis nibh, auctor volutpat eros quis, suscipit commodo sem. Ut non diam tincidunt, tempor sem et, bibendum quam. Cras vitae tellus eu sapien pellentesque imperdiet. Phasellus non rhoncus mi, id dictum nisi. Morbi gravida erat in orci condimentum gravida.
+Nunc quis sagittis enim, ullamcorper dictum lectus. Nullam eleifend auctor tortor vel finibus. Nullam elementum velit felis, at pretium dui pharetra iaculis. Vivamus felis nibh, auctor volutpat eros quis, suscipit commodo sem. Ut non diam tincidunt, tempor sem et, bibendum quam. Cras vitae tellus eu sapien pellentesque imperdiet.[^A] Phasellus non rhoncus mi, id dictum nisi. Morbi gravida erat in orci condimentum gravida.
+
+[^A]: This is a really long footnote that wraps multiple lines. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum ornare libero eu lacinia. Nulla vehicula auctor dui nec faucibus. Sed nec justo accumsan, egestas dolor vel, dignissim arcu. Quisque tempor quis ligula ut imperdiet. Maecenas lobortis est eget congue laoreet. Etiam tempus non purus vitae suscipit. 
 
 Ut efficitur vel ligula ut tincidunt. Nam facilisis massa sed augue dapibus, quis fermentum justo malesuada. Nulla facilisi. Nulla finibus fermentum metus, in rutrum tellus dignissim eget. Sed accumsan ipsum gravida turpis dignissim, et tristique mi dictum. Donec mollis fringilla vehicula. Nunc efficitur nulla eu rutrum commodo. Suspendisse non tellus semper, placerat mauris at, consequat diam. Aenean non mi id dolor hendrerit fermentum. Curabitur volutpat faucibus ultrices. Nunc tempus ullamcorper nulla, et blandit dui hendrerit in. Sed rutrum pulvinar ultricies. Nulla risus velit, malesuada vel suscipit ac, euismod vitae diam.
 

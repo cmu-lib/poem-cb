@@ -2,6 +2,10 @@ h1 {
     font-weight: 700;  
     }
 
+.h2.dupeheader {
+    font-size: calc(1.325rem + .9vw);
+}
+
 h3.notheader, h4.notheader {
     font-size: var(--bs-body-font-size);
     }
@@ -610,11 +614,28 @@ table.table-gloss, table.table-gloss th, table.table-gloss td {
 
     .sm-margin-fix-left > h2, .sm-margin-fix-left > h3, .sm-margin-fix-left > p {
         padding-left: 1rem;
+        padding-right: 1rem;
         }
     }
 
 .btn-float-rt {
     float:right;
+    }
+
+
+/* KEYWORDS ESSAYS */
+
+.footnotes {
+    margin-top: 2rem;
+    border-top: .25rem solid #a3d7d7;
+    padding-top: 2rem; 
+    font-size: .875em;
+    }
+
+@media (min-width: 768px) {
+    .footnotes {
+        padding-left: 2rem;
+        }
     }
 
 
