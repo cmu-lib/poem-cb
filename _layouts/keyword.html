@@ -116,6 +116,7 @@ item-meta: true
             fetch('/api/related-kws.json')
               .then(function(res){ return res.json(); })
               .then(function(data){
+              
                 // Filter poems that have this keyword
                 var related = data.filter(function(item){
                   return item.keyword && item.keyword.toString().toLowerCase().includes(keyword.title.toString().toLowerCase());
@@ -126,6 +127,7 @@ item-meta: true
                   return;
                 }
                 var html="";
+                relatedContainer.style.display = 'block';// show the container if there are related items
                 related.forEach(function(item){
                   var itemLink = item.objectid ? '/items/' + item.objectid + '.html' : '#';
                   var itemTitle = escapeHtml(item.title || 'Untitled');
@@ -246,27 +248,25 @@ item-meta: true
             <div class="col-md-9 px-3 mb-4 mb-md-2 sm-margin-fix-left pl-md-4em pr-md-0 ">
 
               <div id="keyword-desc">{{page.description}}</div>
-                <p class="small">
-                  <a class="doi-link" href="{{page.doi}}">{{page.doi}}</a>
-                    <br>content licensed <a id="license-link" href="{{page.license_url}}">{{page.license}}</a></p>
-                </div>
-            
+              <p class="small">
+                <a class="doi-link" href="{{page.doi}}">{{page.doi}}</a>
+                  <br>content licensed <a id="license-link" href="{{page.license_url}}">{{page.license}}</a>
+              </p>
+            </div>
+             <div class="smallshow col-md-3 mt-5 mb-2" id="objectlist">
+                <div class="keyword-tab keyword-green">
+                <p class="h2 dupeheader">{{ page.title }} Objects</p></div>
+            </div>
 
-                    <div class="col-md-9 mb-4 mb-md-2 sm-margin-fix-left pl-md-4em container-content">
+            <div class="col-md-9 mb-4 mb-md-2 sm-margin-fix-left pl-md-4em container-content">
 
-                    {{ content }}
-               
-        </div>
+            {{ content }}
+        
+            </div>
 
-                        <div class="smallshow mt-5 mb-2" id="objectlist">
-                            <div class="keyword-tab keyword-green">
-                            <p class="h2 dupeheader">{{ page.title }} Objects</p></div>
-                        </div>
+           
 
-                                        <div class="col-md-3">
-
-
-        </div>            <!-- end of row. -->
+          </div>
 
 
     

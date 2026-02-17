@@ -1,7 +1,7 @@
 ---
 title: Sustainability
 layout: keyword
-permalink: /keywords/sustainability.html
+permalink: /keyword/sustainability
 creators_list: Example Name
 citation: blahblahblah
 doi: numbernumber
