@@ -84,19 +84,19 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
     //primary keyword active-green
     //these get different colors to be in the card.
     if(obj.keyword){
-        card+= '<a class="btn btn-sm browse-butt active-green" href="{{ page.url | relative_url }}#keywords_list:'+obj.keyword+'">';
+        card+= '<a class="btn btn-sm browse-butt active-green" href="{{ page.url | relative_url }}?b0=AND&f0=keywords_list&v0='+obj.keyword+'">';
                 card+='<p>'+obj.keyword+'</p>'; //primary keyword
         card+= '</a>';
     }
     if(obj.keyword_2a){
         //secondary keywords former-green
-        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keywords_list:'+obj.keyword_2a+'">';
+        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}?b0=AND&f0=keywords_list&v0='+obj.keyword_2a+'">';
                 card+='<p>'+obj.keyword_2a+'</p>';
         card+= '</a>';
 
     }
     if(obj.keyword_2b){
-        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}#keywords_list:'+obj.keyword_2b+'">';
+        card+= '<a class="btn btn-sm browse-butt former-green" href="{{ page.url | relative_url }}?b0=AND&f0=keywords_list&v0='+obj.keyword_2b+'">';
                 card+='<p>'+obj.keyword_2b+'</p>';
         card+= '</a>';
         
@@ -116,7 +116,7 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
 
     if(obj.media_type){
         //media type keyword-green
-        card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#media_type:'+obj.media_type+'">';
+        card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}?b0=AND&f0=media_type&v0='+obj.media_type+'">';
                 card+='<p>'+obj.media_type+'</p>';
         card+= '</a>';
 
@@ -126,7 +126,7 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
     }
     if(obj.time_required){
         //time_required keyword-green
-        card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#time_required:'+obj.time_required+'">';
+        card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}?b0=AND&f0=time_required&v0='+obj.time_required+'">';
                 card+='<p>'+obj.time_required+'</p>';
         card+= '</a>';
 
@@ -137,7 +137,7 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
     }
     if(obj.audience){
     //audience keyword-green
-    card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}#audience:'+obj.audience+'">';
+    card+= '<a class="btn btn-sm browse-butt keyword-green" href="{{ page.url | relative_url }}?b0=AND&f0=audience&v0='+obj.audience+'">';
             card+='<p>'+obj.audience+'</p>';
     card+= '</a>';
 
@@ -932,7 +932,17 @@ function displayActiveFilters(searchCriteria) {
         
         container.appendChild(button);
     });
+    // Reset all filter button
     
+    const resetButton = document.createElement('button');
+    resetButton.type = 'button';
+    resetButton.className = 'btn btn-outline-secondary btn-sm me-2 mb-1 filter';
+    resetButton.textContent = 'Reset All';
+    resetButton.addEventListener('click', () => {
+        resetFilter();
+    });
+    container.appendChild(resetButton);
+
     // Add "Add Field" button
     const addButton = document.createElement('button');
     addButton.type = 'button';
