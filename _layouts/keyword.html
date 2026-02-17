@@ -135,22 +135,20 @@ item-meta: true
                   // if (item.date) html += '<br><small class="text-muted">' + escapeHtml(item.date) + '</small>';
                   // html += '</li>';
                 
-                   html += '<a href="' + itemLink + '" >';
+                   html += '<div class="related-item"><a href="' + itemLink + '" >';
                       html += '<div class="container card primary-green keywords-cards"> ';
                         html += '<div class="row card-body">';
-                        html += '<div class="col-8 order-last">';
-                          html += '<div class="card-title h6 clippy">' + itemTitle + '</div>';
-                            html += '<div class="card-text">' + escapeHtml(item.creators_card || 'Unknown') + '</div>';
-
-                                  html += '<div class="col">';
+                          html += '<div class="col">';
                                       html += '<svg class="bi keywords-thumb text-body" fill="currentColor" aria-hidden="true">';
                                           html += '<use xlink:href="{{ "/assets/css/cb-icons.svg" | relative_url }}#{% if item.display_template contains "image" %}icon-image{% elsif item.display_template contains "pdf" %}icon-pdf{% elsif item.display_template contains "audio" %}icon-audio{% elsif item.display_template contains "video" %}icon-video{% elsif item.display_template contains "panorama" %}icon-panorama{% elsif item.display_template contains "compound" %}icon-compound-object{% elsif item.display_template contains "multiple" %}icon-multiple{% else %}icon-default{% endif %}"/>';
                                       html += '</svg>';
                                   html += '</div>';
-
-                                  html += '</div>';
+                        html += '<div class="col-8 order-last">';
+                          html += '<div class="card-title h6 clippy">' + itemTitle + '</div>';
+                            html += '<div class="card-text">' + escapeHtml(item.creators_card || 'Unknown') + '</div>';
+                          html += '</div>';
                             html+=  '</div>';
-                          html += '</a>';
+                          html += '</a></div>';
 
                   });
                   // document.getElementById('objectlist').innerHTML = html;
