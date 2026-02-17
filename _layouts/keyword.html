@@ -139,10 +139,10 @@ item-meta: true
                       html += '<div class="container card primary-green keywords-cards"> ';
                         html += '<div class="row card-body">';
                           html += '<div class="col">';
-                                      html += '<svg class="bi keywords-thumb text-body" fill="currentColor" aria-hidden="true">';
-                                          html += '<use xlink:href="{{ "/assets/css/cb-icons.svg" | relative_url }}#{% if item.display_template contains "image" %}icon-image{% elsif item.display_template contains "pdf" %}icon-pdf{% elsif item.display_template contains "audio" %}icon-audio{% elsif item.display_template contains "video" %}icon-video{% elsif item.display_template contains "panorama" %}icon-panorama{% elsif item.display_template contains "compound" %}icon-compound-object{% elsif item.display_template contains "multiple" %}icon-multiple{% else %}icon-default{% endif %}"/>';
-                                      html += '</svg>';
-                                  html += '</div>';
+                              html += '<svg class="bi keywords-thumb text-body" fill="currentColor" aria-hidden="true">';
+                                  html += '<use xlink:href="{{ "/assets/css/cb-icons.svg" | relative_url }}#{% if item.display_template contains "image" %}icon-image{% elsif item.display_template contains "pdf" %}icon-pdf{% elsif item.display_template contains "audio" %}icon-audio{% elsif item.display_template contains "video" %}icon-video{% elsif item.display_template contains "panorama" %}icon-panorama{% elsif item.display_template contains "compound" %}icon-compound-object{% elsif item.display_template contains "multiple" %}icon-multiple{% else %}icon-default{% endif %}"/>';
+                              html += '</svg>';
+                          html += '</div>';
                         html += '<div class="col-8 order-last">';
                           html += '<div class="card-title h6 clippy">' + itemTitle + '</div>';
                             html += '<div class="card-text">' + escapeHtml(item.creators_card || 'Unknown') + '</div>';
@@ -251,7 +251,7 @@ item-meta: true
                   <br>content licensed <a id="license-link" href="{{page.license_url}}">{{page.license}}</a>
               </p>
             </div>
-             <div class="smallshow col-md-3 mt-5 mb-2" id="objectlist">
+             <div class="smallshow col-md-3 mb-2" id="objectlist">
                 <div class="keyword-tab keyword-green">
                 <p class="h2 dupeheader">{{ page.title }} Objects</p></div>
             </div>
