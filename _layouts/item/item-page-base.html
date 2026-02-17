@@ -32,10 +32,10 @@ item-meta: true
                 <a class="keyword-tab active-green" href="/keywords.html#y{{page.keyword}}"><p>{{page.keyword}}</p></a>
                 {%endif%}
                 {%if page.keyword_2a%}
-                <a class="keyword-tab former-green" href="/browse.html#keyword:{{page.keyword_2a}}"><p>{{page.keyword_2a}}</p></a>
+                <a class="keyword-tab former-green" href="/browse.html?b0=AND&f0=keywords_list&v0={{page.keyword_2a}}&sort=random"><p>{{page.keyword_2a}}</p></a>
                 {%endif%}
                 {%if page.keyword_2b%}
-                <a class="keyword-tab former-green" href="/browse.html#keyword:{{page.keyword_2b}}"><p>{{page.keyword_2b}}</p></a>
+                <a class="keyword-tab former-green" href="/browse.html?b0=AND&f0=keywords_list&v0={{page.keyword_2b}}&sort=random"><p>{{page.keyword_2b}}</p></a>
                 {%endif%}
                
             </div>
@@ -100,13 +100,13 @@ item-meta: true
                     
                     <ul class="theme-tabs">
                         <li class="primary-green">
-                            <a href="/browse.html#media_type:{{page.media_type}}">{{page.media_type}}</a>
+                            <a href="/browse.html?b0=AND&f0=media_type&v0={{page.media_type}}&sort=random">{{page.media_type}}</a>
                         </li>
                         <li class="primary-green">
-                            <a href="/browse.html#time_required:{{page.time_required}}">{{page.time_required}}</a>
+                            <a href="/browse.html?b0=AND&f0=time_required&v0={{page.time_required}}&sort=random">{{page.time_required}}</a>
                         </li>
                         <li class="primary-green">
-                            <a href="/browse.html#audience:{{page.audience}}">{{page.audience}}</a>
+                            <a href="/browse.html?b0=AND&f0=audience&v0={{page.audience}}&sort=random">{{page.audience}}</a>
                         </li>
                     </ul>
                 </div>
