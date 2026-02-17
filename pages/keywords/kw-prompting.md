@@ -1,7 +1,7 @@
 ---
 title: Prompting
 layout: keyword
-permalink: /keywords/prompting.html
+permalink: /keyword/prompting
 creators_list: Example Name
 citation: blahblahblah
 doi: numbernumber

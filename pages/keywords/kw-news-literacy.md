@@ -1,8 +1,8 @@
 ---
-title: Sustainability
+title: News Literacy
 layout: keyword
-permalink: /keyword/sustainability
-creators_list: Example Name
+permalink: /keyword/news+literacy
+creators_list: crituse
 citation: blahblahblah
 doi: numbernumber
 license: CC BY

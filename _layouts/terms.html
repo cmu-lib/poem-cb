@@ -1,8 +1,6 @@
 ---
-# base layout for other item display_template layouts
+# generic page layout
 layout: default
-# item-meta adds rich meta markup to the page on production build
-item-meta: true
 ---
 
 {%- assign field = site.data.theme.timeline-field | default: page.timeline-field | default: "keyword" -%}
@@ -51,8 +49,6 @@ item-meta: true
         .then(function(data){
           var keyword = data.find(function(e){ return e.title && e.title.toString().toLowerCase() === k.toString().replace("+", ' ').toLowerCase(); });
           if (!keyword) {
-            document.getElementById('maincontain').style.display = 'none';
-            document.getElementById('mainerror').style.display = 'block';
             container.innerHTML = '<p class="text-warning">No keyword keyword for "'+escapeHtml(k)+'"</p>';
             return;
           }
@@ -116,7 +112,6 @@ item-meta: true
             fetch('/api/related-kws.json')
               .then(function(res){ return res.json(); })
               .then(function(data){
-              
                 // Filter poems that have this keyword
                 var related = data.filter(function(item){
                   return item.keyword && item.keyword.toString().toLowerCase().includes(keyword.title.toString().toLowerCase());
@@ -127,7 +122,6 @@ item-meta: true
                   return;
                 }
                 var html="";
-                relatedContainer.style.display = 'block';// show the container if there are related items
                 related.forEach(function(item){
                   var itemLink = item.objectid ? '/items/' + item.objectid + '.html' : '#';
                   var itemTitle = escapeHtml(item.title || 'Untitled');
@@ -135,20 +129,22 @@ item-meta: true
                   // if (item.date) html += '<br><small class="text-muted">' + escapeHtml(item.date) + '</small>';
                   // html += '</li>';
                 
-                   html += '<div class="related-item"><a href="' + itemLink + '" >';
+                   html += '<a href="' + itemLink + '" >';
                       html += '<div class="container card primary-green keywords-cards"> ';
                         html += '<div class="row card-body">';
-                          html += '<div class="col">';
-                              html += '<svg class="bi keywords-thumb text-body" fill="currentColor" aria-hidden="true">';
-                                  html += '<use xlink:href="{{ "/assets/css/cb-icons.svg" | relative_url }}#{% if item.display_template contains "image" %}icon-image{% elsif item.display_template contains "pdf" %}icon-pdf{% elsif item.display_template contains "audio" %}icon-audio{% elsif item.display_template contains "video" %}icon-video{% elsif item.display_template contains "panorama" %}icon-panorama{% elsif item.display_template contains "compound" %}icon-compound-object{% elsif item.display_template contains "multiple" %}icon-multiple{% else %}icon-default{% endif %}"/>';
-                              html += '</svg>';
-                          html += '</div>';
                         html += '<div class="col-8 order-last">';
                           html += '<div class="card-title h6 clippy">' + itemTitle + '</div>';
                             html += '<div class="card-text">' + escapeHtml(item.creators_card || 'Unknown') + '</div>';
-                          html += '</div>';
+
+                                  html += '<div class="col">';
+                                      html += '<svg class="bi keywords-thumb text-body" fill="currentColor" aria-hidden="true">';
+                                          html += '<use xlink:href="{{ "/assets/css/cb-icons.svg" | relative_url }}#{% if item.display_template contains "image" %}icon-image{% elsif item.display_template contains "pdf" %}icon-pdf{% elsif item.display_template contains "audio" %}icon-audio{% elsif item.display_template contains "video" %}icon-video{% elsif item.display_template contains "panorama" %}icon-panorama{% elsif item.display_template contains "compound" %}icon-compound-object{% elsif item.display_template contains "multiple" %}icon-multiple{% else %}icon-default{% endif %}"/>';
+                                      html += '</svg>';
+                                  html += '</div>';
+
+                                  html += '</div>';
                             html+=  '</div>';
-                          html += '</a></div>';
+                          html += '</a>';
 
                   });
                   // document.getElementById('objectlist').innerHTML = html;
@@ -181,11 +177,8 @@ item-meta: true
 {%- assign items = site.data[site.kw_metadata] | where_exp: 'item','item.objectid and item.parentid == nil' -%}
 {% endif %}
 
-<div id="mainerror" style="display:none;"> 
-    Could not find this keyword.
-    <!-- this can certainly be styled more. -->
-</div>
-<div id="maincontain" class="container-fluid mx-0 px-0 my-4" style="display:block;">
+
+<div class="container-fluid mx-0 px-0 my-4">
 
     <!-- {% include item/breadcrumbs.html %} 
     <div class="my-0 h5 small">{{ page.display_template | replace: "_", " " | upcase }} {% if page.display_template == "compound_object" or page.display_template == "multiple" %}{% assign children = site.data[site.metadata] | where_exp: 'item','item.parentid == page.objectid' %} ({{ children | size }} {{ site.data.translations['_layouts']['item']['item-page-base.html']['items'][site.lang] | default: 'Items'}}){% endif %}</div> -->
@@ -240,31 +233,73 @@ item-meta: true
                                   </div>
                     </div>
                   </div>
-        <div class="row">
+                    <div class="row">
                 
         <!-- description.  -->
             <div class="col-md-9 px-3 mb-4 mb-md-2 sm-margin-fix-left pl-md-4em pr-md-0 ">
 
               <div id="keyword-desc">{{page.description}}</div>
-              <p class="small">
-                <a class="doi-link" href="{{page.doi}}">{{page.doi}}</a>
-                  <br>content licensed <a id="license-link" href="{{page.license_url}}">{{page.license}}</a>
-              </p>
-            </div>
-             <div class="smallshow col-md-3 mb-2" id="objectlist">
-                <div class="keyword-tab keyword-green">
-                <p class="h2 dupeheader">{{ page.title }} Objects</p></div>
-            </div>
+                <p class="small">
+                  <a class="doi-link" href="{{page.doi}}">{{page.doi}}</a>
+                    <br>content licensed <a id="license-link" href="{{page.license_url}}">{{page.license}}</a></p>
+                </div>
+            
 
-            <div class="col-md-9 mb-4 mb-md-2 sm-margin-fix-left pl-md-4em container-content">
+                    <div class="col-md-9 mb-4 mb-md-2 sm-margin-fix-left pl-md-4em container-content">
 
-            {{ content }}
-        
-            </div>
+                    {{ content }}
+               
+        </div>
+                                        <div class="col-md-3" id="objectlist">
 
-           
 
-          </div>
+
+
+        <!-- placeholder content. -->
+
+
+                        
+                                                <a href="{{ '/items/' | relative_url }}{% if item.parentid %}{{ item.parentid }}.html#{{ item.objectid }}{% else %}{{ item.objectid }}.html{% endif %}" >
+                            <div class="container card primary-green keywords-cards"> 
+                                <div class="row card-body">
+                                    <div class="col-8 order-last">
+                                    <div class="card-title h6 clippy">Title {{ item.title }}</div>
+                                    <div class="card-text">Author {{ item.creators_card }}</div>
+                                    </div>
+
+                                    <div class="col">
+                                    <svg class="bi keywords-thumb text-body" fill="currentColor" aria-hidden="true">
+                                        {%- assign icon_template = item.display_template | default: item.format -%}
+                                        <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#{% if icon_template contains 'image' %}icon-image{% elsif icon_template contains 'pdf' %}icon-pdf{% elsif icon_template contains 'audio' %}icon-audio{% elsif icon_template contains 'video' %}icon-video{% elsif icon_template contains 'panorama' %}icon-panorama{% elsif icon_template contains 'compound' %}icon-compound-object{% elsif icon_template contains 'multiple' %}icon-multiple{% else %}icon-default{% endif %}"/>
+                                    </svg>
+                                </div>
+
+                                </div>
+                            </div>
+                        </a>
+
+                                                <a href="{{ '/items/' | relative_url }}{% if item.parentid %}{{ item.parentid }}.html#{{ item.objectid }}{% else %}{{ item.objectid }}.html{% endif %}" >
+                            <div class="container card primary-green keywords-cards"> 
+                                <div class="row card-body">
+                                    <div class="col-8 order-last">
+                                    <div class="card-title h6 clippy">Title {{ item.title }}</div>
+                                    <div class="card-text">Author {{ item.creators_card }}</div>
+                                    </div>
+
+                                    <div class="col">
+                                    <svg class="bi keywords-thumb text-body" fill="currentColor" aria-hidden="true">
+                                        {%- assign icon_template = item.display_template | default: item.format -%}
+                                        <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#{% if icon_template contains 'image' %}icon-image{% elsif icon_template contains 'pdf' %}icon-pdf{% elsif icon_template contains 'audio' %}icon-audio{% elsif icon_template contains 'video' %}icon-video{% elsif icon_template contains 'panorama' %}icon-panorama{% elsif icon_template contains 'compound' %}icon-compound-object{% elsif icon_template contains 'multiple' %}icon-multiple{% else %}icon-default{% endif %}"/>
+                                    </svg>
+                                </div>
+
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+
+        </div>            <!-- end of row. -->
 
 
     
