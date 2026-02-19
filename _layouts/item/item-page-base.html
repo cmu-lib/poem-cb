@@ -29,7 +29,7 @@ item-meta: true
         <!-- keywords.  -->
             <div class="col-md-3 order-md-first order-last" >
                 {%if page.keyword%}
-                <a class="keyword-tab active-green" href="/keywords.html#y{{page.keyword}}"><p>{{page.keyword}}</p></a>
+                <a class="keyword-tab active-green" href="/browse.html?b0=AND&f0=keywords_list&v0={{page.keyword}}"><p>{{page.keyword}}</p></a>
                 {%endif%}
                 {%if page.keyword_2a%}
                 <a class="keyword-tab former-green" href="/browse.html?b0=AND&f0=keywords_list&v0={{page.keyword_2a}}"><p>{{page.keyword_2a}}</p></a>
@@ -49,7 +49,7 @@ item-meta: true
             <div class="btn-float-rt btn-group mx-3">
                 <a type="button" class="btn btn-sm btn-outline-dark small" data-bs-toggle="modal" data-bs-target="#{{ include.button | slugify }}Modal">
                 <svg class="bi icon-sprite" role="img" aria-label="reference">
-                <use xlink:href="/assets/lib/icons/chat-left-quote.svg"></use>
+                        <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-cite"/>
                 </svg>
                     cite this object</a>
             <!-- Modal -->
@@ -62,8 +62,8 @@ item-meta: true
                         <div class="modal-body small" >
                             <p id="citationtocopy">{{page.citation}}</p>
                             <p><center><button id="copyCitationButt" class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard(document.getElementById('citationtocopy').textContent)">
-                    <svg class="bi icon-sprite" role="img" aria-label="clipbaord">
-                    <use xlink:href="/assets/lib/icons/clipboard.svg"></use>
+                    <svg class="bi icon-sprite" role="img" aria-label="clipboard">
+                        <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-copy"/>
                     </svg>
                 Copy Citation</button></center></p>
                         </div>
@@ -72,12 +72,12 @@ item-meta: true
                 </div>
                     <a href="{{page.doi}}" class="smallshow btn btn-sm btn-outline-dark small">
                     <svg class="bi icon-sprite" role="img" aria-label="all files">
-                    <use xlink:href="/assets/lib/icons/collection.svg"></use>
+                        <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-files"/>
                     </svg>
                         view all object files</a> 
                     <a href="#object" class="btn btn-sm btn-outline-dark small">
                     <svg class="bi icon-sprite" role="img" aria-label="preview">
-                    <use xlink:href="/assets/lib/icons/eye.svg"></use>
+                        <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-preview"/>
                     </svg>
                         preview object media
                         </a>
