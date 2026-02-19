@@ -40,6 +40,16 @@ p {
     vertical-align: middle;
     }
 
+#scroll-to-bottom {
+    font-size: 40px;
+    height: 1rem;
+    width: 1rem;
+    position: absolute;
+    left: .5em;
+    bottom: 1.5em;
+    z-index: 100;
+}
+
 
 /* COLORS */
 

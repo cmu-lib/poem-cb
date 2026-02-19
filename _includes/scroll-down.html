@@ -1,0 +1,16 @@
+<script>
+    // Hide button when user starts to scroll
+    window.onscroll = function () {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            document.getElementById("scroll-to-bottom").style.display = "none";
+        } else {
+            document.getElementById("scroll-to-bottom").style.display = "block";
+        }
+    }
+</script>
+<a href="#maincontent" id="scroll-to-bottom" class="btn btn-link" title="Main content">
+    <span class="visually-hidden">Main content</span>
+    <svg class="bi icon-sprite arrow" role="img" aria-label="Down Arrow">
+        <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-down"/>
+    </svg>
+</a>
