@@ -126,3 +126,10 @@ icons:
   icon-default: file-earmark # fall back icon
   icon-back-to-top: arrow-up-square
   icon-down: arrow-down-square
+  icon-translate: translate
+  icon-cite: chat-left-quote
+  icon-files: collection
+  icon-preview: eye
+  icon-objects: grid
+  icon-download: download
+  icon-copy: clipboard
