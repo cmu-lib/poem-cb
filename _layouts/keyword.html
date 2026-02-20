@@ -252,15 +252,16 @@ item-meta: true
                   <br>content licensed <a id="license-link" href="{{page.license_url}}">{{page.license}}</a>
               </p>
             </div>
-             <div class="col-md-3 mb-2">
+             <div class="col-md-3 mb-2 col-fixed-height">
                 <div class="smallshow keyword-tab keyword-green">
                 <p class="h2 dupeheader">{{ page.title }} Objects</p></div>
                 <div id="objectlist"></div>
                 <a href="/browse.html?b0=AND&f0=keywords_list&v0={{page.title | downcase}}">
-                    <div class="container card primary-green keywords-cards">browse related objects</div>
+                    <div class="container card primary-green keywords-cards h6 card-text p-2 text-center">browse related objects</div>
                 </a>
             </div>
-
+        </div>
+        <div class="row">
             <div class="col-md-9 mb-4 mb-md-2 sm-margin-fix-left pl-md-4em container-content">
                 <div class="smallshow keyword-tab keyword-green">
                 <p class="h2 dupeheader">Introduction to {{ page.title }}</p></div>

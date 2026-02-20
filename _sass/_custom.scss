@@ -530,6 +530,20 @@ ul.theme-tabs li a:hover, ul.theme-tabs li a:focus {
         }
     }
 
+.col-fixed-height {
+    max-height: 100px;
+    overflow: visible;  /* temporary fix for bigger list of keywords */
+    }
+
+@media (max-width: 767.98px) { 
+    .col-fixed-height {
+        max-height: none;
+        overflow: auto;
+        padding-bottom: 2em;
+        }
+    }
+
+
 /* ITEM PAGE EMBED */
 
 
