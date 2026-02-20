@@ -99,7 +99,7 @@ item-meta: true
           // citation_html = keyword.citation ? "<div class='keyword-citation my-3'><strong>Citation:</strong><blockquote class='small'>"+escapeHtml(keyword.citation)+"</blockquote></div>" :
           
           document.getElementsByClassName('keyword-tab')[0].innerHTML = "<h2>"+escapeHtml(keyword.title)+"</h2>";
-          document.getElementById('creators-list').innerHTML = keyword.creators_list ? "<h3 class='notheader pl-md-4em'>"+keyword.creators_list+"</h3>" : "";
+          document.getElementById('creators-list').innerHTML = keyword.creators_list ? keyword.creators_list : "";
           document.getElementById('citationtocopy').textContent = keyword.citation ? keyword.citation : "";
           document.getElementById('keyword-desc').innerHTML = keyword.description ? keyword.description : "";
           doi_links = document.getElementsByClassName('doi-link');
@@ -198,7 +198,7 @@ item-meta: true
         <!-- header info.  -->
             <div class="col-md-9 order-md-last order-first mb-4 mb-md-2 sm-margin-fix-left">
                 <div class="keyword-tab active-green">
-                    <h2>{{ page.title }}</h2>
+                    {{ page.title }}
                 </div>
                 <h3 id="creators-list" class="notheader pl-md-4em">{{page.creators_list}}</h3>
 
@@ -208,7 +208,7 @@ item-meta: true
                 <svg class="bi icon-sprite" role="img" aria-label="reference">
                     <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-cite"/>
                 </svg>
-                    cite this object</a>
+                    cite this essay</a>
             <!-- Modal -->
                 <div class="modal fade" id="{{ include.button | slugify }}Modal" tabindex="-1" role="dialog" aria-labelledby="{{ include.button | slugify }}ModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -227,11 +227,16 @@ item-meta: true
                     </div>
                 </div>
                 </div>
-                    <a href="#objectlist" class="smallshow btn btn-sm btn-outline-dark small">
+                    <a href="#h-objectlist" class="smallshow btn btn-sm btn-outline-dark small">
                     <svg class="bi icon-sprite" role="img" aria-label="keyword objects">
                         <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-objects"/>
                     </svg>
-                        view keyword's objects</a> 
+                        view objects</a> 
+                    <a href="#h-keywordessay" class="smallshow btn btn-sm btn-outline-dark small">
+                    <svg class="bi icon-sprite" role="img" aria-label="keyword essay">
+                        <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-essay"/>
+                    </svg>
+                        view essay</a> 
                     <a href="{{page.doi}}" class="btn btn-sm btn-outline-dark small doi-link">
                     <svg class="bi icon-sprite" role="img" aria-label="download">
                         <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-download"/>
@@ -246,25 +251,29 @@ item-meta: true
         <!-- description.  -->
             <div class="col-md-9 px-3 mb-4 mb-md-2 sm-margin-fix-left pl-md-4em pr-md-0 ">
 
-              <div id="keyword-desc">{{page.description}}</div>
+              <p id="keyword-desc">{{page.description}}</p>
               <p class="small">
                 <a class="doi-link" href="{{page.doi}}">{{page.doi}}</a>
                   <br>content licensed <a id="license-link" href="{{page.license_url}}">{{page.license}}</a>
               </p>
             </div>
+
              <div class="col-md-3 mb-2 col-fixed-height">
                 <div class="smallshow keyword-tab keyword-green">
-                <p class="h2 dupeheader">{{ page.title }} Objects</p></div>
-                <div id="objectlist"></div>
-                <a href="/browse.html?b0=AND&f0=keywords_list&v0={{page.title | downcase}}">
+                <p id="h-objectlist" class="h2 dupeheader">{{ page.title }} Objects</p></div>
+                <div class="container">
+                    <div id="objectlist"></div>
+                    <a href="/browse.html?b0=AND&f0=keywords_list&v0={{page.title | downcase}}">
                     <div class="container card primary-green keywords-cards h6 card-text p-2 text-center">browse related objects</div>
-                </a>
+                    </a>
+                </div>
             </div>
+
         </div>
         <div class="row">
             <div class="col-md-9 mb-4 mb-md-2 sm-margin-fix-left pl-md-4em container-content">
                 <div class="smallshow keyword-tab keyword-green">
-                <p class="h2 dupeheader">Introduction to {{ page.title }}</p></div>
+                <p id="h-keywordessay" class="h2 dupeheader">Introduction to {{ page.title }}</p></div>
 
             {{ content }}
         
