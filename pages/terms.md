@@ -1,6 +1,6 @@
 ---
 title: Term
-layout: term
+layout: terms
 permalink: /terms.html
 creators_list: Example Name
 citation: blahblahblah
