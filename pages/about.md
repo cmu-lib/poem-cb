@@ -37,3 +37,6 @@ Talia Perry
 
 Student Translators:  
 TBD
+
+Cover image:  
+College of Fine Arts Library, c. 1945. This space now houses the Frank-Ratchye STUDIO for Creative Inquiry. Image provided by [Carnegie Mellon University Archives & Special Collections](https://www.library.cmu.edu/distinctive-collections/university-archives). [InC-NC.](https://rightsstatements.org/page/InC-NC/1.0/?language=en) 
