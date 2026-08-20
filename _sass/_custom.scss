@@ -360,8 +360,9 @@ a.home-tab:hover, a.home-tab:focus{
     }
 
 #browseSidebar ul ul li{
-     padding-left: 2rem;
+     padding-left: 3rem;
      padding-right: 1rem;
+     text-indent: -1em;
      text-decoration: none;
      display: block; /* make whole strip linkable instead of just text */
      width: 100%;
