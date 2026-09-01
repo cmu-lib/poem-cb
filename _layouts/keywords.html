@@ -46,12 +46,17 @@ layout: page
             </th>
             <td>
                 <div class="row">
-                <div class="col-12">
-                <p class="minipg">Placeholder text. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </div></div>
+                    <div class="col-12">
+                        <p class="minipg">Placeholder text. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                </div>
                 <div class="row">
                     {%- assign inYear = items | where_exp: 'item', 'item[field] contains year' -%}
-                    {% for item in inYear %}
+                    {% assign sorted_cards = inYear | sort: "creators_card" %}
+
+
+                    
+                    {% for item in sorted_cards %}
                     <div class="col-lg-4 col-md-6">
                         <a href="{{ '/items/' | relative_url }}{% if item.parentid %}{{ item.parentid }}.html#{{ item.objectid }}{% else %}{{ item.objectid }}.html{% endif %}" >
                             <div class="container card primary-green keywords-cards"> 
