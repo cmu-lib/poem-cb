@@ -94,9 +94,13 @@ item-meta: true
                         <li class="primary-green">
                             <a href="/browse.html?b0=AND&f0=time_required&v0={{page.time_required}}">{{page.time_required}}</a>
                         </li>
-                        <li class="primary-green">
-                            <a href="/browse.html?b0=AND&f0=audience&v0={{page.audience}}">{{page.audience}}</a>
-                        </li>
+                            {% assign items = page.audience | split: ";" %}
+                            {% for a in items %}
+                                <li class="primary-green">
+                                    <a href="/browse.html?b0=AND&f0=audience&v0={{a | strip}}">{{a | strip}}</a>
+                                </li>
+                            {% endfor %}
+                        
                     </ul>
                 </div>
 
