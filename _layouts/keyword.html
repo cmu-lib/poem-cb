@@ -19,14 +19,6 @@ item-meta: true
     //function for escaping HTML
     function escapeHtml(s){ return String(s||'').replace(/[&<>\"']/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];}); }
     // on DOM ready
-     function copyToClipboard(text) {
-          navigator.clipboard.writeText(text).then(() => {
-              // console.log('Copied to clipboard');
-              document.getElementById('copyCitationButt').innerText = 'Copied!';
-          }).catch(err => {
-              console.error('Failed to copy:', err);
-          });
-      }
     document.addEventListener('DOMContentLoaded', function() {
 
       //get last part of URL path 
