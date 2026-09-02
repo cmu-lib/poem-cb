@@ -113,6 +113,12 @@ item-meta: true
                 var related = data.filter(function(item){
                   return item.keyword && item.keyword.toString().toLowerCase().includes(keyword.title.toString().toLowerCase());
                 });
+                // let's sort the keyword cards by creators_card
+                related.sort(function(a, b) {
+                  if (a.creators_card < b.creators_card) return -1;
+                  if (a.creators_card > b.creators_card) return 1;
+                  return 0;
+                });
                 
                 if (!related || related.length === 0) {
                   relatedContainer.innerHTML = '<p class="text-muted">No items found with this keyword.</p>';
