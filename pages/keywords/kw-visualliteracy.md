@@ -2,14 +2,9 @@
 title: Visual Literacy
 layout: keyword
 permalink: /keyword/visual+literacy
-creators_list: crituse
-citation: blahblahblah
-doi: numbernumber
-license: CC BY
-description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum ornare libero eu lacinia. Nulla vehicula auctor dui nec faucibus. Sed nec justo accumsan, egestas dolor vel, dignissim arcu. Quisque tempor quis ligula ut imperdiet. Maecenas lobortis est eget congue laoreet. Etiam tempus non purus vitae suscipit. 
 ---
 
-### Framing Visual Literacy
+### Framing
 
 While many of us are used to seeing images as representations of data, not everyone is trained on how to assess the information held within graphs correctly. Lacking the skills to interpret the meaning behind colors and lines or context-informed meaning can lead to the misinterpretation of information. For example, a common trope in American media today is the use of maps to highlight counties as either urban or rural. At first glance, this may seem like a fair way to illustrate where people live in the United States. However, what these maps often fail to show is the population density within each county, which significantly shapes can even distort our understanding of the rural–urban divide. Recognizing that graphs can deliberately or unintentionally obscure important context, such as the role of population density in demographic maps, highlights the importance of visual literacy and the need for individuals to critically evaluate the bias and perspective embedded in both static images and data visualizations.
 
@@ -45,7 +40,7 @@ Authorial intent is also contingent on awareness of one's audience. Identifying 
 
 Work has been done to make graphs more accessible to different communities, including both color blind [Cao 2025](https://www.tandfonline.com/doi/full/10.1080/09332480.2025.2560278?casa_token=NH4u-YL3_WwAAAAA%3AItwNFlXAUekwd8NMmfgNpRAW7YsHhIjvYwby5aD_MOHWNm-0wtzburqrsAtwGXnAWF7vwWQq4ep_), neurodivergent [Elavsky et al. 2022](https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.14522?casa_token=HscOXgSOmT0AAAAA%3A2CetJnwHtcfxlauST7V50obiRiaSBv1rStAkj3b-13Y9y7_f4i8BNGM6QgwHfaHlwhWrE7SQBUI1k4M), and technical and non-technical audiences [Bombara and Ran 2024](https://www.tandfonline.com/doi/full/10.1080/1051144X.2024.2420303?scroll=top&needAccess=true#abstract). Going beyond simple interpretation, different audiences may react differently to how data is expressed based on their own interpretation of the data. For example, one graph I show in my own teaching is focused on describing the mean happiness of various countries. During one instructional session, a student commented that they felt uncomfortable with a graph in which the mean was illustrated by shading smiley faces representing each country, with darker colors assigned to countries that are not majority white. They found this troubling. Although I am certain this was not the author’s intention, it demonstrates how individual perspectives and biases can shape the interpretation of visual data.
 
-The following examples of teaching and learning objects help to establish the basics of both hands on graph design and best practices. They highlight the importance of covering not just the act of doing, but of understanding how visuals impact our reading of data. 
+These examples of teaching and learning objects help to establish the basics of both hands on graph design and best practices. They highlight the importance of covering not just the act of doing, but of understanding how visuals impact our reading of data. 
 
 ### Closing Reflection
 

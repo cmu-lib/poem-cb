@@ -13,30 +13,32 @@ POEM is build using [CollectionBuilder](https://collectionbuilder.github.io/), a
 
 ### Project Team
 
-Project Director:  
+#### Project Director:  
 Nicky Agate
 
-Editors:  
+#### Editors:  
 Charlotte Kiger Price  
 Haoyong Lan  
 Emma Slayton
 
-Topic Editors:  
+#### Topic Editors:  
+Jessica Benner  
 Amber Gallant  
 Mandi Goodsett  
 Marla Hertz  
+Alexandra Hiniker   
 Marcela Isuster  
 Amanda Makula  
 Trina McCowan Adams  
 Gemmicka Piper  
 Marina Zhang
 
-Platform Development:  
+#### Platform Development:  
 Jonathan Kiritharan  
 Talia Perry
 
-Student Translators:  
+#### Student Translators:  
 TBD
 
-Cover image:  
+#### Cover image:  
 College of Fine Arts Library, c. 1945. This space now houses the Frank-Ratchye STUDIO for Creative Inquiry. Image provided by [Carnegie Mellon University Archives & Special Collections](https://www.library.cmu.edu/distinctive-collections/university-archives). [InC-NC.](https://rightsstatements.org/page/InC-NC/1.0/?language=en) 

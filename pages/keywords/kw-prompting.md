@@ -2,11 +2,6 @@
 title: Prompting
 layout: keyword
 permalink: /keyword/prompting
-creators_list: Example Name
-citation: blahblahblah
-doi: numbernumber
-license: CC BY
-description: Short version of abstract to go here, used in glossary and at top of keyword page. Really all of this info should go in the metadata sheet, besides the essay itself. But we'll fix that eventually.
 ---
 
 ### Framing Prompting

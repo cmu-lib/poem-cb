@@ -1,12 +1,7 @@
 ---
-title: News Literacy
+title: Authorship
 layout: keyword
-permalink: /keyword/news+literacy
-creators_list: crituse
-citation: blahblahblah
-doi: numbernumber
-license: CC BY
-description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum ornare libero eu lacinia. Nulla vehicula auctor dui nec faucibus. Sed nec justo accumsan, egestas dolor vel, dignissim arcu. Quisque tempor quis ligula ut imperdiet. Maecenas lobortis est eget congue laoreet. Etiam tempus non purus vitae suscipit. 
+permalink: /keyword/authorship
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum ornare libero eu lacinia. Nulla vehicula auctor dui nec faucibus. Sed nec justo accumsan, egestas dolor vel, dignissim arcu. Quisque tempor quis ligula ut imperdiet. Maecenas lobortis est eget congue laoreet. Etiam tempus non purus vitae suscipit. In hac habitasse platea dictumst. In vel ipsum metus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris ante sapien, bibendum et tincidunt vitae, ullamcorper at enim. Here is some text with a footnote.[^authoryear]
