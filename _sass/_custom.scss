@@ -439,6 +439,11 @@ a.home-tab:hover, a.home-tab:focus{
     mix-blend-mode: overlay;
     }
 
+.tlo-card svg.text-body {
+    --bs-text-opacity: 1;
+    color: #a3d7d7 !important;
+}
+
 .tlo-card svg.text-body:hover, .tlo-card svg.text-body:focus {
     --bs-text-opacity: 1;
     color: white !important;
