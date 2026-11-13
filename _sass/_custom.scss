@@ -2,6 +2,10 @@ h1 {
     font-weight: 700;  
     }
 
+.h2, .h3, h2, h3 {
+    font-weight: 600;
+}
+
 .h2.dupeheader {
     font-size: calc(1.325rem + .9vw);
 }
@@ -434,6 +438,11 @@ a.home-tab:hover, a.home-tab:focus{
     filter: grayscale(1);
     mix-blend-mode: overlay;
     }
+
+.tlo-card svg.text-body:hover, .tlo-card svg.text-body:focus {
+    --bs-text-opacity: 1;
+    color: white !important;
+}
 
 .cardthumb .bi {
   color: #008f91;
