@@ -118,12 +118,27 @@ function makeCard(obj) { //make the sidenav while doing this too i think...
 
     if(obj.media_type){
         //media type keyword-green
+    //if there are multiple semicolon separated terms in media_type then split and make multiple cards
+    if(obj.media_type.includes(";")){
+        obj.media_type.split(";").forEach(item => {
+            const trimmed = item.trim();
+            card+= '<a class="btn btn-sm browse-butt keyword-green" onclick="snFilter(\'media_type\', \''+trimmed+'\')" href="#">';
+                    card+='<p>'+trimmed+'</p>';
+            card+= '</a>';
+
+            if (!sidenav_build['Media Type']['media_type'].includes(trimmed)) { 
+                sidenav_build['Media Type']['media_type'].push(trimmed);        
+            }
+        });
+    }
+    else{
         card+= '<a class="btn btn-sm browse-butt keyword-green" onclick="snFilter(\'media_type\', \''+obj.media_type+'\')" href="#">';
                 card+='<p>'+obj.media_type+'</p>';
         card+= '</a>';
 
         if (!sidenav_build['Media Type']['media_type'].includes(obj.media_type)) { 
-            sidenav_build['Media Type']['media_type'].push(obj.media_type);        
+                sidenav_build['Media Type']['media_type'].push(obj.media_type);        
+            }
         }
     }
     if(obj.time_required){
