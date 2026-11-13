@@ -17,9 +17,15 @@ item-meta: true
 
         <!-- keywords.  -->
             <div class="col-md-3 order-md-first order-last" >
-                {%if page.keyword%}
-                <a class="keyword-tab active-green" href="/browse.html?b0=AND&f0=keywords_list&v0={{page.keyword}}"><p>{{page.keyword}}</p></a>
-                {%endif%}
+
+
+                {% assign items = page.keyword | split: ";" %}
+                    {% for a in items %}
+                        <a class="keyword-tab active-green" href="/browse.html?b0=AND&f0=keywords_list&v0={{a | strip}}"><p>{{a | strip}}</p></a>
+                    {% endfor %}
+
+
+
                 {%if page.keyword_2a%}
                 <a class="keyword-tab former-green" href="/browse.html?b0=AND&f0=keywords_list&v0={{page.keyword_2a}}"><p>{{page.keyword_2a}}</p></a>
                 {%endif%}
@@ -88,9 +94,12 @@ item-meta: true
                     </div>
                     
                     <ul class="theme-tabs">
-                        <li class="primary-green">
-                            <a href="/browse.html?b0=AND&f0=media_type&v0={{page.media_type}}">{{page.media_type}}</a>
-                        </li>
+                            {% assign items = page.media_type | split: ";" %}
+                            {% for a in items %}
+                                <li class="primary-green">
+                                    <a href="/browse.html?b0=AND&f0=media_type&v0={{a | strip}}">{{a | strip}}</a>
+                                </li>
+                            {% endfor %}
                         <li class="primary-green">
                             <a href="/browse.html?b0=AND&f0=time_required&v0={{page.time_required}}">{{page.time_required}}</a>
                         </li>
