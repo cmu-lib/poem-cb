@@ -6,4 +6,4 @@ permalink: /keywords.html
 
 ## Glossary of Keywords
 
-test intro text
+Keyword essays, an introduction etc.

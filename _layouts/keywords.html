@@ -2,6 +2,7 @@
 # "Keywords" page i.e. used for glossary
 layout: page
 ---
+
 {%- assign field = site.data.theme.timeline-field | default: page.timeline-field | default: "keyword" -%}
 {% if site.data.theme.timeline-child-objects == true %}
 {%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid' -%}
@@ -34,56 +35,18 @@ layout: page
 
 {{ content }}
 
-<table id="timeline" class="table table-gloss">
-    <tbody>
-        {% for year in uniqueYears %}
-        
-        
-        <tr id="y{{ year }}">
-            <th>
-                <h3 id="keywords-to-titles"><a href="/keyword/{{year|replace: ' ', '+'}}">{{ year }}</a></h3>
-                                <h4 class="minipg">edited by Editor Name (Affiliation) <a href="#" target="_blank"><img src="../assets/img/logo_orcid.svg" alt="orcid logo" class="minilogo"></a></h4>
-            </th>
-            <td>
-                <div class="row">
-                    <div class="col-12">
-                        <p class="minipg">Placeholder text. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    {%- assign inYear = items | where_exp: 'item', 'item[field] contains year' -%}
-                    {% assign sorted_cards = inYear | sort: "creators_card" %}
 
-
-                    
-                    {% for item in sorted_cards %}
-                    <div class="col-lg-4 col-md-6">
-                        <a href="{{ '/items/' | relative_url }}{% if item.parentid %}{{ item.parentid }}.html#{{ item.objectid }}{% else %}{{ item.objectid }}.html{% endif %}" >
-                            <div class="container card primary-green keywords-cards"> 
-                                <div class="row card-body">
-                                    <div class="col-8 order-last">
-                                    <div class="card-title h6 clippy">{{ item.title }}</div>
-                                    <div class="card-text">{{ item.creators_card }}</div>
-                                    </div>
-
-                                    <div class="col">
-                                    <svg class="bi keywords-thumb text-body" fill="currentColor" aria-hidden="true">
-                                        {%- assign icon_template = item.display_template | default: item.format -%}
-                                        <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#{% if icon_template contains 'image' %}icon-image{% elsif icon_template contains 'pdf' %}icon-pdf{% elsif icon_template contains 'audio' %}icon-audio{% elsif icon_template contains 'video' %}icon-video{% elsif icon_template contains 'panorama' %}icon-panorama{% elsif icon_template contains 'compound' %}icon-compound-object{% elsif icon_template contains 'multiple' %}icon-multiple{% else %}icon-default{% endif %}"/>
-                                    </svg>
-                                </div>
-
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    {% endfor %}
-                </div></div>
-                <div class="row">
-                <div class="col-12 spacer">
-                </div></div>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="mt-4 mt-md-0 row clearspace-md" id="browseItems">
+            {% for year in uniqueYears %}
+        <div class="item col-lg-4 col-md-6 col-sm-6 mb-4" id="y{{ year }}">
+        <a href="/keyword/{{year|replace: ' ', '+'}}" class="card active-green keyword-card">
+        <div class="card-body text-center"> 
+            <h3 class="card-title h4 clippy" id="keywords-to-titles">{{ year }}</h3>
+            <p class="card-text">creators_card field</p>
+            <p class="card-text clippy text-start">description field - e.g. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed ligula vel magna sodales sollicitudin. Fusce lectus lacus, facilisis ut tellus quis, fermentum egestas elit. Duis ut odio purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur posuere tellus ac neque ultrices posuere.</p>
+        </div>
+        </a>
+        </div>
+            {% endfor %}
+</div>
+          
