@@ -24,8 +24,6 @@ item-meta: true
                         <a class="keyword-tab active-green" href="/browse.html?b0=AND&f0=keywords_list&v0={{a | strip}}"><p>{{a | strip}}</p></a>
                     {% endfor %}
 
-
-
                 {%if page.keyword_2a%}
                 <a class="keyword-tab former-green" href="/browse.html?b0=AND&f0=keywords_list&v0={{page.keyword_2a}}"><p>{{page.keyword_2a}}</p></a>
                 {%endif%}
@@ -60,22 +58,22 @@ item-meta: true
                     <svg class="bi icon-sprite" role="img" aria-label="clipboard">
                         <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-copy"/>
                     </svg>
-                Copy Citation</button></center></p>
+                copy citation</button></center></p>
                         </div>
                     </div>
                 </div>
                 </div>
-                    <a href="{{page.doi}}" class="smallshow btn btn-sm btn-outline-dark small">
-                    <svg class="bi icon-sprite" role="img" aria-label="all files">
-                        <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-files"/>
-                    </svg>
-                        view all object files</a> 
                     <a href="#object" class="btn btn-sm btn-outline-dark small">
                     <svg class="bi icon-sprite" role="img" aria-label="preview">
                         <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-preview"/>
                     </svg>
-                        preview object media
+                        preview media
                         </a>
+                    <a href="{{page.doi}}" class="btn btn-sm btn-outline-dark small">
+                    <svg class="bi icon-sprite" role="img" aria-label="all files">
+                        <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-files"/>
+                    </svg>
+                        view all files</a> 
                                   </div>
             </div>      <!-- end of this "right" column.  -->
         </div>          <!-- end of first row.  -->
@@ -113,13 +111,13 @@ item-meta: true
                     </ul>
                 </div>
 
-            <!-- description, doi, license. -->
+            <!-- description, source, doi, license. -->
                 <div class="col-md-6 sm-margin-fix-left">
                     <p>
                     {{page.description}}
                 </p>
-                <p class="small"><a href="{{page.doi}}">{{page.doi}}</a>
-                    <br>original source: <a href="{{page.source_url}}">{{page.source}}</a>
+                <p class="small">view / download on Kilthub: <a href="{{page.doi}}">{{page.doi}}</a>
+                    <br>original source: <a href="{{page.source_url}}">{{page.source}}</a> ({{page.language}})
                     <br>content licensed: <a href="{{page.license_url}}">{{page.license}}</a></p>
                 </div>
             
