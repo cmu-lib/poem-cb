@@ -6,5 +6,6 @@ keyword_2a,Secondary Keyword,,false,
 keyword_2b,Tertiary Keyword,,false,
 keywords_list,Keywords List,true,false,
 media_type,Media Type,,false,
-time_required,Time Required,,false,Time Required
+time_required,Time Required,,false,
+time_sort,,,true,Time Required
 audience,Audience,,false,
