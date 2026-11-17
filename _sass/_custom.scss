@@ -556,7 +556,7 @@ ul.theme-tabs li a:hover, ul.theme-tabs li a:focus {
 
 .col-fixed-height {
     max-height: 100px;
-    overflow: visible;  /* temporary fix for bigger list of keywords */
+    overflow: visible;  /* temporary fix for bigger list of keywords on essay page */
     }
 
 @media (max-width: 767.98px) { 
@@ -567,6 +567,14 @@ ul.theme-tabs li a:hover, ul.theme-tabs li a:focus {
         }
     }
 
+@media (min-width: 768px) {
+  .position-md-absolute {
+    position: absolute !important; /* fix for bigger list of keywords on object page */
+    overflow: visible;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    hyphens: auto;
+  }
+}
 
 /* ITEM PAGE EMBED */
 

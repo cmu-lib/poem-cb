@@ -16,9 +16,9 @@ item-meta: true
         <div class="row top-section">
 
         <!-- keywords.  -->
-            <div class="col-md-3 order-md-first order-last" >
+            <div class="col-md-3 position-relative order-md-first order-last mb-3" >
 
-
+            <div class="position-md-absolute">
                 {% assign items = page.keyword | split: ";" %}
                     {% for a in items %}
                         <a class="keyword-tab active-green" href="/browse.html?b0=AND&f0=keywords_list&v0={{a | strip}}"><p>{{a | strip}}</p></a>
@@ -30,11 +30,12 @@ item-meta: true
                 {%if page.keyword_2b%}
                 <a class="keyword-tab former-green" href="/browse.html?b0=AND&f0=keywords_list&v0={{page.keyword_2b}}"><p>{{page.keyword_2b}}</p></a>
                 {%endif%}
-               
+            </div>
+
             </div>
                 
         <!-- header info.  -->
-            <div class="col-md-9 order-md-last order-first mb-4 mb-md-2 sm-margin-fix-left">
+            <div class="col-md-9 order-md-last order-first mb-4 mb-md-3 sm-margin-fix-left">
                 <h2>{{ page.title }} </h2>
                 <h3 class="notheader">{{page.creators_list}}</h3>
 
@@ -86,7 +87,7 @@ item-meta: true
             </div>
 
             <!-- thumb image and tags. -->
-                <div class="col-md-3" id="col-reorder-5">
+                <div class="col-md-3  mb-3" id="col-reorder-5">
                     <div class="main-img-container text-center">
     {% if page.image_thumb or page.image_small %}
     <img src="{{ page.image_small | default: page.image_thumb | relative_url }}" alt="{{ page.image_alt_text | default: page.title | escape }}">
