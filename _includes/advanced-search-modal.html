@@ -49,7 +49,8 @@
                 <select class="form-select form-select-sm field-select">
                     <option value="all">All Fields</option>
                     <option value="title">Title</option>
-                    {% for f in site.data.config-browse %}{% assign cap-field = f.field | capitalize %}
+                    {% assign adv_options = site.data.config-browse | where_exp: 'i','i.adv_name != nil' %}
+                    {% for f in adv_options %}{% assign cap-field = f.field | capitalize %}
                     <option value="{{ f.field }}">{{ f.facet_name | default: f.display_name | default: cap-field }}</option>
                     {% endfor %}
                 </select>

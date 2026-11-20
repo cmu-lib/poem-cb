@@ -1,11 +1,11 @@
-field,display_name,btn,hidden,sort_name
-creators_card,Creators Short,,false,Creators
-authors,,,true,
-keyword,Keyword,,false,
-keyword_2a,Secondary Keyword,,false,
-keyword_2b,Tertiary Keyword,,false,
-keywords_list,Keywords List,true,false,
-media_type,Media Type,,false,
-time_required,Time Required,,false,
-time_sort,,,true,Time Required
-audience,Audience,,false,
+field,display_name,btn,hidden,sort_name,adv_name
+creators_card,Creators Short,,false,Creators,
+authors,,,true,,Authors
+keyword,Keyword,,false,,
+keyword_2a,Secondary Keyword,,false,,
+keyword_2b,Tertiary Keyword,,false,,
+keywords_list,Keywords List,true,false,,Keywords List
+media_type,Media Type,,false,,Media Type
+time_required,Time Required,,false,,Time Required
+time_sort,,,true,Time Required,
+audience,Audience,,false,,Audience
