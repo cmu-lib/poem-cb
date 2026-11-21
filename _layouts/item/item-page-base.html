@@ -126,7 +126,13 @@ item-meta: true
                     {{page.description}}
                 </p>
                 <p class="small">view / download all object files from Kilthub: <a href="{{page.doi}}">{{page.doi}}</a>
-                    <br>source: <a href="{{page.source_url}}">{{page.source}}</a> (original in {{page.language}})
+                    <br>source: 
+                        {% if page.source_url != nil' %}
+                            <a href="{{page.source_url}}">{{page.source}}</a> 
+                        {% else %}
+                            {{page.source}} 
+                        {% endif %}
+                    (original in {{page.language}})
                     <br>license: <a href="{{page.license_url}}">{{page.license}}</a></p>
                 </div>
             
