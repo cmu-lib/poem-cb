@@ -41,7 +41,17 @@ item-meta: true
       fetch('/api/keywords.json')
         .then(function(res){ return res.json(); })
         .then(function(data){
-          var keyword = data.find(function(e){ return e.title && e.title.toString().toLowerCase() === k.toString().replace("+", ' ').toLowerCase(); });
+          console.log(data);
+          console.log("this is lookin for the keyword why no loading?");
+          var keyword = data.find(function(e){ 
+            
+            kw_str = k.toString().toLocaleLowerCase().replaceAll("+", ' ');
+            
+            ew_str = e.title.toString().toLocaleLowerCase();
+            
+            return ew_str === kw_str;
+            
+          });
           if (!keyword) {
             document.getElementById('maincontain').style.display = 'none';
             document.getElementById('mainerror').style.display = 'block';
